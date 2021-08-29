@@ -1,0 +1,24 @@
+PERFECT CODE: PROJECT: Write a Digital AdressBook.
+===================================================
+===================================================	
+
+LESSON2 TASK2: Write The User Stories for the Minimal Product. (15 minutes)
+=============================================================================
+Epic= Implement a digital Adress Book.
+	Feature1 = The user should be able to consult the AdressBook
+		UserStory 1:
+			A user wants to get an overview of all contact, so he gets an idea how much contacts he has.		
+		UserStory 2:
+			A User wants an Overview of the Contacts per starting letter so He can know if there is something under that letter.
+		UserStory 3:
+			A User wants to search for a Name in the list starting with a certain string.
+		UserStory 4:
+			A User wants to search for a Name in the list containing a certain string.
+						
+	Feature 2 = The User should be able to Maintain the Contacts (update, delete or change Contacts--CRUD)
+		UserStory 1:
+			A User wants to add a New Contact so he can use that data later when he needs it.
+		UserStory 2:
+			A User wants to change or extend the Data about a Contact so it stays updated.
+		UserStory 3:
+			A User wants to delete an contact that is not used anymore so it does not find it again in the overview.

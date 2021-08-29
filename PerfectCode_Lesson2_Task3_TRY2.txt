@@ -1,0 +1,247 @@
+PERFECT CODE: PROJECT: Write a Digital AdressBook.
+===================================================
+===================================================	
+			
+LESSON2 TASK3: Write The Use Cases.
+====================================
+
+UseCase Index
+ID	Description									Freq	Depend	Steps	WorkLoad	Time
+---------------------------------------------------------------------------------------------------------------------------------------------
++1	Give Overview of All Contacts with possible filtering				High	None	2(8)	Medium		2(8)	
++1.2A	The System collects the Contacts passing the no filter and shows them.		High	1	2	Medium		2
++1.2B	The System collects the Contacts passing the starting filter and shows them.	High	1	2	Medium		2
++1.2C	The System collects the Contacts passing the containing filter and shows them.	High	1	2	Medium		2
+
+Work done 2h on 27-08-2021
+Work done 3h on 28-08-2021 passed the tests!
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
++2	Creation of a new Contact.							Medium	None	10(29)	High		(29)
+-2.4A	The Contact Name already exists.						Low	5	3	Medium		4
+-2.4B	The Contact Name is Empty.							Low	5	3	Low		1
++2.5	Give in the New Address								Medium	5	7	Medium		4
+-2.5.2A	The User gives an Invalid (Empty) Street.					Low	8	2	Low		2
+-2.5.4A	The User gives an Invalid (Empty) Postal Code.					Low	8	2	Low		2
+-2.5.6A	The User gives an Invalid (Empty) Town.						Low	8	2	Low		2
+
+Work done 4.5h on 28-08-2021
+Work done 4h on 29-08-2021
+
+---------------------------------------------------------------------------------------------------------------------------------------------
++3	Change/Update of an Existing Contact						Medium		10(34)	High		10(31)
++3.7	Update the Address.								Medium	3	10	High		10
+-3.7.3A	The User gives in an empty Street						Low	3.7	2	Low		1
+-3.7.6A	The User gives in an empty Postal Code						Low	3.7	2	Low		1
+-3.7.8A The User gives in an empty Town							Low	3.7	2	Low		1
++3.8	Update The PhoneNumber.								Medium	3	4	Medium		4		
++3.9	Update the EmailAddress.							Medium	3	4	Medium		4
+
+---------------------------------------------------------------------------------------------------------------------------------------------
++4	Delete a Contact								Medium	None	7	Medium		7
+
+Work done 2h on 28-08-2021.
+		
+---------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+UseCase1: Give short Overview of Contacts with possible filtering
+1) START:TRIGGER: User asks for an overview of the adress Book Contacts with possible filtering.
+2) The System gets all Contacts from the DB passing the filter.
+3) END: The System shows the collected Contacts.
+		PostCondition: Make Add A code like 
+			APE meaning Has adress, Email and Phone 
+			AP* means has Adress and Phone.
+
+UseCase1.2A: Give short Overview of Contacts with NO filtering
+1)START: The System gets all Contacts from the DB.
+2) The System shows all Contacts grouped per Letter.
+
+
+UseCase1.2B: The System collects the Contacts passing the starting filter and shows them.
+PRECONDITION: The filter is not empty.
+1) The System gets all Contacts from the DB passing the StartWith filter.
+2) The System shows all Contacts passing the filter.
+
+
+
+UseCase1.2C: The System collects the Contacts passing the containing filter and shows them.
+PRECONDITION: The filter is not empty and contains char '*' at the start and end.
+		The filter is just a *string* and the Contacts with a Name 
+			containing the filter will be shown.
+1) The System gets all Contacts from the DB passing the Contains filter.
+2) The System shows all Contacts passing the filter.
+
+
+---------------------------------------------------------------------------------------------------
+UseCase2: Creation of a new Contact.
+1) START: TRIGGER: The user requests a Contact Creation
+2) The systems asks for a Name Input
+3) The User supplies a Not Null Name
+4) The System checks if the Name is new and valid.
+5) UseCase2.5 Give in the New Address
+6) The System will ask for the Phone Number.
+7) The User Supplies a Valid Phone Number.
+8) The System asks for a Valid Email adress.
+9) The User Supplies a Valid Email Adress.
+10) END: The System will add the new Contact to the AdressBook and Xml.
+
+
+Extended UseCase 2.4A: The Contact Name exists already.
+PreCondition: The Name given by the User for New Contact exists already
+1) START: The system gives a message that a Contact with this name exists already.
+2) The system gives a message that you can change this Contact.
+3) END: The system ends the creation process of a New Contact
+
+
+Extended UseCase 2.4B: The Contact Name is Empty.
+Precondition: The User gave an Empty Name.
+1) START: The system gives a message that the given New Name can not be Empty.
+2) END: The system ends the creation process of a New Contact.
+
+
+UseCase2.5: Give in the New Address
+PRECONDITION: We are in the Process of creating a new Contact.
+The Unique valid Name is already given.
+1) START: The system asks for the Street.
+2) The User gives a valid Street.
+3) The System asks for the Postal Code.
+4) The User gives in a valid Postal Code.
+5) The System asks for The Town
+6) The User gives in a valid Town.
+7) END: The System Creates A Valid Address with the Input.
+
+
+Extended UseCase 2.5.2A: The User gives an Invalid (Empty) Street.
+PRECONDITION: We are in the Process of creating a new Address.
+1) START: The user gives in an Empty Street.
+2) The System creates an Empty Address.
+	Comment: An Address with Empty Street, can never be a valid address.
+
+Extended UseCase 2.5.4A: The User gives an Invalid (Empty) Postal Code.
+PRECONDITION: We are in the Process of creating a new Address.
+1) START: The user gives in an Empty Postal Code.
+2) End: The System creates an Empty Address.
+	Comment: An Address with Empty Postal Code, can never be a valid Address.
+
+
+Extended UseCase2.5_6A: The User gives an Invalid (Empty) Town.
+PRECONDITION: We are in the Process of creating a new Address.
+1) START: The user gives in an Empty Town.
+2) End: The System creates an Empty Address.
+	Comment: An Address with Empty Town, can never be a valid Address.
+
+
+--------------------------------------------------------------------------------------------
+UseCase3: Change/Update of an Existing Contact
+1)START: The User requests a Contact Update
+2) The System asks for a filter to show possible Contacts.
+3) The User gives the filter pattern.
+4) The System shows all possible Contacts. 
+5) The User selects the Contact he wants to Update.
+6) The System Retrieves the Contact with that Name.
+7) Use Case3.7 to Update the Address.	 
+8) Use Case3.8 to Update The PhoneNumber
+9) Use Case3.9 to update the EmailAddress
+10) END: Make the changes persistent and updare the AddressBook.
+
+UseCase3.7: Update the Address.
+PRECONDITION: We are in the process of updating a Contact.
+1) START: The System shows the old Street value.
+2) The System asks for the New Value.
+3) The User gives in the new valid Street.
+4) The System shows the old Postal Code.
+5) The System asks for the new value of the Postal Code.
+6) The User gives in the new valid value for the Postal Code.
+7) The System shows the old Town.
+8) The System asks for the new value of the Town.
+9) The User gives in the new value for the Town.
+10) END: The System creates a valid Address and assigns it to the Current Contact.
+POSTCONDITION: We have a Valid new Address.
+
+Extended UseCase 3.7.3A: The User gives in an empty Street.
+PRECONDITION: Updating a Contact, Updating the Address.
+1) START: The User gives in an Empty Street or nothing
+2) The System creates an Empty Address
+
+Extended UseCase 3.7.6A: The User gives in an Empty Postal Code.
+PRECONDITION: Updating a Contact, Updating the Address.
+1) START: The User gives in an Empty Postal Code or nothing
+2) END: The System creates an Empty Address
+
+Extended UseCase 3.7.8A: The User gives in an Empty Town.
+PRECONDITION: Updating a Contact, Updating the Address.
+1) START: The User gives in an Empty Town or nothing
+2) END: The System creates an Empty Address
+
+
+UseCase3.8: Update The PhoneNumber
+PRECONDITION: We are in the process of updating a Contact.
+	We have a valid Contact Name and Address.
+1) START: The Systems show the old PhoneNumber.
+2) The System asks for the new value of the PhoneNumber.
+3) The User gives in the new valid value for the PhoneNumber.
+4) END: The System sets the PhoneNumber for the Current Contact.
+POSTCONDITION: We have a valid PhoneNumber in the Contact.
+
+Extended UseCase 3.8.3A: The User gives in an Empty PhoneNumber.
+
+
+UseCase3.9: Update The EmailAddress.
+PRECONDITION: We are in the process of updating a Contact.
+	We have a valid Contact Name and Address.
+1) START: The System show s the old EmailAddress.
+2) The System asks for a new value of the EmailAddress.
+3) The User gives in the New valid value for the EmailAddress.
+4) END: The System sets the EmailAddress for the Current Contact.
+POSTCONDITION: We have a valid EmailAddress in the Contact.
+
+
+Extended UseCase 3.9.3A: The User gives in an Empty EmailAddress.
+
+-----------------------------------------------------------------------------------------
+UseCase4: Delete a Contact
+PRECONDITION: An existing Contact with the given Name.
+1) START: TRIGGER: the User asks for removal of a Contact.
+2) The System asks for a filter to show possible Contacts.
+3) The User gives the filter pattern.
+4) The System shows all possible Contacts. 
+5) The User selects the Contact he wants to Delete.
+6) The System removes the Contact from the DB.
+7) END: The System adapts the adress Book.
+
+
+
+
+
+LESSON 3 TASK4: Estimate How Much Time Needed To Build The System in Man Hours.
+================================================================================
+Try 1 estimate by Class
+1) AdressBook
+2) Contact
+3) UseCase1_1
+4) UseCase1_2
+5) UseCase1_3A
+6) UseCase1_3B
+7) UseCase2_1
+8) UseCase2_2
+9) UseCase2_3
+
+9 classes
+We assume 100 lines per Class.
+900 lines of code => 900x 8€ = 7.200 €
+9 days work(800€ a day)
+
+To Include the work of a Userinterface we just double the Value !!
+
+
+---------------------------------------------------------------------------------
+Try To estimate by UseCase Steps
+
+Hours of all Use Cases = 74h  => 74h x 100€ = 7.400 €
+To Include the work of a Userinterface we just double the Value !!
+ 
+
+
+

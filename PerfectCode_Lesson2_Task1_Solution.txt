@@ -1,0 +1,49 @@
+PERFECT CODE: PROJECT: Write a Digital AdressBook.
+===================================================
+===================================================	
+
+LESSON2 TASK 1 : Analyse quickly in less than 15 minutes.
+=============================================================
+Minimal Viable Product
+-----------------------
+Get the nouns and verbs.
+
+Understanding:
+	Business Rules; Logic
+	Minimal Product to be usefull.
+	
+An Adress Book is a collection of Contacts.
+
+A contact has :
+- Name			Can Not Be Empty
+- Street
+- PostalCode
+- Town
+- Phone			
+- Email
+
+Phone or Email should have a Value.
+Street, PostCode, Town should all have a value or None of them. (WHY?)
+
+
+Extended Product (possible adaptions later).
+---------------------------------------------
+- FirstName
+- MiddelName
+- LastName
+
+- ContactType (Personal or Business)
+- CompanyName
+- Function
+
+- Street
+- StreetNumber
+- Box
+- Town
+- District
+- SubDistrict
+- Province
+- Country
+
+
+

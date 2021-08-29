@@ -1,0 +1,94 @@
+
+PERFECT CODE: PROJECT: Write a Digital AdressBook.
+======================================================
+======================================================
+
+
+LESSON 1: How is Good Software ?
+===============================
+
+
+LESSON1 TASK 1: Explain the difference between Waterfall and Agile.
+====================================================================
+Make a table what is simular, what is different.
+
+Steps in WaterFall
+--------------------
+Start of the Project
+	1) Analysis
+	2) Design
+	3) Implementation
+	4) Testing
+	5) BugFixing
+	6) Build , documentation, deployment.
+End of the project (1 month, 6 months, 1 year, 3 years)
+	7) Bugfixing and maintenance
+
+
+Steps in Agile
+-----------------
+
+MODEL 1: traditional
+Start of the project
+	Start of the Sprint 1
+			1) Analysis
+			2) Design
+			3) Implementation
+			4) Testing
+			5) BugFixing
+			6) Build, documentation
+	End of the Sprint 1
+	Start of sprint 2
+			1) Analysis
+			2) Design
+			3) Implementation
+			4) Testing
+			5) BugFixing
+			6) Build, documentation	
+	End of the Sprint 2
+	...
+	...
+	...
+End of the Project
+
+MODEL 2: TDD -- Test Driven Development
+Start of the project
+	Start of the Sprint 1
+			1) Analysis
+			2) Design and implement Unit Tests
+			3) Build, documentation
+	End of the Sprint 1
+	Start of sprint 2
+			1) Analysis
+			2) Design and implement Unit Tests
+			3) Build, documentation
+	End of the Sprint 2
+	...
+	...
+	...
+End of the Project
+
+MODEL 3: TDD and DDD (Domain Driven Development)
+Start of the project
+	Start of the Sprint 1
+			1) Analysis
+			2) DD Design and implement Unit Tests
+			3) Build, documentation
+	End of the Sprint 1
+	Start of sprint 2
+			1) Analysis
+			2) DD Design and implement Unit Tests
+			3) Build, documentation
+	End of the Sprint 2
+	...
+	...
+	...
+End of the Project
+
+Differences:
+- 1 big sprint against many sprints.
+- One big meeting and agreement against a lot of meetings.
+- Changing requirements is a big problem against changing requirements regulary.
+- Every step is done once against every step is done multiple times.
+- Adaptions are a problem against adaptions are part of the process.
+- Most communication at the start against communication all the time
