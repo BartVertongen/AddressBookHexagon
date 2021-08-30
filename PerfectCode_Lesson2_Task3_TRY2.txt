@@ -6,40 +6,44 @@ LESSON2 TASK3: Write The Use Cases.
 ====================================
 
 UseCase Index
-ID	Description									Freq	Depend	Steps	WorkLoad	Time
+ID		Description																		Freq	Depend	Steps	WorkLoad	Time
 ---------------------------------------------------------------------------------------------------------------------------------------------
-+1	Give Overview of All Contacts with possible filtering				High	None	2(8)	Medium		2(8)	
-+1.2A	The System collects the Contacts passing the no filter and shows them.		High	1	2	Medium		2
-+1.2B	The System collects the Contacts passing the starting filter and shows them.	High	1	2	Medium		2
-+1.2C	The System collects the Contacts passing the containing filter and shows them.	High	1	2	Medium		2
++1		Give Overview of All Contacts with possible filtering							High	None	2(8)	Medium		2(8)	
++1.2A	The System collects the Contacts passing the no filter and shows them.			High	1		2		Medium		2
++1.2B	The System collects the Contacts passing the starting filter and shows them.	High	1		2		Medium		2
++1.2C	The System collects the Contacts passing the containing filter and shows them.	High	1		2		Medium		2
 
 Work done 2h on 27-08-2021
 Work done 3h on 28-08-2021 passed the tests!
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 
-+2	Creation of a new Contact.							Medium	None	10(29)	High		(29)
--2.4A	The Contact Name already exists.						Low	5	3	Medium		4
--2.4B	The Contact Name is Empty.							Low	5	3	Low		1
-+2.5	Give in the New Address								Medium	5	7	Medium		4
--2.5.2A	The User gives an Invalid (Empty) Street.					Low	8	2	Low		2
--2.5.4A	The User gives an Invalid (Empty) Postal Code.					Low	8	2	Low		2
--2.5.6A	The User gives an Invalid (Empty) Town.						Low	8	2	Low		2
++2		Creation of a new Contact.														Medium	None	10(29)	High		(29)
+-2.4A	The Contact Name already exists.												Low		5		3		Medium		4
+-2.4B	The Contact Name is Empty.														Low		5		3		Low			1
++2.5	Give in the New Address															Medium	5		7		Medium		4
+-2.5.2A	The User gives an Invalid (Empty) Street.										Low		8		2		Low			2
+-2.5.4A	The User gives an Invalid (Empty) Postal Code.									Low		8		2		Low			2
+-2.5.6A	The User gives an Invalid (Empty) Town.											Low		8		2		Low			2
 
 Work done 4.5h on 28-08-2021
 Work done 4h on 29-08-2021
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
-+3	Change/Update of an Existing Contact						Medium		10(34)	High		10(31)
-+3.7	Update the Address.								Medium	3	10	High		10
--3.7.3A	The User gives in an empty Street						Low	3.7	2	Low		1
--3.7.6A	The User gives in an empty Postal Code						Low	3.7	2	Low		1
--3.7.8A The User gives in an empty Town							Low	3.7	2	Low		1
-+3.8	Update The PhoneNumber.								Medium	3	4	Medium		4		
-+3.9	Update the EmailAddress.							Medium	3	4	Medium		4
++3		Change/Update of an Existing Contact											Medium	None	10(34)	High		10(31)
++3.7	Update the Address.																Medium	3		10		High		10
+-3.7.3A	The User gives in an empty Street												Low		3.7		2		Low			1
+-3.7.6A	The User gives in an empty Postal Code											Low		3.7		2		Low			1
+-3.7.8A The User gives in an empty Town													Low		3.7		2		Low			1
++3.8	Update The PhoneNumber.															Medium	3		4		Medium		4		
++3.9	Update the EmailAddress.														Medium	3		4		Medium		4
+
+Work done 2h on 29-08-2021.
+Work done 2h on 29-08-2021 for 3.7.
+Work done 3h on 30-08-2021 for 3.7, 3.8, 3.9
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
-+4	Delete a Contact								Medium	None	7	Medium		7
++4		Delete a Contact																Medium	None	7		Medium		7
 
 Work done 2h on 28-08-2021.
 		
@@ -135,7 +139,7 @@ PRECONDITION: We are in the Process of creating a new Address.
 
 --------------------------------------------------------------------------------------------
 UseCase3: Change/Update of an Existing Contact
-1)START: The User requests a Contact Update
+1) START: The User requests a Contact Update
 2) The System asks for a filter to show possible Contacts.
 3) The User gives the filter pattern.
 4) The System shows all possible Contacts. 
@@ -144,7 +148,7 @@ UseCase3: Change/Update of an Existing Contact
 7) Use Case3.7 to Update the Address.	 
 8) Use Case3.8 to Update The PhoneNumber
 9) Use Case3.9 to update the EmailAddress
-10) END: Make the changes persistent and updare the AddressBook.
+10) END: Make the changes persistent and update the AddressBook.
 
 UseCase3.7: Update the Address.
 PRECONDITION: We are in the process of updating a Contact.

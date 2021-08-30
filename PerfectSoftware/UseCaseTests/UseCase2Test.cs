@@ -103,7 +103,7 @@ namespace UseCaseTests
         /// <param name="email"></param>
         private void Step8And9(string email)
         {
-            _Contact.EmailAddress = email;
+            _Contact.Email = email;
         }
 
         /// <summary>

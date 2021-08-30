@@ -1,95 +1,3 @@
-PERFECT CODE: PROJECT: Write a Digital AdressBook.
-===================================================
-===================================================	
-
-LESSON2: Analyses
-====================
-Why do we need to Analyse ?
-- To know what the client wants.
-- To know the behavior of the software/system.
-- To know how much time it will take to develop.
-
-
-
-	
-User Stories versus Use Cases
---------------------------------
-Start with the Minimal Viable Product.
-
-A UserSory is about the needs of the Actors (users, system, administrator)
-Actor wants/needs .... so/because..(goal/extra value)...
-
-Identify the Nouns and verbs from the user stories.
-
-Use Cases are about behavior and interaction(methods of classes)
-Use Cases describe the interaction between Actor and the System.
-Use Cases have a beginpoint and an endpoint.
-Between the beginpoint andendpoint there can be other interactions.
-Use Cases have precondition, postcondition, needed events, steps and other paths.
-
-Use Cases have:
-- Actor
-- System
-- Goal
-Option:
-- Stackholder
-- Precondition
-- Triggers
-
-Use Cases should not worry about user interfaces.
-Use cases can not have more than 10 steps.
-You can use use cases in use cases.
-Do not use if or else in use cases
-Do not use goto in use cases.
-
-First you write the Main Cases (positive ones)
-Then you write the extensions (negative ones like invalid input)
-
-
-LESSON2 TASK 1 : Analyse quickly in less than 15 minutes.
-=============================================================
-Minimal Viable Product
------------------------
-Get the nouns and verbs.
-
-Understanding:
-	Business Rules; Logic
-	Minimal Product to be usefull.
-	
-An Adress Book is a collection of Contacts.
-
-A contact has :
-- Name			Can Not Be Empty
-- Street
-- PostalCode
-- Town
-- Phone			
-- Email
-
-Phone or Email should have a Value.
-Street, PostCode, Town should all have a value or None of them. (WHY?)
-
-
-Extended Product.
---------------------
-- FirstName
-- MiddelName
-- LastName
-
-- ContactType (Personal or Business)
-- CompanyName
-- Function
-
-
-- Street
-- StreetNumber
-- Box
-- Town
-- District
-- SubDistrict
-- Province
-- Country
-
 
 LESSON 2 TASK4: Estimate How Much Time Needed To Build The System in Man Hours.
 ================================================================================
@@ -106,26 +14,58 @@ Try 1 estimate by Class
 
 9 classes => 900 lines of code => 900x 8 = 7.200 Euro or 9 days work
 
+
+
 Try 2 estimate by UseCase Steps
-UseCase1_1 	=> 2 steps
-UseCase1_2 	=> 2 steps
-UseCase1_3A 	=> 2 steps
-UseCase1_3B 	=> 2 steps
-UseCase2_1	=> 11 steps
-UseCase2_2	=> 12 steps
-UseCase2_3	=> 4 steps
-----------------------------------
-		  35 steps => 200€ per step = 7.000€ per step 
-		The price of a step are based on the price per classes.
-This is a rough estimation.
+UseCase Index
+ID		Description																		Freq	Depend	Steps	WorkLoad	Time(h)
+---------------------------------------------------------------------------------------------------------------------------------------------
++1		Give Overview of All Contacts with possible filtering							High	None	2(8)	Medium		2(8)	
++1.2A	The System collects the Contacts passing the no filter and shows them.			High	1		2		Medium		2
++1.2B	The System collects the Contacts passing the starting filter and shows them.	High	1		2		Medium		2
++1.2C	The System collects the Contacts passing the containing filter and shows them.	High	1		2		Medium		2
 
-THERE IS NO GARRANTY THAT THE ESTIMATION IS CORRECT.
+Work done 2h on 27-08-2021
+Work done 3h on 28-08-2021 passed the tests!
+---------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Task 5: Start Coding the UseCases
-==================================
-To make code is to test just start with writing tests.
-Rank all the solutions of students from badest to best solution.
++2		Creation of a new Contact.														Medium	None	10(29)	High		(29)
+-2.4A	The Contact Name already exists.												Low		2		3		Medium		4
+-2.4B	The Contact Name is Empty.														Low		2		3		Low			1
++2.5	Give in the New Address															Medium	2		7		Medium		4
+-2.5.2A	The User gives an Invalid (Empty) Street.										Low		2.5		2		Low			2
+-2.5.4A	The User gives an Invalid (Empty) Postal Code.									Low		2.5		2		Low			2
+-2.5.6A	The User gives an Invalid (Empty) Town.											Low		2.5		2		Low			2
+
+Work done 4.5h on 28-08-2021
+Work done 4h on 29-08-2021
+Work done 0.5h on 29-08-2021 adding under git
+
+---------------------------------------------------------------------------------------------------------------------------------------------
++3	Change/Update of an Existing Contact												Medium			10(34)	High		10(31)
++3.7	Update the Address.																Medium	3		10		High		10
+-3.7.3A	The User gives in an empty Street												Low		3.7		2		Low			1
+-3.7.6A	The User gives in an empty Postal Code											Low		3.7		2		Low			1
+-3.7.8A The User gives in an empty Town													Low		3.7		2		Low			1
++3.8	Update The PhoneNumber.															Medium	3		4		Medium		4		
++3.9	Update the EmailAddress.														Medium	3		4		Medium		4
+
+---------------------------------------------------------------------------------------------------------------------------------------------
++4	Delete a Contact																	Medium	None	7		Medium		7
+
+Work done 2h on 28-08-2021.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Try To estimate by UseCase Steps
+
+Hours of all Use Cases = 74h  => 74h x 100€ = 7.400 €
+To Include the work of a Userinterface we just double the Value !!
+ 
 
 
 

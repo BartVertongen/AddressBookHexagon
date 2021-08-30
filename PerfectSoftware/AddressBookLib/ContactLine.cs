@@ -22,8 +22,8 @@ namespace AddressBookLib
         /// A Code that gives an overview of the Contents of the Contact.
         /// </summary>
         /// <example>
-        /// "APE" => Has Address, PhoneNumber and EmailAddress
-        /// "**E" => Has only an EmailAddress.
+        /// "APE" => Has Address, PhoneNumber and Email
+        /// "**E" => Has only an Email.
         /// </example>
         public string ContentsCode { get; set; }
     }

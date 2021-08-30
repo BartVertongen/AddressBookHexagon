@@ -52,6 +52,16 @@ namespace AddressBookLib
             base.Add(newContact);
         }
 
+        /// <summary>
+        /// Finds the Contact with the given name.
+        /// </summary>
+        /// <param name="nameToFind"></param>
+        /// <returns>null if the Contact Name is not found.</returns>
+        public Contact GetContact(string nameToFind)
+        {
+            return this.SingleOrDefault(ctt => ctt.Name == nameToFind);
+        }
+
         public bool ContainsName(string nameToFind)
         {
             Contact oContact = this.SingleOrDefault(ctt => ctt.Name == nameToFind);
@@ -69,6 +79,16 @@ namespace AddressBookLib
         {
             Contact oContact = this.Single(ctt => ctt.Name == nameToDelete);
             this.Remove(oContact);
+        }
+
+        /// <summary>
+        /// Replaces the old Contact data with new Contact Data in the AddressBook.
+        /// </summary>
+        /// <param name="changedContact"></param>
+        public void Update(Contact changedContact)
+        {
+            Contact Found = this.FirstOrDefault(ctt => ctt.Name == changedContact.Name);
+            if (Found != null) Found = changedContact;
         }
 
         /// <summary>

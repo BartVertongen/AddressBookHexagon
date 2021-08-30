@@ -41,7 +41,7 @@ namespace AddressBookLib
 
         public string PhoneNumber { get; set; }
 
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         public string ContentsCode
         {
@@ -51,7 +51,7 @@ namespace AddressBookLib
 
                 sContentsCode = (this.Address != null ? "A" : "*");
                 sContentsCode += string.IsNullOrEmpty(this.PhoneNumber) ? "*" : "P";
-                sContentsCode += string.IsNullOrEmpty(this.EmailAddress) ? "*" : "E";
+                sContentsCode += string.IsNullOrEmpty(this.Email) ? "*" : "E";
                 return sContentsCode;
             } 
         }

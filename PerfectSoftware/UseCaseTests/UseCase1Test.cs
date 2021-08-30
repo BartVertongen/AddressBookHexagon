@@ -139,17 +139,17 @@ namespace UseCaseTests
 
             NewContact = new Contact();
             NewContact.Name = "André Hazes";
-            NewContact.EmailAddress = "andre@heaven.com";
+            NewContact.Email = "andre@heaven.com";
             _AddressBook.Add(NewContact);
 
             NewContact = new Contact();
             NewContact.Name = "Jan Franchipan";
-            NewContact.EmailAddress = "jan@eigenbelang.be";
+            NewContact.Email = "jan@eigenbelang.be";
             _AddressBook.Add(NewContact);
 
             NewContact = new Contact();
             NewContact.Name = "Josephine DePin";
-            NewContact.EmailAddress = "jospin@proximus.be";
+            NewContact.Email = "jospin@proximus.be";
             NewContact.PhoneNumber = "054/44.87.26";
             NewAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
             NewContact.Address = NewAddress;

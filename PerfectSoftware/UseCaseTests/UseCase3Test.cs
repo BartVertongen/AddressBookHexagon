@@ -1,8 +1,8 @@
 //Copyright 2021 Bart Vertongen.
 
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using Xunit;
 using AddressBookLib;
 
@@ -10,65 +10,66 @@ using AddressBookLib;
 namespace UseCaseTests
 {
     /// <summary>
-    /// The Use Case to Delete a Contact.
+    /// Creation of a new Contact in AddressBook.
     /// </summary>
-    /// <remarks>
-    /// The first step is the trigger: the user initiates the delete.
-    /// In fact this is done by starting the UseCase4Test.
-    /// </remarks>
-    public class UseCase4Test
+    public class UseCase3Test
     {
         private AddressBook _AddressBook;
+        private Contact _Contact;
         private List<ContactLine> _ResultList;
         private string _Filter = "";
 
         /// <summary>
         /// All the initialization for the tests.
         /// </summary>
-        public UseCase4Test()
-        {
+        public UseCase3Test()
+        {            
             _AddressBook = new AddressBook();
-            _AddressBook.XmlFile = "AddressBookUseCase4.xml";
+            _AddressBook.XmlFile = "AddressBookUseCase3.xml";
+            _Contact = new Contact(_AddressBook);
             if (File.Exists(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile))
             {
                 File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
             }
-            this.CreateAddressBookUseCase4();
-            _Filter = "";           
+            this.CreateAddressBookUseCase3();
+            _Filter = "";
         }
 
         /// <summary>
-        /// UseCase4 Check AddressBook and XML after Delete.
+        /// UseCase3 Main
         /// </summary>
+        /// <remarks>
+        /// Starting this test is equal to trigger for Contact update.
+        /// So this is Step 1.
+        /// </remarks>
         [Fact]
-        public void UseCase4_DeleteJan_ShouldNotBeInAddressBookOrXML()
+        public void UseCase3_UpdateExistingContact_ShouldGiveChangedContact()
         {
             //Arrange
             _AddressBook.Load();
-                
+
             //Actions
-            this.Step2And3("Jan");
+            this.Step2And3("Jose");
             this.Step4();
             this.Step5();
             this.Step6();
             this.Step7();
-
-            //Assert AddressBook in memory
-            Assert.True(_AddressBook.Count == 3);
-            //Assert XML of AddressBook
+            this.Step8();
+            this.Step9();
+            this.Step10();
             _AddressBook.Load();
-            Assert.True(_AddressBook.Count == 3);
-            this._ResultList = _AddressBook.GetOverview(_Filter);
-            Assert.True(this._ResultList.Count == 0);
+
+            //Assert
+            Assert.True(_AddressBook.Count == 4);
         }
 
- 
+
         /// <summary>
         /// Step2: The Systems aks for a Filter to show an Overview of Contacts to choose from.
         /// Step3: The User supplies the Filter.
         /// </summary>
         private void Step2And3(string filter)
-        {          
+        {
             this._Filter = filter;
         }
 
@@ -82,30 +83,68 @@ namespace UseCaseTests
         }
 
         /// <summary>
-        /// The User Selects the Contact he wants to Delete.
+        /// The User Selects the Contact he wants to Update.
         /// </summary>
         private void Step5()
         {
-            Assert.True(this._ResultList[0].Name == "Jan Franchipan");
+            Assert.True(this._ResultList[0].Name == "Josephine DePin");
         }
 
         /// <summary>
-        /// The System adapts the adress Book.
+        /// The System Retrieves the Contact with that Name.
         /// </summary>
         private void Step6()
         {
-            this._AddressBook.Delete(this._ResultList[0].Name);
+            _Contact = _AddressBook.GetContact(this._ResultList[0].Name);
         }
 
         /// <summary>
-        /// The System removes the chosen Contact from the DB.
+        /// Use Case 3.7 Update the Adress of the Contact.
         /// </summary>
         private void Step7()
         {
-            this._AddressBook.Save();
+            UseCase3_7Test UseCase3_7 = new UseCase3_7Test();
+            UseCase3_7.Address = _Contact.Address;
+            UseCase3_7.UseCase3_7_CreationValidAdress_GivesFullAddress();
+            _Contact.Address = UseCase3_7.Address;
         }
 
-        private void CreateAddressBookUseCase4()
+        /// <summary>
+        /// Use Case3.8 to Update the PhoneNumber
+        /// </summary>
+        /// <param name="phone"></param>
+        private void Step8()
+        {
+            UseCase3_8Test UseCase3_8 = new UseCase3_8Test();
+            UseCase3_8.Contact = _Contact;
+            UseCase3_8.UseCase3_8_UpdateWith_ValidPhoneNumber();
+            _Contact.PhoneNumber = UseCase3_8.Contact.PhoneNumber;
+        }
+
+        /// <summary>
+        /// Use Case3.9 to Update the Email
+        /// </summary>
+        /// <param name="email"></param>
+        private void Step9()
+        {
+            UseCase3_9Test UseCase3_9 = new UseCase3_9Test();
+            UseCase3_9.Contact = _Contact;
+            UseCase3_9.UseCase3_9_UpdateWith_ValidEmail();
+            _Contact.Email = UseCase3_9.Contact.Email;
+        }
+
+        /// <summary>
+        /// The System will Update the changed Contact to the AdressBook and Xml.
+        /// </summary>
+        private void Step10()
+        {
+            //Update Contact in the AddressBook in memory
+            _AddressBook.Update(_Contact);
+            //Add the change to Xml AddressBook
+            _AddressBook.Save();
+        }
+
+        private void CreateAddressBookUseCase3()
         {
             Contact NewContact;
             Address NewAddress;

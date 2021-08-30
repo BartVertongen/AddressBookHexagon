@@ -28,7 +28,7 @@ namespace UseCaseTests
             FirstContact = new Contact();
             FirstContact.Name = "Anthony Hopkins";
             FirstContact.PhoneNumber = "+3202530014";
-            FirstContact.EmailAddress = "AHopkins@stars.com";
+            FirstContact.Email = "AHopkins@stars.com";
             _AddressBook.Add(FirstContact);
             _AddressBook.Save();
         }
