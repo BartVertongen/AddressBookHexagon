@@ -1,0 +1,33 @@
+LESSON2 TASK5: EVALUATUION OF THE RESULT.
+==========================================
+==========================================
+IS IT PERFECT SOFTWARE ?
+===========================
+PROs
+----------
+1) Testable:
+    - The Code is partially testable because it is tested by mimicing the Use Cases with Unit Testing.
+
+2) Documentation:
+    - The Test are also a kind of Documentation.
+    - There are Comments to explain the code.
+
+3) Platform Independant:
+    - The code is platform Independant because it is written in C#.NET Core.
+
+
+CONs
+----------
+1) Testable:
+    - The Unit Tests are not the right way to to test Use Cases.
+    - We could not reproduce every step of the Use Case in the tests.
+
+2) Architecture:
+    - There is no clear architecture.
+    - There were no design patterns used.
+    - There are no Priciples used like SOLID.
+
+3) ReUse -- Changes:
+    - How easy is it to reuse this code ?
+    - How easy is it to change this code ?
+

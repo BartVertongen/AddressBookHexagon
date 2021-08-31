@@ -1,0 +1,7 @@
+Rewrite the code from lesson2.
+==================================
+==================================
+- Split the code in 3 layers.
+
+- Find a way to test the Use Cases as close as possible to the original Use Cases.
+
