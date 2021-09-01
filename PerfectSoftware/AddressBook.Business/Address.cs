@@ -3,7 +3,7 @@
 using System.IO;
 
 
-namespace AddressBookLib
+namespace PS.AddressBook.Business
 {
     public class Address
     {

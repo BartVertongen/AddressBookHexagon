@@ -1,7 +1,7 @@
 ﻿//Copyright 2021 Bart Vertongen
 
 
-namespace AddressBookLib
+namespace PS.AddressBook.Business
 {
     /// <summary>
     /// A ContactLine is a short overview of a Contact.

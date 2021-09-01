@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml.Serialization;
 
 
-namespace AddressBookLib
+namespace PS.AddressBook.Business
 {
     public class Contact
     {
@@ -65,6 +65,16 @@ namespace AddressBookLib
                 oContactLine.ContentsCode = this.ContentsCode;
                 return oContactLine;
             }
+        }
+
+        public bool IsValid()
+        {
+            if (string.IsNullOrEmpty(this.Name))
+                return false;
+            else if (string.IsNullOrEmpty(this.PhoneNumber) && string.IsNullOrEmpty(this.Email))
+                return false;
+            else
+                return true;
         }
     }
 }

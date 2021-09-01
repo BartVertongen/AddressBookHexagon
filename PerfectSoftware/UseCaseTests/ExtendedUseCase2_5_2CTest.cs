@@ -1,7 +1,7 @@
 //Copyright 2021 Bart Vertongen.
 
 using Xunit;
-using AddressBookLib;
+using PS.AddressBook.Business;
 
 
 namespace UseCaseTests

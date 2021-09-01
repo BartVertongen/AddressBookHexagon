@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Xunit;
-using AddressBookLib;
+using PS.AddressBook.Business;
 
 
 namespace UseCaseTests

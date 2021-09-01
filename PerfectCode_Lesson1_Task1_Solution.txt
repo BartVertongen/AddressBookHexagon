@@ -4,7 +4,7 @@ PERFECT CODE: PROJECT: Write a Digital AdressBook.
 ======================================================
 
 
-LESSON 1: How is Good Software ?
+LESSON 1: What is Good Software ?
 ===============================
 
 

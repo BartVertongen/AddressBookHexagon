@@ -7,7 +7,7 @@ using System.Linq;
 using System.Xml.Serialization;
 
 
-namespace AddressBookLib
+namespace PS.AddressBook.Business
 {
     public class AddressBook: List<Contact>
     {
