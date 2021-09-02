@@ -9,7 +9,7 @@ namespace PS.AddressBook.Data
     /// <summary>
     /// Address Data Transfer Type.
     /// </summary>
-    [DataContract(Name = "Address", Namespace = "http://vertongensoftware.be")]
+    //[DataContract(Name = "Address", Namespace = "http://vertongensoftware.be")]
     public class AddressDTO : IAddressDTO
     {
         public string Street { get; set; }

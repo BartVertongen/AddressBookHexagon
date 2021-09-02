@@ -6,13 +6,18 @@ using PS.AddressBook.Data.Interfaces;
 
 namespace PS.AddressBook.Data
 {
-    [XmlRoot(ElementName ="Contact")]
+    //We do this so the XML node will be Contact and not ContactDTO
+    [XmlType("Contact")]
+    [XmlRoot("Contact")]
     public class ContactDTO : IContactDTO
     {
         private IAddressDTO _Address;
 
         public string Name { get; set; }
 
+        /// <summary>
+        /// To prevent problems with IContactDTO we have this property
+        /// </summary>
         [XmlIgnore]
         IAddressDTO IContactDTO.Address
         {

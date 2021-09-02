@@ -16,7 +16,7 @@ namespace PS.AddressBook.Data
         public void Save(IList<IContactDTO> book)
         {
             XmlSerializer AddressBookSerializer;
-            List<ContactDTO> TempBook = new List<ContactDTO>();
+            AddressBookDTO TempBook = new AddressBookDTO();
 
             if (string.IsNullOrEmpty(this.FullPath))
             {
@@ -39,8 +39,7 @@ namespace PS.AddressBook.Data
                 TempBook.Add(dtoContact);
             }
                 
-
-            AddressBookSerializer = new XmlSerializer(typeof(List<ContactDTO>), new XmlRootAttribute("AddressBook"));
+            AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
             using (FileStream fs = new FileStream(this.FullPath, FileMode.Create, FileAccess.Write))
             {
                 AddressBookSerializer.Serialize(fs, TempBook);
@@ -51,16 +50,16 @@ namespace PS.AddressBook.Data
         public void Load(IList<IContactDTO> book)
         {
             XmlSerializer AddressBookSerializer;
-            List<ContactDTO> TempBook;
+            AddressBookDTO TempBook;
 
             if (string.IsNullOrEmpty(this.FullPath))
             {
                 throw new InvalidDataException("DSAddressBook needs a Full Filename of an existing xml-file.");
             }         
-            AddressBookSerializer = new XmlSerializer(typeof(List<ContactDTO>), new XmlRootAttribute("AddressBook"));
+            AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
             using (FileStream fs = new FileStream(this.FullPath, FileMode.Open, FileAccess.Read))
             {
-                TempBook = AddressBookSerializer.Deserialize(fs) as List<ContactDTO>;
+                TempBook = AddressBookSerializer.Deserialize(fs) as AddressBookDTO;
             }
             book.Clear();
             foreach( IContactDTO aContact in TempBook)
