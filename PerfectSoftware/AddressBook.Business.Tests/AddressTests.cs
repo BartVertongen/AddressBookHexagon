@@ -1,4 +1,5 @@
-using System;
+//Copyright 2021 Bart Vertongen.
+
 using Xunit;
 
 

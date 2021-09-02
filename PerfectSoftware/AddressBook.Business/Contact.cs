@@ -10,7 +10,13 @@ namespace PS.AddressBook.Business
     {
         private string _Name;
 
-        public Contact() {}
+        public Contact()
+        {
+            this.Name = "";
+            this.Address = new Address();
+            this.PhoneNumber = "";
+            this.Email = "";
+        }
 
         /// <summary>
         /// Constructor for Contact.
@@ -19,6 +25,9 @@ namespace PS.AddressBook.Business
         public Contact(AddressBook addressBook)
         {
             AddressBook = addressBook;
+            this.Address = new Address();
+            this.PhoneNumber = "";
+            this.Email = "";
         }
 
         [XmlIgnore]
@@ -49,7 +58,7 @@ namespace PS.AddressBook.Business
             {
                 string sContentsCode;
 
-                sContentsCode = (this.Address != null ? "A" : "*");
+                sContentsCode = (this.Address == null || this.Address.IsEmpty() ? "*" : "A");
                 sContentsCode += string.IsNullOrEmpty(this.PhoneNumber) ? "*" : "P";
                 sContentsCode += string.IsNullOrEmpty(this.Email) ? "*" : "E";
                 return sContentsCode;
@@ -75,6 +84,20 @@ namespace PS.AddressBook.Business
                 return false;
             else
                 return true;
+        }
+
+        /// <summary>
+        /// Creates a Deep Copy of this Contact.
+        /// </summary>
+        /// <returns></returns>
+        public Contact DeepClone()
+        {
+            Contact oCopy = new Contact();
+            oCopy.Name = this.Name;
+            oCopy.PhoneNumber = this.PhoneNumber;
+            oCopy.Email = this.Email;
+            oCopy.Address = new Address(Address.Street, Address.PostalCode, Address.Town);
+            return oCopy;
         }
     }
 }

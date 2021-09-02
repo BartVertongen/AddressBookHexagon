@@ -16,7 +16,7 @@ namespace UseCaseTests
     {
         private AddressBook _AddressBook;
         private List<ContactLine> _ResultList;
-        private string _Filter = "";
+        private string _Filter;
 
         /// <summary>
         /// All the initialization for the tests.
@@ -25,8 +25,11 @@ namespace UseCaseTests
         {
             _AddressBook = new AddressBook();
             _AddressBook.XmlFile = "AddressBookUseCase1.xml";
-            if (!File.Exists(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile))
-                this.CreateAddressBookUseCase1();
+            if (File.Exists(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile))
+            {
+                File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
+            }
+            this.CreateAddressBookUseCase1();
             _Filter = "";           
         }
 

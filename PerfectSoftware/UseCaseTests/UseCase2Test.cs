@@ -1,6 +1,5 @@
 //Copyright 2021 Bart Vertongen.
 
-using System;
 using System.IO;
 using Xunit;
 using PS.AddressBook.Business;

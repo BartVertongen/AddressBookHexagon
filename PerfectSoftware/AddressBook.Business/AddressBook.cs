@@ -49,7 +49,10 @@ namespace PS.AddressBook.Business
         /// <param name="newContact"></param>
         public new void Add(Contact newContact)
         {
-            base.Add(newContact);
+            if (newContact.IsValid() && !this.ContainsName(newContact.Name))
+                base.Add(newContact);
+            else
+                throw new InvalidDataException("You tried to Add an invalid Contact to an AddressBook!");
         }
 
         /// <summary>

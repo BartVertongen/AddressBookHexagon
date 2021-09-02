@@ -44,5 +44,16 @@ namespace PS.AddressBook.Business
                 this.Town = town;
             }
         }
+
+        public bool IsEmpty()
+        {
+            if (string.IsNullOrEmpty(this.Street) 
+                        && string.IsNullOrEmpty(this.PostalCode) 
+                        && string.IsNullOrEmpty(this.Town)
+               )
+                return true;
+            else
+                return false;
+        }
     }
 }
