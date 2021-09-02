@@ -1,22 +1,24 @@
 ﻿//Copyright 2021 Bart Vertongen
 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
+using PS.AddressBook.Data;
+using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.Business
 {
-    public class AddressBook: List<Contact>
+    public class AddressBook: List<IContactDTO>, IAddressBook 
     {
         public string XmlFile = "AddresBook.xml";
 
         public List<ContactLine> GetOverview(string filter)
         {
             List<ContactLine> Result = new List<ContactLine>();
-            List<Contact> Selection = new List<Contact>();
+            List<IContactDTO> Selection = new List<IContactDTO>();
             int ID = 0;
 
             string PureFilter;
@@ -47,7 +49,7 @@ namespace PS.AddressBook.Business
         /// Adds a new Contact to the AddressBook in memory.
         /// </summary>
         /// <param name="newContact"></param>
-        public new void Add(Contact newContact)
+        public void Add(Contact newContact)
         {
             if (newContact.IsValid() && !this.ContainsName(newContact.Name))
                 base.Add(newContact);
@@ -60,14 +62,14 @@ namespace PS.AddressBook.Business
         /// </summary>
         /// <param name="nameToFind"></param>
         /// <returns>null if the Contact Name is not found.</returns>
-        public Contact GetContact(string nameToFind)
+        public IContactDTO GetContact(string nameToFind)
         {
             return this.SingleOrDefault(ctt => ctt.Name == nameToFind);
         }
 
         public bool ContainsName(string nameToFind)
         {
-            Contact oContact = this.SingleOrDefault(ctt => ctt.Name == nameToFind);
+            Contact oContact = (Contact)this.SingleOrDefault(ctt => ctt.Name == nameToFind);
             if (oContact == null)
                 return false;
             else
@@ -80,8 +82,8 @@ namespace PS.AddressBook.Business
         /// <param name="nameToDelete"></param>
         public void Delete(string nameToDelete)
         {
-            Contact oContact = this.Single(ctt => ctt.Name == nameToDelete);
-            this.Remove(oContact);
+            Contact oContact = (Contact)this.Single(ctt => ctt.Name == nameToDelete);
+            this.Remove((IContactDTO)oContact);
         }
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace PS.AddressBook.Business
         /// <param name="changedContact"></param>
         public void Update(Contact changedContact)
         {
-            Contact Found = this.FirstOrDefault(ctt => ctt.Name == changedContact.Name);
+            Contact Found = (Contact)this.FirstOrDefault(ctt => ctt.Name == changedContact.Name);
             if (Found != null) Found = changedContact;
         }
 
@@ -99,38 +101,53 @@ namespace PS.AddressBook.Business
         /// </summary>
         public void Load()
         {
-            string FullFileName = Environment.CurrentDirectory + "\\" + XmlFile;
-            AddressBook LoadedBook; //CR: Not Good
+            string sXmlFile;
+            DSAddressBook aDSAddressBook;
+            List<IContactDTO> TempBook = new List<IContactDTO>();
 
-            XmlSerializer AddressBookSerializer = new XmlSerializer(typeof(AddressBook), new XmlRootAttribute("AdressBook"));
-            using (FileStream fs = new FileStream(FullFileName, FileMode.Open, FileAccess.Read))
-            {
-                
-                LoadedBook = AddressBookSerializer.Deserialize(fs) as AddressBook;
-            }
+            
+            sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
+            aDSAddressBook = new DSAddressBook();
+            aDSAddressBook.FullPath = sXmlFile;
+            aDSAddressBook.Load(TempBook);
             this.Clear();
-            //CR:Bad copy again ???
-            foreach(Contact aContact in LoadedBook)
+            foreach(IContactDTO dtoContact in TempBook)
             {
-                this.Add(aContact);
+                Contact bussContact = new Contact();
+                bussContact.Name = dtoContact.Name;
+                bussContact.Address = dtoContact.Address;
+                bussContact.PhoneNumber = dtoContact.PhoneNumber;
+                bussContact.Email = dtoContact.Email;
+                this.Add(bussContact);
             }
         }
 
         /// <summary>
         /// Writes the Contacts in the AddresBook in memory to an Xml File.
         /// </summary>
-        /// <remarks>The old version of the Xml File is deleted.</remarks>
         public void Save()
         {
-            string FullFileName = Environment.CurrentDirectory + "\\" + XmlFile;
+            string sXmlFile;
+            DSAddressBook aDSAddressBook;
+            List<IContactDTO> TempBook = new List<IContactDTO>();
 
-            if (File.Exists(FullFileName))
-                File.Delete(FullFileName);
-            XmlSerializer AddressBookSerializer = new XmlSerializer(typeof(AddressBook), new XmlRootAttribute("AdressBook"));
-            using (FileStream fs = new FileStream(FullFileName, FileMode.OpenOrCreate, FileAccess.Write))
+            sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
+            aDSAddressBook = new DSAddressBook();
+            aDSAddressBook.FullPath = sXmlFile;
+            foreach (IContactDTO bussContact in this)
             {
-                AddressBookSerializer.Serialize(fs, this);
+                ContactDTO dtoContact = new ContactDTO();
+                AddressDTO dtoAddress = new AddressDTO();
+                dtoContact.Name = bussContact.Name;
+                dtoAddress.Street = bussContact.Address.Street;
+                dtoAddress.PostalCode = bussContact.Address.PostalCode;
+                dtoAddress.Town = bussContact.Address.Town;
+                dtoContact.Address = dtoAddress;
+                dtoContact.PhoneNumber = bussContact.PhoneNumber;
+                dtoContact.Email = bussContact.Email;
+                TempBook.Add(dtoContact);
             }
+            aDSAddressBook.Save(TempBook);
         }
     }
 }

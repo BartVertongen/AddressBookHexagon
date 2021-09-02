@@ -1,11 +1,11 @@
 ﻿//By Bart Vertongen copyright 2021.
 
-using System.IO;
+using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.Business
 {
-    public class Address
+    public class Address: IAddressDTO
     {
         public string Street { get; set; }
 

@@ -95,7 +95,7 @@ namespace UseCaseTests
         /// </summary>
         private void Step6()
         {
-            _Contact = _AddressBook.GetContact(this._ResultList[0].Name);
+            _Contact = (Contact)_AddressBook.GetContact(this._ResultList[0].Name);
         }
 
         /// <summary>
@@ -103,8 +103,13 @@ namespace UseCaseTests
         /// </summary>
         private void Step7()
         {
+            Address bussAddress = new Address();
+
             UseCase3_7Test UseCase3_7 = new UseCase3_7Test();
-            UseCase3_7.Address = _Contact.Address;
+            bussAddress.Street = _Contact.Address.Street;
+            bussAddress.PostalCode = _Contact.Address.PostalCode;
+            bussAddress.Town = _Contact.Address.Town;
+            UseCase3_7.Address = bussAddress;
             UseCase3_7.UseCase3_7_CreationValidAdress_GivesFullAddress();
             _Contact.Address = UseCase3_7.Address;
         }

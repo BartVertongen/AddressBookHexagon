@@ -1,12 +1,12 @@
 ﻿//Copyright 2021 Bart Vertongen
 
+using PS.AddressBook.Data.Interfaces;
 using System.IO;
-using System.Xml.Serialization;
 
 
 namespace PS.AddressBook.Business
 {
-    public class Contact
+    public class Contact: IContactDTO
     {
         private string _Name;
 
@@ -30,7 +30,7 @@ namespace PS.AddressBook.Business
             this.Email = "";
         }
 
-        [XmlIgnore]
+
         public AddressBook AddressBook { private get;  set;  }
 
         public string Name
@@ -46,7 +46,7 @@ namespace PS.AddressBook.Business
             } 
         }
 
-        public Address Address { get; set; }
+        public IAddressDTO Address { get; set; }
 
         public string PhoneNumber { get; set; }
 
@@ -57,8 +57,12 @@ namespace PS.AddressBook.Business
             get
             {
                 string sContentsCode;
+                Address bussAddress = new Address();
 
-                sContentsCode = (this.Address == null || this.Address.IsEmpty() ? "*" : "A");
+                bussAddress.Street = this.Address.Street;
+                bussAddress.PostalCode = this.Address.PostalCode;
+                bussAddress.Town = this.Address.Town;
+                sContentsCode = (this.Address == null || bussAddress.IsEmpty() ? "*" : "A");
                 sContentsCode += string.IsNullOrEmpty(this.PhoneNumber) ? "*" : "P";
                 sContentsCode += string.IsNullOrEmpty(this.Email) ? "*" : "E";
                 return sContentsCode;
