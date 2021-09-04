@@ -5,20 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using PS.AddressBook.Business.Adapters;
 using PS.AddressBook.Data;
 using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.Business
 {
-    public class AddressBook: List<IContactDTO>, IAddressBookDTO 
+    public class AddressBook: List<IContact>, IAddressBook 
     {
         public string XmlFile = "AddresBook.xml";
 
         public List<ContactLine> GetOverview(string filter)
         {
             List<ContactLine> Result = new List<ContactLine>();
-            List<IContactDTO> Selection = new List<IContactDTO>();
+            List<IContact> Selection = new List<IContact>();
             int ID = 0;
 
             string PureFilter;
@@ -62,7 +63,7 @@ namespace PS.AddressBook.Business
         /// </summary>
         /// <param name="nameToFind"></param>
         /// <returns>null if the Contact Name is not found.</returns>
-        public IContactDTO GetContact(string nameToFind)
+        public IContact GetContact(string nameToFind)
         {
             return this.SingleOrDefault(ctt => ctt.Name == nameToFind);
         }
@@ -83,7 +84,7 @@ namespace PS.AddressBook.Business
         public void Delete(string nameToDelete)
         {
             Contact oContact = (Contact)this.Single(ctt => ctt.Name == nameToDelete);
-            this.Remove((IContactDTO)oContact);
+            this.Remove(oContact);
         }
 
         /// <summary>
@@ -113,11 +114,8 @@ namespace PS.AddressBook.Business
             this.Clear();
             foreach(IContactDTO dtoContact in TempBook)
             {
-                Contact bussContact = new Contact();
-                bussContact.Name = dtoContact.Name;
-                bussContact.Address = dtoContact.Address;
-                bussContact.PhoneNumber = dtoContact.PhoneNumber;
-                bussContact.Email = dtoContact.Email;
+                AdapterFromContactDTO ContactAdapter = new AdapterFromContactDTO(dtoContact);
+                Contact bussContact = new Contact(ContactAdapter);
                 this.Add(bussContact);
             }
         }
@@ -134,17 +132,10 @@ namespace PS.AddressBook.Business
             sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
             aDSAddressBook = new DSAddressBook();
             aDSAddressBook.FullPath = sXmlFile;
-            foreach (IContactDTO bussContact in this)
+            foreach (IContact bussContact in this)
             {
-                ContactDTO dtoContact = new ContactDTO();
-                AddressDTO dtoAddress = new AddressDTO();
-                dtoContact.Name = bussContact.Name;
-                dtoAddress.Street = bussContact.Address.Street;
-                dtoAddress.PostalCode = bussContact.Address.PostalCode;
-                dtoAddress.Town = bussContact.Address.Town;
-                dtoContact.Address = dtoAddress;
-                dtoContact.PhoneNumber = bussContact.PhoneNumber;
-                dtoContact.Email = bussContact.Email;
+                AdapterToContactDTO Adapter = new AdapterToContactDTO(bussContact);
+                ContactDTO dtoContact = new ContactDTO(Adapter);
                 TempBook.Add(dtoContact);
             }
             aDSAddressBook.Save(TempBook);

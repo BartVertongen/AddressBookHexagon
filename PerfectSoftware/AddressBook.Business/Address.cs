@@ -5,7 +5,7 @@ using PS.AddressBook.Data.Interfaces;
 
 namespace PS.AddressBook.Business
 {
-    public class Address: IAddressDTO
+    public class Address: IAddress
     {
         public string Street { get; set; }
 
@@ -21,6 +21,13 @@ namespace PS.AddressBook.Business
             this.Street = "";
             this.PostalCode = "";
             this.Town = "";
+        }
+
+        public Address(IAddress bussRef)
+        {
+            this.Street = bussRef.Street;
+            this.PostalCode = bussRef.PostalCode;
+            this.Town = bussRef.Town;
         }
 
         /// <summary>

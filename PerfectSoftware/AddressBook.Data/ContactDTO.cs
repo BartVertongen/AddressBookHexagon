@@ -13,6 +13,22 @@ namespace PS.AddressBook.Data
     {
         private IAddressDTO _Address;
 
+        public ContactDTO()
+        {
+            this.Name = "";
+            this.PhoneNumber = "";
+            this.Email = "";
+            this.Address = new AddressDTO();
+        }
+
+        public ContactDTO(IContactDTO dtoRef)
+        {
+            this.Name = dtoRef.Name;
+            this.PhoneNumber = dtoRef.PhoneNumber;
+            this.Email = dtoRef.Email;
+            this.Address = new AddressDTO(dtoRef.Address);
+        }
+
         public string Name { get; set; }
 
         /// <summary>
@@ -35,5 +51,6 @@ namespace PS.AddressBook.Data
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
+
     }
 }

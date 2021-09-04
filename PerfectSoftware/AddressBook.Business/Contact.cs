@@ -1,12 +1,14 @@
 ﻿//Copyright 2021 Bart Vertongen
 
+using PS.AddressBook.Business.Adapters;
 using PS.AddressBook.Data.Interfaces;
+using System;
 using System.IO;
 
 
 namespace PS.AddressBook.Business
 {
-    public class Contact: IContactDTO
+    public class Contact: IContact
     {
         private string _Name;
 
@@ -16,6 +18,14 @@ namespace PS.AddressBook.Business
             this.Address = new Address();
             this.PhoneNumber = "";
             this.Email = "";
+        }
+
+        public Contact(IContact bussRef)
+        {
+            this.Name = bussRef.Name;
+            this.Address = new Address(bussRef.Address);
+            this.PhoneNumber = bussRef.PhoneNumber;
+            this.Email = bussRef.Email;
         }
 
         /// <summary>
@@ -46,7 +56,7 @@ namespace PS.AddressBook.Business
             } 
         }
 
-        public IAddressDTO Address { get; set; }
+        public IAddress Address { get; set; }
 
         public string PhoneNumber { get; set; }
 

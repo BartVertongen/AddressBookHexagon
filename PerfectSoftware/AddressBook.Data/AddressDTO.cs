@@ -12,6 +12,20 @@ namespace PS.AddressBook.Data
     //[DataContract(Name = "Address", Namespace = "http://vertongensoftware.be")]
     public class AddressDTO : IAddressDTO
     {
+        public AddressDTO()
+        {
+            this.Street = "";
+            this.PostalCode = "";
+            this.Town = "";
+        }
+
+        public AddressDTO(IAddressDTO dtoRef)
+        {
+            this.Street = dtoRef.Street;
+            this.PostalCode = dtoRef.PostalCode;
+            this.Town = dtoRef.Town;
+        }
+
         public string Street { get; set; }
 
         public string PostalCode { get; set; }
