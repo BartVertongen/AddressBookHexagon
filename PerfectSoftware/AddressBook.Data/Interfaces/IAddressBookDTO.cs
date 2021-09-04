@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PS.AddressBook.Data.Interfaces
 {
-    public interface IAddressBook: IList<IContact>
+    public interface IAddressBookDTO: IList<IContactDTO>
     {
     }
 }

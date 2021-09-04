@@ -11,7 +11,7 @@ using PS.AddressBook.Data.Interfaces;
 
 namespace PS.AddressBook.Business
 {
-    public class AddressBook: List<IContactDTO>, IAddressBook 
+    public class AddressBook: List<IContactDTO>, IAddressBookDTO 
     {
         public string XmlFile = "AddresBook.xml";
 
