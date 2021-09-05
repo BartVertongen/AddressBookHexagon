@@ -1,0 +1,57 @@
+LESSON 3 TASK 1: EVALUATION OF THE RESULT.
+==========================================
+==========================================
+
+Rewrite the code from lesson2.
+==================================
+- Split the code in 3 layers.(Done)
+
+- Add Unit Testing on the level of classes.(Done)
+
+- Find a way to test the Use Cases as close as possible to the original Use Cases.
+
+
+
+IS IT PERFECT SOFTWARE ?
+===========================
+PROs
+----------
+1) Testable:
+    - The Code is testable because it is tested by mimicing the Use Cases with Unit Testing.
+    - We also have Unit Test on Class Level.
+    - The UseCase implemented as a Console Application is near the real UseCases.
+            there is interaction between USER and SYSTEM.
+
+2) Documentation:
+    - The Test are also a kind of Documentation.
+    - There are Comments to explain the code.
+
+3) Platform Independant:
+    - The code is platform Independant because it is written in C#.NET Core.
+
+4) We used Design Patterns --> Adapter.
+
+5) Architecture:
+    - We used a MultiLayer Architecture and there is a clear separation between the 
+            Business and Data layer.
+
+6) Interfaces (SOLID):
+    We used Interfaces which is part of the SOLID principle.
+
+
+CONs
+----------
+1) Testable and Analysis.
+    - The UseCase implementated as a Console Application can not be automated.
+    - We can not try them with different input.
+    - They are not really tests but just implementations of the UseCase.
+
+2) Architecture:
+    - The UI-layer is empty, so what is the purpose ?
+
+
+3) ReUse -- Changes:
+    - How easy is it to reuse this code ?
+    - How easy is it to change this code ?
+
+

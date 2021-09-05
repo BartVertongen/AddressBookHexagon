@@ -254,7 +254,7 @@ To Include the work of a Userinterface we just double the Value !!
 Work done 2h on 01-09-2021. Lesson3 Task 1 make 3 layers, add more unit Tests.
 Work Done 3h on 02-09-2021. Lesson3 Task 1: Add Unit Tests for Business classes.
 Work Done 4h on 02-09-2021. Lesson3 Task 1: Put Load and Save in different Layer.
-Work Done 4h on 05-09-2021. Lesson3 Task 1: Separate Data and Business in a cleaner way.
-
+Work Done 4h on 04-09-2021. Lesson3 Task 1: Separate Data and Business in a cleaner way.
+Work Done 4h on 05-09-2021. Lesson3 Task 1: Make new UseCasesTest with interaction.
 
 

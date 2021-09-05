@@ -1,0 +1,7 @@
+Rewrite the code from lesson2.
+==================================
+==================================
+- Find a way to test the Use Cases as close as possible to the original Use Cases.
+    This should be a combination of Unit Testing and the Console Tests
+
+- Try to apply some SOLID Principle in the Code.
