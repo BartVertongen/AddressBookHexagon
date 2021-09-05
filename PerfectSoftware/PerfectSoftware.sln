@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdressBook.UI", "AdressBook
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Business", "AddressBook.Business\AddressBook.Business.csproj", "{4A2A8E57-FB72-4FA1-912E-257076A1EEBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook.Data", "AddressBook.Data\AddressBook.Data.csproj", "{CEA9BB79-DFBA-44DE-B11B-1BBAAF4211DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Data", "AddressBook.Data\AddressBook.Data.csproj", "{CEA9BB79-DFBA-44DE-B11B-1BBAAF4211DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook.Business.Tests", "AddressBook.Business.Tests\AddressBook.Business.Tests.csproj", "{05858B49-3C89-40D2-89D8-83D218CE78AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Business.Tests", "AddressBook.Business.Tests\AddressBook.Business.Tests.csproj", "{05858B49-3C89-40D2-89D8-83D218CE78AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCasesTestConsole", "UseCasesTestConsole\UseCasesTestConsole.csproj", "{EC6597EB-4D49-4F18-BDA5-E9DB300A5B1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{05858B49-3C89-40D2-89D8-83D218CE78AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05858B49-3C89-40D2-89D8-83D218CE78AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05858B49-3C89-40D2-89D8-83D218CE78AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6597EB-4D49-4F18-BDA5-E9DB300A5B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6597EB-4D49-4F18-BDA5-E9DB300A5B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6597EB-4D49-4F18-BDA5-E9DB300A5B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6597EB-4D49-4F18-BDA5-E9DB300A5B1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

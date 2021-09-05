@@ -209,13 +209,15 @@ Extended UseCase 3.9.3A: The User gives in an Empty EmailAddress.
 -----------------------------------------------------------------------------------------
 UseCase4: Delete a Contact
 PRECONDITION: An existing Contact with the given Name.
-1) START: TRIGGER: the User asks for removal of a Contact.
-2) The System asks for a filter to show possible Contacts.
-3) The User gives the filter pattern.
-4) The System shows all possible Contacts. 
-5) The User selects the Contact he wants to Delete.
+START: TRIGGER: the User asks for removal of a Contact.
+1) The System asks for a filter to show possible Contacts.
+2) The User gives the filter pattern.
+3) The System shows all possible Contacts. 
+4) The User selects the Contact he wants to Delete.
+5) The System adapts the adress Book.
 6) The System removes the Contact from the DB.
-7) END: The System adapts the adress Book.
+END
+POSTCONDITION: The Selected Contact is gone in de AddressBook and from the DataFile.
 
 
 

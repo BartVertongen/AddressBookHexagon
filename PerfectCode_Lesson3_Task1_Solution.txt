@@ -1,7 +1,9 @@
 Rewrite the code from lesson2.
 ==================================
 ==================================
-- Split the code in 3 layers.
+- Split the code in 3 layers.(Done)
+
+- Add Unit Testing on the level of classes.(Done)
 
 - Find a way to test the Use Cases as close as possible to the original Use Cases.
 
