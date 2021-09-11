@@ -14,7 +14,7 @@ namespace UseCasesTestConsole
     public class UseCase4
     {
         private AddressBook _AddressBook;
-        private List<ContactLine> _ResultList;
+        private List<ContactLineDTO> _ResultList;
         private string _Filter, _SelectedName;
 
         public UseCase4()
@@ -64,7 +64,7 @@ namespace UseCasesTestConsole
         {
             _Filter = Console.ReadLine();
             Console.WriteLine();
-            this._ResultList = _AddressBook.GetOverview(_Filter);
+            this._ResultList = _AddressBook.GetOverview(_Filter).Cast<ContactLineDTO>().ToList();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace UseCasesTestConsole
             {
                 string CurrentLetter, PreviousLetter = "";
 
-                foreach (ContactLine oContactLn in this._ResultList)
+                foreach (ContactLineDTO oContactLn in this._ResultList)
                 {
                     CurrentLetter = oContactLn.Name.Substring(0, 1);
                     if (PreviousLetter != CurrentLetter)

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 using PS.AddressBook.Business;
-
+using System.Linq;
 
 namespace UseCaseTests
 {
@@ -16,7 +16,7 @@ namespace UseCaseTests
     {
         private AddressBook _AddressBook;
         private Contact _Contact;
-        private List<ContactLine> _ResultList;
+        private List<ContactLineDTO> _ResultList;
         private string _Filter = "";
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace UseCaseTests
         /// </summary>
         private void Step4()
         {
-            this._ResultList = _AddressBook.GetOverview(_Filter);
+            this._ResultList = _AddressBook.GetOverview(_Filter).Cast<ContactLineDTO>().ToList();
             Assert.Single(this._ResultList);
         }
 

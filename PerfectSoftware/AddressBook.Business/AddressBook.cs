@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using PS.AddressBook.Business.Adapters;
+using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.Data;
 using PS.AddressBook.Data.Interfaces;
 
@@ -16,9 +17,9 @@ namespace PS.AddressBook.Business
     {
         public string XmlFile = "AddresBook.xml";
 
-        public List<ContactLine> GetOverview(string filter)
+        public IList<IContactLineDTO> GetOverview(string filter)
         {
-            List<ContactLine> Result = new List<ContactLine>();
+            IList<IContactLineDTO> Result = new List<IContactLineDTO>();
             List<IContact> Selection = new List<IContact>();
             int ID = 0;
 
@@ -39,7 +40,7 @@ namespace PS.AddressBook.Business
             }
             foreach(Contact oContact in Selection)
             {
-                ContactLine oContactLine = oContact.ContactLine;
+                ContactLineDTO oContactLine = oContact.ContactLine;
                 oContactLine.Id = ++ID;
                 Result.Add(oContactLine);
             }
@@ -105,7 +106,6 @@ namespace PS.AddressBook.Business
             string sXmlFile;
             DSAddressBook aDSAddressBook;
             List<IContactDTO> TempBook = new List<IContactDTO>();
-
             
             sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
             aDSAddressBook = new DSAddressBook();

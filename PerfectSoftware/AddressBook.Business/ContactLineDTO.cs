@@ -1,12 +1,14 @@
 ﻿//Copyright 2021 Bart Vertongen
 
+using PS.AddressBook.Business.Interfaces;
+
 
 namespace PS.AddressBook.Business
 {
     /// <summary>
     /// A ContactLine is a short overview of a Contact.
     /// </summary>
-    public class ContactLine
+    public class ContactLineDTO: IContactLineDTO
     {
         /// <summary>
         /// A Unique Id for this ContactLine.

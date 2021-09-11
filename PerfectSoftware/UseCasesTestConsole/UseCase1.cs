@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using PS.AddressBook.Business;
 
 
@@ -13,7 +14,7 @@ namespace UseCasesTestConsole
     public class UseCase1
     {
         private AddressBook _AddressBook;
-        private List<ContactLine> _ResultList;
+        private List<ContactLineDTO> _ResultList;
         private string _Filter;
 
         public UseCase1()
@@ -59,7 +60,7 @@ namespace UseCasesTestConsole
         /// </summary>
         public void Step2()
         {
-            this._ResultList = _AddressBook.GetOverview(_Filter);
+            this._ResultList = _AddressBook.GetOverview(_Filter).Cast<ContactLineDTO>().ToList();
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace UseCasesTestConsole
             {
                 string CurrentLetter, PreviousLetter = "";
 
-                foreach (ContactLine oContactLn in this._ResultList)
+                foreach (ContactLineDTO oContactLn in this._ResultList)
                 {
                     CurrentLetter = oContactLn.Name.Substring(0, 1);
                     if (PreviousLetter != CurrentLetter)

@@ -1,0 +1,22 @@
+HOW TO GO FROM USE CASES TO USECASE TESTS ?
+============================================
+============================================
+For every UseCase you make an ACTIVITY DIAGRAM.
+
+From that Activiy Diagram you try to find every possible PATH.
+
+After that you test every PATH.
+
+
+CQRS FOR UI AND DATA.
+======================
+======================
+Commands AND Queries.
+
+A Query generates DTO's.
+
+CQRS can be implemented with the Event Sourcing Pattern.
+
+Mostly Messaging is used tp Process the Commands and publish the Update Commands.
+
+

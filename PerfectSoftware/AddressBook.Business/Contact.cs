@@ -79,11 +79,11 @@ namespace PS.AddressBook.Business
             } 
         }
 
-        public ContactLine ContactLine
+        public ContactLineDTO ContactLine
         {
             get
             {
-                ContactLine oContactLine = new ContactLine();
+                ContactLineDTO oContactLine = new ContactLineDTO();
                 oContactLine.Name = this.Name;
                 oContactLine.ContentsCode = this.ContentsCode;
                 return oContactLine;

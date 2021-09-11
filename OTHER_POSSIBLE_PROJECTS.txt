@@ -1,0 +1,11 @@
+POSSIBLE PROJECTS FOR THE TUTORIAL
+=====================================
+=====================================
+
+1) AddressBook.
+
+
+2) Software Component to handle Translation of texts, Error Messages, UI Captions and others.
+
+
+3) Software Component to handle Invoices.
