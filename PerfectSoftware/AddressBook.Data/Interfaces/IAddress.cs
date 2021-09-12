@@ -10,5 +10,7 @@ namespace PS.AddressBook.Data.Interfaces
         public string PostalCode { get; set; }
 
         public string Town { get; set; }
+
+        bool IsValid();
     }
 }

@@ -1,8 +1,6 @@
 ﻿//Copyright 2021 Bart Vertongen
 
-using PS.AddressBook.Business.Adapters;
 using PS.AddressBook.Data.Interfaces;
-using System;
 using System.IO;
 
 
@@ -39,7 +37,6 @@ namespace PS.AddressBook.Business
             this.PhoneNumber = "";
             this.Email = "";
         }
-
 
         public AddressBook AddressBook { private get;  set;  }
 
@@ -95,6 +92,8 @@ namespace PS.AddressBook.Business
             if (string.IsNullOrEmpty(this.Name))
                 return false;
             else if (string.IsNullOrEmpty(this.PhoneNumber) && string.IsNullOrEmpty(this.Email))
+                return false;
+            else if (!this.Address.IsValid())
                 return false;
             else
                 return true;

@@ -53,7 +53,11 @@ namespace PS.AddressBook.Business.Commands
                     oResponse.WasSuccessful = false;
                     oResponse.Result = null;
                     oResponse.Errors = new List<string>();
-                    Line = $"The Contact could not be added because it was not valid!";
+                    if (!_Contact.Address.IsValid())
+                        Line = $"The Contact could not be added because the Address was not valid!";
+                    else
+                        Line = $"The Contact could not be added because it was not valid!";
+                    oResponse.Errors.Add(Line);
                 }
             }
             catch (Exception ex)

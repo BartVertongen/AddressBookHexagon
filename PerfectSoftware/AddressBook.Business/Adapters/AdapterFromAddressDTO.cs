@@ -32,5 +32,24 @@ namespace PS.AddressBook.Business.Adapters
             get { return _Adaptee.Town; }
             set => throw new NotImplementedException();
         }
+
+        //TODO: Here we repeat code! DRY
+        public bool IsValid()
+        {
+            if (
+                    string.IsNullOrEmpty(_Adaptee.Street)
+                    && string.IsNullOrEmpty(_Adaptee.PostalCode)
+                    && string.IsNullOrEmpty(_Adaptee.Town)
+               )
+                return true;
+            else if (
+                        !string.IsNullOrEmpty(_Adaptee.Street)
+                        && !string.IsNullOrEmpty(_Adaptee.PostalCode)
+                        && !string.IsNullOrEmpty(_Adaptee.Town)
+                )
+                return true;
+            else
+                return false;
+        }
     }
 }

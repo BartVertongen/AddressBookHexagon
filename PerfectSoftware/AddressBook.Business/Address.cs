@@ -62,5 +62,19 @@ namespace PS.AddressBook.Business
             else
                 return false;
         }
+
+        public bool IsValid()
+        {
+            if (this.IsEmpty())
+                return true;
+            else if (string.IsNullOrEmpty(this.Street))
+                return false;
+            else if (string.IsNullOrEmpty(this.PostalCode))
+                return false;
+            else if (string.IsNullOrEmpty(this.Town))
+                return false;
+            else
+                return true;
+        }
     }
 }

@@ -259,4 +259,4 @@ Work Done 4h on 05-09-2021. Lesson3 Task 2: Make new UseCasesTest with interacti
 Work Done 2h on 08-09-2021. Lesson3 Task 2: Command interface
 Work Done 2h on 09-09-3021. Lesson3 Task 2: Command Interface.
 Work Done 3h on 10-09-3021. Lesson3 Task 2: Command Interface.
-Work Done 3h on 11-09-3021. Lesson3 Task 2: Test Console implementation.
+Work Done 5h on 11-09-3021. Lesson3 Task 2: Test Console implementation.
