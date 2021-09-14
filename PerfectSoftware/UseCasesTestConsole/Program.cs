@@ -16,8 +16,8 @@ namespace UseCasesTestConsole
             oUseCase1 = new UseCase1();
             oUseCase1.Execute();
 
-            //oUseCase4 = new UseCase4();
-            //oUseCase4.Execute();
+            oUseCase4 = new UseCase4();
+            oUseCase4.Execute();
         }
     }
 }
