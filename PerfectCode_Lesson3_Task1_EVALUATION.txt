@@ -17,10 +17,7 @@ IS IT PERFECT SOFTWARE ?
 PROs
 ----------
 1) Testable:
-    - The Code is testable because it is tested by mimicing the Use Cases with Unit Testing.
-    - We also have Unit Test on Class Level.
-    - The UseCase implemented as a Console Application is near the real UseCases.
-            there is interaction between USER and SYSTEM.
+    - The Use Cases are tested as Unit Tests and are near the use cases.
 
 2) Documentation:
     - The Test are also a kind of Documentation.
@@ -41,16 +38,10 @@ PROs
 
 CONs
 ----------
-1) Testable and Analysis.
-    - The UseCase implementated as a Console Application can not be automated.
-    - We can not try them with different input.
-    - They are not really tests but just implementations of the UseCase.
+1) Architecture:
+    - The UI-layer is not used ?
 
-2) Architecture:
-    - The UI-layer is empty, so what is the purpose ?
-
-
-3) ReUse -- Changes:
+2) ReUse -- Changes:
     - How easy is it to reuse this code ?
     - How easy is it to change this code ?
 

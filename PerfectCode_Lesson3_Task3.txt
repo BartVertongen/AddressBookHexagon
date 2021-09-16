@@ -1,0 +1,6 @@
+Improve the code from lesson3 task2.
+======================================
+======================================
+- Make a real Console Application
+
+- Improve the quality of the software.

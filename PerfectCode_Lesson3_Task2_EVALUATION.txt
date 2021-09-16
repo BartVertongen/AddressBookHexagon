@@ -5,3 +5,11 @@ Improve the code from lesson3 task1.
     This should be a combination of Unit Testing and the Console Tests
 
 - Try to apply some SOLID Principle in the Code.
+
+
+
+
+IS IT PERFECT SOFTWARE ?
+===========================
+PROs
+-------
