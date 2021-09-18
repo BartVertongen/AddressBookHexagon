@@ -261,4 +261,4 @@ Work Done 2h on 09-09-3021. Lesson3 Task 2: Command Interface.
 Work Done 3h on 10-09-3021. Lesson3 Task 2: Command Interface.
 Work Done 5h on 11-09-3021. Lesson3 Task 2: Test Console implementation.
 Work Done 8h on 17-09-3021. Lesson3 Task 3: Refactor UICommands.
-Work Done 2h on 18-09-3021. Lesson3 Task 3: Make a Console Application.
+Work Done 7h on 18-09-3021. Lesson3 Task 3: Make a Console Application.

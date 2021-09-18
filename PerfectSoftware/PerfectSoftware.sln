@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Data", "Address
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Business.Tests", "AddressBook.Business.Tests\AddressBook.Business.Tests.csproj", "{05858B49-3C89-40D2-89D8-83D218CE78AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookConsoleApp", "AddressBookConsoleApp\AddressBookConsoleApp.csproj", "{1B08BA67-F39D-4E01-8E8D-B778531FC5F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookCLI", "AddressBookConsoleApp\AddressBookCLI.csproj", "{1B08BA67-F39D-4E01-8E8D-B778531FC5F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook.UI.Tests", "AddressBook.UI.Tests\AddressBook.UI.Tests.csproj", "{F4856D84-AA45-4EA4-9C56-27A8290805CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.UI.Tests", "AddressBook.UI.Tests\AddressBook.UI.Tests.csproj", "{F4856D84-AA45-4EA4-9C56-27A8290805CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
