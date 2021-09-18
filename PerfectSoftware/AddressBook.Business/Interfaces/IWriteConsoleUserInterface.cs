@@ -3,10 +3,8 @@
 
 namespace PS.AddressBook.Business.Interfaces
 {
-    public interface IUserInterface
+    public interface IWriteConsoleUserInterface
     {
-        string ReadValue(string message);
-
         void WriteMessage(string message);
 
         void WriteWarning(string message);

@@ -5,7 +5,8 @@ using System.IO;
 using Xunit;
 using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Business.Commands;
+using PS.AddressBook.UI.Commands;
+using PS.AddressBook.UI;
 
 namespace UseCaseTests2
 {
@@ -17,6 +18,7 @@ namespace UseCaseTests2
         private AddressBook _AddressBook;
         private Contact _ContactFirst, _ContactDouble;
         private IConsole _Console;
+        private IConsoleUserInterface _UserInterface;
 
         /// <summary>
         /// All the initialization for the tests.
@@ -28,6 +30,7 @@ namespace UseCaseTests2
             _ContactFirst = new Contact(_AddressBook);
             _ContactDouble = new Contact(_AddressBook);
             _Console = new TestConsole();
+            _UserInterface = new ConsoleUserInterface();
         }
 
 
@@ -40,11 +43,10 @@ namespace UseCaseTests2
         public void UseCase2_4A_CreationWithExistingName_ShouldFail(string name, string phone, string email)
         {
             //Arrange
-            IChangeCommandResponse aResponse;
             _ContactFirst.Name = name;
             _ContactFirst.PhoneNumber = phone;
             _ContactFirst.Email = email;
-            aResponse = new AddContactCommand(_AddressBook, _ContactFirst).Run();
+            new AddContactCommand(_AddressBook, _UserInterface).Run();
 
             //Action
             //Step1: USER trigger the adding a new Contact.

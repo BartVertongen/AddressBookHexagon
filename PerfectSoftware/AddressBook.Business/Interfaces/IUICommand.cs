@@ -3,12 +3,14 @@
 
 namespace PS.AddressBook.Business.Interfaces
 {
-    public interface ICommand
+    public interface IUICommand
     {
         string ShortName { get; }
 
         string Name { get; }
 
         string Description { get; }
+
+        (bool WasSuccessful, bool IsTerminating) Run(string argument = "");
     }
 }

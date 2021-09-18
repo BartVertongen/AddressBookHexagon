@@ -4,33 +4,67 @@ using System;
 using PS.AddressBook.Business.Interfaces;
 
 
-namespace PS.AdressBook.UI
+namespace PS.AddressBook.UI
 {
-    internal class ConsoleUserInterface : IUserInterface
+    public class ConsoleUserInterface : IConsoleUserInterface
     {
+        private readonly IConsole _Console;
+
+        public ConsoleUserInterface(IConsole console = null)
+        {
+            _Console = console;
+        }
+
         public string ReadValue(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(message);
-            return Console.ReadLine();
+            if (_Console == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(message);
+                return Console.ReadLine();
+            }
+            else
+            {
+                _Console.Write("INPUT: " + message);
+                return _Console.ReadLine();
+            }
         }
 
         public void WriteMessage(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(message);
+            if (_Console == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(message);
+            }
+            else
+            {
+                _Console.WriteLine(message);
+            }
         }
 
         public void WriteWarning(string message)
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(message);
+            if (_Console == null)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine(message);
+            }
+            else
+            {
+                _Console.WriteLine("WARNING: " + message);
+            }
         }
 
         public void WriteError(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(message);
+            if (_Console == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(message);
+            }
+            else
+                Console.WriteLine("ERROR: " + message);
         }
     }
 }

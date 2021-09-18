@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using PS.AddressBook.Business.Interfaces;
 
 
-namespace PS.AddressBook.Business
+namespace PS.AddressBook.UI
 {
     public class TestConsole : IConsole
     {

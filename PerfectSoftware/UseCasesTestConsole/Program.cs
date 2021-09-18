@@ -1,23 +1,31 @@
-﻿
-using System;
+﻿using System;
+using FlixOne.InventoryManagement.Command;
+using FlixOne.InventoryManagement.UserInterface;
+using Microsoft.Extensions.DependencyInjection;
 
-
-namespace UseCasesTestConsole
+namespace FlixOne.InventoryManagementClient
 {
     class Program
     {
-        static UseCase1 oUseCase1;
-        static UseCase4 oUseCase4;
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Here we test all the UseCases!");
+            IServiceCollection services = new ServiceCollection();
+            ConfigureServices(services);
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-            oUseCase1 = new UseCase1();
-            oUseCase1.Execute();
+            var service = serviceProvider.GetService<ICatalogService>();
+            service.Run();
 
-            oUseCase4 = new UseCase4();
-            oUseCase4.Execute();
+            Console.WriteLine("CatalogService has completed.");
+            Console.ReadLine();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            // Add application services.
+            services.AddTransient<IUserInterface, ConsoleUserInterface>();            
+            services.AddTransient<ICatalogService, CatalogService>();
+            services.AddTransient<IInventoryCommandFactory, InventoryCommandFactory>();                        
         }
     }
 }

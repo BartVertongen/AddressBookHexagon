@@ -14,5 +14,7 @@ namespace PS.AddressBook.Business.Commands
         public bool WasSuccessful { get; set; } = false;
 
         public IList<string> Errors { get; set; }
+
+        public bool IsTerminating { get; private set; } = false;
     }
 }

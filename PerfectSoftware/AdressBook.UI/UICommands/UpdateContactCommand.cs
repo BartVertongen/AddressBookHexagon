@@ -1,16 +1,19 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using System.Collections.Generic;
 using PS.AddressBook.Data.Interfaces;
+using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
+using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
-namespace PS.AddressBook.Business.Commands
+namespace PS.AddressBook.UI.Commands
 {
     public class UpdateContactCommand : IChangeCommand
     {
-        private readonly AddressBook _AddressBook;
+        private readonly BussAddressBook _AddressBook;
+        private readonly IConsoleUserInterface _UserInterface;
+        private readonly IAddressBookUICommandFactory _CommandFactory;
         private readonly Contact _Contact;
 
         /// <summary>
@@ -18,10 +21,11 @@ namespace PS.AddressBook.Business.Commands
         /// </summary>
         /// <param name="book"></param>
         /// <param name="newContact"></param>
-        public UpdateContactCommand(IAddressBook book, Contact changedContact)
+        public UpdateContactCommand(IAddressBook book, IConsoleUserInterface ui, IAddressBookUICommandFactory commandFactory)
         {
-            _AddressBook = (AddressBook)book;
-            _Contact = changedContact;
+            _AddressBook = (BussAddressBook)book;
+            _UserInterface = ui;
+            _CommandFactory = commandFactory;
         }
 
         public string ShortName { get; } = "u";
@@ -31,9 +35,8 @@ namespace PS.AddressBook.Business.Commands
         public string Description { get; } = "Update an existing Contact from the AddressBook.";
 
 
-        public IChangeCommandResponse Run()
+        public (bool WasSuccessful, bool IsTerminating) Run(string argument="")
         {
-            ChangeCommandResponse oResponse = new ChangeCommandResponse();
 
             try
             {
@@ -41,39 +44,30 @@ namespace PS.AddressBook.Business.Commands
                 {
                     _AddressBook.Update(_Contact);
                     _AddressBook.Save();
-                    oResponse.WasSuccessful = true;
-                    oResponse.Errors = null;
-                    oResponse.Result = new List<string>();
-                    oResponse.Result.Add($"The Contact with Name '{_Contact.Name}' is updated.");
+                    _UserInterface.WriteMessage($"The Contact with Name '{_Contact.Name}' is updated.");
+                    return (true, false);
                 }
                 else
                 {
                     string Line;
 
-                    oResponse.WasSuccessful = false;
-                    oResponse.Result = null;
-                    oResponse.Errors = new List<string>();
                     if (!_Contact.Address.IsValid())
                         Line = $"The Contact could not be updated because the Address was not valid!";
                     else
                         Line = $"The Contact could not be updated because the new values were not valid!";
-                    oResponse.Errors.Add(Line);
+                    _UserInterface.WriteError(Line);
+                    return (false, false);
                 }
             }
             catch (Exception ex)
             {
                 string Line;
 
-                oResponse.WasSuccessful = false;
-                oResponse.Result = null;
-                oResponse.Errors = new List<string>();
                 Line = $"An Error Occurred in UpdateContact Command with ContactName={_Contact.Name}.";
-                oResponse.Errors.Add(Line);
-                Line = "The error description is " + ex.Message;
-                oResponse.Errors.Add(Line);
+                _UserInterface.WriteError(Line);
+                _UserInterface.WriteError("The error description is " + ex.Message);
+                return (false, false);
             }
-
-            return oResponse;
         }
     }
 }

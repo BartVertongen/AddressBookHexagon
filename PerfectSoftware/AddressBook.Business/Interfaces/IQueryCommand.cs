@@ -3,9 +3,8 @@
 
 namespace PS.AddressBook.Business.Interfaces
 {
-    public interface IQueryCommand: ICommand
+    public interface IQueryCommand: IUICommand
     {
 
-        IQueryCommandResponse Run();
     }
 }

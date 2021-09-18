@@ -80,9 +80,11 @@ namespace PS.AddressBook.Business
         {
             get
             {
-                ContactLineDTO oContactLine = new ContactLineDTO();
-                oContactLine.Name = this.Name;
-                oContactLine.ContentsCode = this.ContentsCode;
+                ContactLineDTO oContactLine = new ContactLineDTO
+                {
+                    Name = this.Name,
+                    ContentsCode = this.ContentsCode
+                };
                 return oContactLine;
             }
         }

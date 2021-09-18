@@ -3,9 +3,8 @@
 
 namespace PS.AddressBook.Business.Interfaces
 {
-    public interface IChangeCommand: ICommand
+    public interface IChangeCommand: IUICommand
     {
 
-        IChangeCommandResponse Run();
     }
 }

@@ -3,7 +3,8 @@
 using Xunit;
 using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Business.Commands;
+using PS.AddressBook.UI.Commands;
+using PS.AddressBook.UI;
 
 
 namespace UseCaseTests2
@@ -16,6 +17,7 @@ namespace UseCaseTests2
         private AddressBook _AddressBook;
         private Contact _Contact;
         private IConsole _Console;
+        private ConsoleUserInterface _UserInterface;
 
         /// <summary>
         /// All the initialization for the tests.
@@ -26,6 +28,7 @@ namespace UseCaseTests2
             _AddressBook.XmlFile = "AddressBookUseCase2.xml";
             _Contact = new Contact(_AddressBook);
             _Console = new TestConsole();
+            _UserInterface = new ConsoleUserInterface();
         }
 
         /// <summary>
@@ -43,9 +46,8 @@ namespace UseCaseTests2
                                                             string postalcode, string town, string phone, string email)
         {
             //Arrange
-            IChangeCommandResponse aResponse;
             AddContactCommand AddAContactCommand;
-            AddAContactCommand = NewMethod();
+            AddAContactCommand = new AddContactCommand(_AddressBook, _UserInterface);
 
             //Action
             //Step1: USER trigger the adding a new Contact.
@@ -103,15 +105,9 @@ namespace UseCaseTests2
             _Console.WriteLine();
 
             //Step10: The SYSTEM will add the new Contact to the AddressBook and Xml.          
-            aResponse = AddAContactCommand.Run();
 
             //Assert
-            Assert.False(aResponse.WasSuccessful);
-        }
-
-        private AddContactCommand NewMethod()
-        {
-            return new AddContactCommand(_AddressBook, _Contact);
+            Assert.False(AddAContactCommand.Run().WasSuccessful);
         }
     }
 }

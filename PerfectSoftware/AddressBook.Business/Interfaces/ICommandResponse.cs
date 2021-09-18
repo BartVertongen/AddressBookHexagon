@@ -9,6 +9,11 @@ namespace PS.AddressBook.Business.Interfaces
     {
         bool WasSuccessful { get; }
 
+        /// <summary>
+        /// Is this a termination command ?
+        /// </summary>
+        bool IsTerminating { get; }
+
         IList<string> Errors { get; }
     }
 }

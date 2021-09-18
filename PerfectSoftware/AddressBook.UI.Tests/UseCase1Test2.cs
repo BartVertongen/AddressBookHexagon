@@ -4,7 +4,8 @@ using System;
 using System.IO;
 using Xunit;
 using PS.AddressBook.Business;
-using PS.AddressBook.Business.Commands;
+using PS.AddressBook.UI;
+using PS.AddressBook.UI.Commands;
 using PS.AddressBook.Business.Interfaces;
 
 
@@ -16,6 +17,9 @@ namespace UseCaseTests2
     public class UseCase1Test2
     {
         private AddressBook _AddressBook;
+        private IConsole _Console;
+        private IConsoleUserInterface _UserInterface;
+        private IAddressBookUICommandFactory _CommandFactory;
 
         /// <summary>
         /// All the initialization for the tests.
@@ -28,7 +32,10 @@ namespace UseCaseTests2
             {
                 File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
             }
-            this.CreateAddressBookUseCase1();        
+            this.CreateAddressBookUseCase1();
+            _Console = new TestConsole();
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
         }
 
         [Theory]
@@ -39,35 +46,14 @@ namespace UseCaseTests2
         {
             //Arrange
             _AddressBook.Load();
+            _CommandFactory.GetCommand("l");
 
             //Actions
-            //Step1
-            GetOverViewCommand GetList = new GetOverViewCommand(_AddressBook, filter);
+            IUICommand GetList = _CommandFactory.GetCommand("l");
 
-            //Step2
-            IQueryCommandResponse oResponse;
-            oResponse = GetList.Run();
-
-            //Step3: the Result
             //Assert
-            Assert.True(oResponse.WasSuccessful);
-            if (oResponse.WasSuccessful)
-            {
-                if (filter == "")
-                    Assert.True(oResponse.Result.Count == 4);
-                else if (filter == "a")
-                {
-                    Assert.True(oResponse.Result.Count == 2);
-                    Assert.Equal("An Dematras", oResponse.Result[0].Name);
-                }
-                else if (filter == "*de*")
-                {
-                    Assert.True(oResponse.Result.Count == 2);
-                    Assert.Equal("Josephine DePin", oResponse.Result[1].Name);
-                }
-            }
+            Assert.True(GetList.Run().WasSuccessful);
         }
-
 
         private void CreateAddressBookUseCase1()
         {
@@ -96,7 +82,6 @@ namespace UseCaseTests2
             NewAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
             NewContact.Address = NewAddress;
             _AddressBook.Add(NewContact);
-
             _AddressBook.Save();
         }
     }

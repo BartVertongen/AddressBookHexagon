@@ -5,8 +5,9 @@ using System.IO.Abstractions;
 using Xunit;
 using Moq;
 using PS.AddressBook.Business;
-using PS.AddressBook.Business.Commands;
 using PS.AddressBook.Business.Interfaces;
+using PS.AddressBook.UI.Commands;
+using PS.AddressBook.UI;
 
 
 namespace UseCaseTests2
@@ -21,8 +22,11 @@ namespace UseCaseTests2
     public class UseCase4Test2
     {
         private AddressBook _AddressBook;
+        private IConsole _Console;
+        private ConsoleUserInterface _UserInterface;
+        private IAddressBookUICommandFactory _CommandFactory;
         private IFile _File;
-        private Mock<IFile> FileMock;
+        private readonly Mock<IFile> FileMock;
 
         /// <summary>
         /// All the initialization for the tests.
@@ -41,7 +45,10 @@ namespace UseCaseTests2
             {
                 _File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
             }
-            this.CreateAddressBookUseCase4();         
+            this.CreateAddressBookUseCase4();
+            _Console = new TestConsole();
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
         }
 
         [Theory]
@@ -50,39 +57,11 @@ namespace UseCaseTests2
         public void UseCase4(string filter, int selectedContact)
         {
             //Arrange
-            IContactLineDTO oContactLine;
             _AddressBook.Load();
+            IUICommand DeleteCommand = _CommandFactory.GetCommand("d");
 
-            //ACTIONS
-            //Step1
-            GetOverViewCommand GetList = new GetOverViewCommand(_AddressBook, filter);
-            DeleteContactCommand DeleteCommand;
-            IChangeCommandResponse DeleteResponse;
-
-            //Step 2
-            IQueryCommandResponse oResponse;
-            oResponse = GetList.Run();
-
-            //Step 3: the Result for the list
-            //Assert
-            Assert.True(oResponse.WasSuccessful);
-            Assert.True(oResponse.Result.Count > 0);
-
-            //Step 4 is not done, we show nothing
-
-            //Step 5: The USER selects the Contact he wants to delete.
-            // There is no USER so we take the first
-            oContactLine = oResponse.Result[selectedContact-1];
-
-            //Step6 and step7: both are done by the SYSTEM and can be together.
-            //Step6: Delete the Contact from Memory
-            //Step7: Make the Delete persistent.
-            DeleteCommand = new DeleteContactCommand(_AddressBook, oContactLine.Name);
-            DeleteResponse = DeleteCommand.Run();
-
-            //Asserts
-            Assert.True(DeleteResponse.WasSuccessful);
-            Assert.False(_AddressBook.ContainsName(oContactLine.Name));
+            //Actions and Assert
+            Assert.True(DeleteCommand.Run().WasSuccessful);
         }
 
 
