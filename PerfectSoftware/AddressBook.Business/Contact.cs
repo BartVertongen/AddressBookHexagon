@@ -64,12 +64,13 @@ namespace PS.AddressBook.Business
             get
             {
                 string sContentsCode;
-                Address bussAddress = new Address();
-
-                bussAddress.Street = this.Address.Street;
-                bussAddress.PostalCode = this.Address.PostalCode;
-                bussAddress.Town = this.Address.Town;
-                sContentsCode = (this.Address == null || bussAddress.IsEmpty() ? "*" : "A");
+                Address bussAddress = new Address
+                {
+                    Street = this.Address.Street,
+                    PostalCode = this.Address.PostalCode,
+                    Town = this.Address.Town
+                };
+                sContentsCode = bussAddress.IsEmpty() ? "*" : "A";
                 sContentsCode += string.IsNullOrEmpty(this.PhoneNumber) ? "*" : "P";
                 sContentsCode += string.IsNullOrEmpty(this.Email) ? "*" : "E";
                 return sContentsCode;
@@ -107,11 +108,13 @@ namespace PS.AddressBook.Business
         /// <returns></returns>
         public Contact DeepClone()
         {
-            Contact oCopy = new Contact();
-            oCopy.Name = this.Name;
-            oCopy.PhoneNumber = this.PhoneNumber;
-            oCopy.Email = this.Email;
-            oCopy.Address = new Address(Address.Street, Address.PostalCode, Address.Town);
+            Contact oCopy = new Contact
+            {
+                Name = this.Name,
+                PhoneNumber = this.PhoneNumber,
+                Email = this.Email,
+                Address = new Address(Address.Street, Address.PostalCode, Address.Town)
+            };
             return oCopy;
         }
     }

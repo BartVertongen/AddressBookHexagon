@@ -16,7 +16,7 @@ namespace PS.AddressBook.Data
         public void Save(IList<IContactDTO> book)
         {
             XmlSerializer AddressBookSerializer;
-            AddressBookDTO TempBook = new AddressBookDTO();
+            AddressBookDTO TempBook = new();
 
             if (string.IsNullOrEmpty(this.FullPath))
             {
@@ -26,8 +26,8 @@ namespace PS.AddressBook.Data
 
             foreach (IContactDTO ContactSource in book)
             {
-                ContactDTO dtoContact = new ContactDTO();
-                AddressDTO dtoAddress = new AddressDTO();
+                ContactDTO dtoContact = new();
+                AddressDTO dtoAddress = new();
 
                 dtoContact.Name = ContactSource.Name;
                 dtoAddress.Street = ContactSource.Address.Street;

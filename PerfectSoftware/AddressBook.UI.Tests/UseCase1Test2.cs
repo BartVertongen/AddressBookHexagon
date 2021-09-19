@@ -16,7 +16,8 @@ namespace UseCaseTests2
     /// </summary>
     public class UseCase1Test2
     {
-        private AddressBook _AddressBook;
+        private readonly AddressBook _AddressBook;
+        private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
         private IAddressBookUICommandFactory _CommandFactory;
@@ -33,9 +34,6 @@ namespace UseCaseTests2
                 File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
             }
             this.CreateAddressBookUseCase1();
-            _Console = new TestConsole();
-            _UserInterface = new ConsoleUserInterface(_Console);
-            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
         }
 
         [Theory]
@@ -46,7 +44,10 @@ namespace UseCaseTests2
         {
             //Arrange
             _AddressBook.Load();
-            _CommandFactory.GetCommand("l");
+            _InputIterator = (IInputIterator)new InputIterator(filter, null, null, null, null, null, null);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
 
             //Actions
             IUICommand GetList = _CommandFactory.GetCommand("l");

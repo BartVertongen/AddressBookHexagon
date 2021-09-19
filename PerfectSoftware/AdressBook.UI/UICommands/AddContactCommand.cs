@@ -13,7 +13,7 @@ namespace PS.AddressBook.UI.Commands
     {
         private readonly BussAddressBook _AddressBook;       
         private readonly IConsoleUserInterface _UserInterface;
-        private Contact _Contact;
+        private readonly Contact _Contact;
 
         /// <summary>
         /// The Command to create and add a Contact.
@@ -44,6 +44,7 @@ namespace PS.AddressBook.UI.Commands
             _Contact.Address.Town = _UserInterface.ReadValue("Give a town for the Address of the new Contact: ");
             _Contact.PhoneNumber = _UserInterface.ReadValue("Give a phone number for the new Contact: ");
             _Contact.Email = _UserInterface.ReadValue("Give an email for the new Contact: ");
+            _UserInterface.WriteMessage("");
         }
 
         public (bool WasSuccessful, bool IsTerminating) Run(string argument = "")
@@ -55,7 +56,9 @@ namespace PS.AddressBook.UI.Commands
                 {
                     _AddressBook.Add(_Contact);
                     _AddressBook.Save();
-                    _UserInterface.WriteMessage($"The Contact with Name '{_Contact.Name}' is added.");
+                    _UserInterface.WriteMessage("");
+                    _UserInterface.WriteWarning($"The Contact with Name '{_Contact.Name}' is added.");
+                    _UserInterface.WriteMessage("");
                     return (true, false);
                 }
                 else
@@ -67,6 +70,7 @@ namespace PS.AddressBook.UI.Commands
                     else
                         Line = $"The Contact could not be added because it was not valid!";
                     _UserInterface.WriteError(Line);
+                    _UserInterface.WriteMessage("");
                     return (false, false);
                 }
             }
@@ -77,6 +81,7 @@ namespace PS.AddressBook.UI.Commands
                 Line = $"An Error Occurred in AddContact Command with argument ContactName={_Contact.Name}.";
                 _UserInterface.WriteError(Line);
                 _UserInterface.WriteError("The error description is " + ex.Message);
+                _UserInterface.WriteMessage("");
                 return (false, false);
             }
         }

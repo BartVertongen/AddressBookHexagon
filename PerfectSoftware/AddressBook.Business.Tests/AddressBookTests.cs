@@ -54,7 +54,7 @@ namespace PS.AddressBook.Business.Tests
             anAddressBook = new AddressBook();
             InvalidContact = new Contact();
             InvalidContact.Name = "Elizabeth De Prinses";
-            Action testCode = () => anAddressBook.Add(InvalidContact);
+            void testCode() => anAddressBook.Add(InvalidContact); //a local function
             var ex = Record.Exception(testCode);
 
             //Asserts

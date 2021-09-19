@@ -37,7 +37,7 @@ namespace PS.AddressBook.UI.Commands
                 SelectContactCommand SelectCommand = new SelectContactCommand(_AddressBook, _UserInterface);
 
                 SelectCommand.Run();
-                sName = SelectCommand.SelectedContactName;
+                sName = _AddressBook.SelectedContactName;
                 if (!string.IsNullOrEmpty(sName))
                 {
                     _AddressBook.Delete(sName);

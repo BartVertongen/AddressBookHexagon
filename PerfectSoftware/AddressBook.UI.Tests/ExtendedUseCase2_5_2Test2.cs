@@ -14,21 +14,21 @@ namespace UseCaseTests2
     /// </summary>
     public class UseCase2_5_2Test2
     {
-        private AddressBook _AddressBook;
-        private Contact _Contact;
+        private readonly AddressBook _AddressBook;
+        private IInputIterator _InputIterator;
         private IConsole _Console;
-        private ConsoleUserInterface _UserInterface;
+        private IConsoleUserInterface _UserInterface;
+        private IAddressBookUICommandFactory _CommandFactory;
 
         /// <summary>
         /// All the initialization for the tests.
         /// </summary>
         public UseCase2_5_2Test2()
         {
-            _AddressBook = new AddressBook();
-            _AddressBook.XmlFile = "AddressBookUseCase2.xml";
-            _Contact = new Contact(_AddressBook);
-            _Console = new TestConsole();
-            _UserInterface = new ConsoleUserInterface();
+            _AddressBook = new AddressBook(null)
+            {
+                XmlFile = "AddressBookUseCase2.xml"
+            };
         }
 
         /// <summary>
@@ -46,68 +46,19 @@ namespace UseCaseTests2
                                                             string postalcode, string town, string phone, string email)
         {
             //Arrange
-            AddContactCommand AddAContactCommand;
-            AddAContactCommand = new AddContactCommand(_AddressBook, _UserInterface);
+            _AddressBook.Load();
+            _InputIterator = (IInputIterator)new InputIterator(null, name, street, postalcode, town, phone, email);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface();
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            IUICommand AddCommand = _CommandFactory.GetCommand("a");
 
-            //Action
-            //Step1: USER trigger the adding a new Contact.
-            // This is done by starting the Unit Test.
+            //TODO select the new added Contact
 
-            //Step2 SYSTEM Asks for Input of the Name
-            _Console.Write("Give in a Unique name for the new Contact: ");
+            //TODO show it.
 
-            //Step3: USER supplies a Name
-            //Step4: SYSTEM will validate the Name
-            TestConsole.UserInput = name;
-            _Contact.Name = _Console.ReadLine();
-            _Console.WriteLine();
-
-            //Step5: UseCase 2.5: Give in the New Address
-            //UseCase2.5: Step1: The SYSTEM asks for the Street.
-            _Console.Write("Give in a Street for the new Address for the new Contact: ");
-
-            //UseCase2.5 Step2: The User gives a valid Street.
-            TestConsole.UserInput = street;
-            _Contact.Address.Street = _Console.ReadLine();
-            _Console.WriteLine();
-
-            //UseCase2.5 Step3: SYSTEM asks for the Postal Code.
-            _Console.Write("Give in a Postal Code for the new Address for the new Contact: ");
-
-            //UseCase2.5 Step4: The USER gives in a valid Postal Code.
-            TestConsole.UserInput = postalcode;
-            _Contact.Address.PostalCode = _Console.ReadLine();
-            _Console.WriteLine();
-
-            //UseCase2.5 Step5: SYSTEM asks for the Town.
-            _Console.Write("Give in a Town for the new Address for the new Contact: ");
-
-            //UseCase2.5: Step6: The USER gives in a valid Town.
-            TestConsole.UserInput = town;
-            _Contact.Address.Town = _Console.ReadLine();
-            _Console.WriteLine();
-
-
-            //Step6: The SYSTEM will ask for the Phone Number.
-            _Console.Write("Give in a Phone number for the new Contact: ");
-
-            //Step7: The USER Supplies a Valid Phone Number.
-            TestConsole.UserInput = phone;
-            _Contact.PhoneNumber = _Console.ReadLine();
-            _Console.WriteLine();
-
-            //Step8: The SYSTEM asks for a Valid Email Address.
-            _Console.Write("Give in an Email Address for the new Contact: ");
-
-            //Step9: The User Supplies a Valid Email Adress.
-            TestConsole.UserInput = email;
-            _Contact.Email = _Console.ReadLine();
-            _Console.WriteLine();
-
-            //Step10: The SYSTEM will add the new Contact to the AddressBook and Xml.          
-
-            //Assert
-            Assert.False(AddAContactCommand.Run().WasSuccessful);
+            //Action and Assert
+            Assert.False(AddCommand.Run().WasSuccessful);
         }
     }
 }

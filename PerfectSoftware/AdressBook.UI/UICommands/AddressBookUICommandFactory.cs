@@ -36,9 +36,15 @@ namespace PS.AddressBook.UI.Commands
                 case "d":
                 case "delete":
                     return new DeleteContactCommand(_AddressBook, _UserInterface, this);
+                case "s":
+                case "select":
+                    return new SelectContactCommand(_AddressBook, _UserInterface);
                 case "u":
                 case "update":
                     return new UpdateContactCommand(_AddressBook, _UserInterface, this);
+                case "v":
+                case "view":
+                    return new ViewContactCommand(_AddressBook, _UserInterface);
                 case "?":
                 case "help":
                     return new HelpCommand(_UserInterface);

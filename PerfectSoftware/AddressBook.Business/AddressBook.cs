@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Business.Adapters;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.Data;
@@ -13,17 +14,31 @@ using PS.AddressBook.Data.Interfaces;
 
 namespace PS.AddressBook.Business
 {
-    public class AddressBook: List<IContact>, IAddressBook 
+    public class AddressBook : List<IContact>, IAddressBook
     {
-        public string XmlFile = "AddresBook.xml";
+        public string XmlFile;
+        public string SelectedContactName;
+        private readonly IConfigurationRoot _Configuration;
+
+        public AddressBook(IConfigurationRoot config=null)
+        {
+            _Configuration = config;
+            if (_Configuration == null)
+                XmlFile = "AddresBook.xml";
+            else
+                XmlFile = _Configuration.GetSection("ContactsFile").Value;
+            this.Load();
+            SelectedContactName = "";
+        }
 
         public IList<IContactLineDTO> GetOverview(string filter)
         {
             IList<IContactLineDTO> Result = new List<IContactLineDTO>();
-            List<IContact> Selection = new List<IContact>();
+            List<IContact> Selection = new();
             int ID = 0;
 
             string PureFilter;
+
 
             if (string.IsNullOrEmpty(filter))
             {
@@ -105,7 +120,7 @@ namespace PS.AddressBook.Business
         {
             string sXmlFile;
             DSAddressBook aDSAddressBook;
-            List<IContactDTO> TempBook = new List<IContactDTO>();
+            List<IContactDTO> TempBook = new();
             
             sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
             aDSAddressBook = new DSAddressBook();
@@ -114,7 +129,7 @@ namespace PS.AddressBook.Business
             this.Clear();
             foreach(IContactDTO dtoContact in TempBook)
             {
-                AdapterFromContactDTO ContactAdapter = new AdapterFromContactDTO(dtoContact);
+                AdapterFromContactDTO ContactAdapter = new(dtoContact);
                 Contact bussContact = new Contact(ContactAdapter);
                 this.Add(bussContact);
             }
@@ -130,8 +145,10 @@ namespace PS.AddressBook.Business
             List<IContactDTO> TempBook = new List<IContactDTO>();
 
             sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
-            aDSAddressBook = new DSAddressBook();
-            aDSAddressBook.FullPath = sXmlFile;
+            aDSAddressBook = new DSAddressBook
+            {
+                FullPath = sXmlFile
+            };
             foreach (IContact bussContact in this)
             {
                 AdapterToContactDTO Adapter = new AdapterToContactDTO(bussContact);

@@ -49,8 +49,8 @@ namespace PS.AddressBook.Business.Commands
             }
             catch (Exception ex)
             {
-                _UserInterface.WriteMessage("An Error Occurred in Help Command.");
-                _UserInterface.WriteMessage("The error description is " + ex.Message);
+                _UserInterface.WriteError("An Error Occurred in Help Command.");
+                _UserInterface.WriteError("The error description is " + ex.Message);
                 return (false, false);
             }
         }

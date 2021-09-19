@@ -18,11 +18,12 @@ namespace UseCaseTests2
     public class UseCase3Test2
     {
         private AddressBook _AddressBook;
+        private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
         private IAddressBookUICommandFactory _CommandFactory;
-        private IFile _File;
-        private Mock<IFile> FileMock;
+        private readonly IFile _File;
+        private readonly Mock<IFile> FileMock;
 
 
         /// <summary>
@@ -43,9 +44,7 @@ namespace UseCaseTests2
                 _File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
             }
             this.CreateAddressBookUseCase3();
-            _Console = new TestConsole();
-            _UserInterface = new ConsoleUserInterface();
-            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+
         }
 
         /// <summary>
@@ -59,6 +58,10 @@ namespace UseCaseTests2
         {
             //Arrange
             _AddressBook.Load();
+            _InputIterator = (IInputIterator)new InputIterator(filter, null, newStreet, newPostCode, newTown, newPhone, newEmail);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface();
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
             IUICommand UpdateCommand = _CommandFactory.GetCommand("u");
 
             //Actions and Assert

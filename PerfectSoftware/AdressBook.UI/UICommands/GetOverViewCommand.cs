@@ -29,26 +29,45 @@ namespace PS.AddressBook.UI.Commands
 
         public (bool WasSuccessful, bool IsTerminating) Run(string argument = "")
         {
-            string sFilter="";
+            string sLine, sFilter="";
 
             try
             {
-                sFilter = _UserInterface.ReadValue("Give the filter value to select a Contact ['', 'a', '*de*'] :");
+                string CurrentLetter, PreviousLetter = "";
+
+                sFilter = _UserInterface.ReadValue("Give the filter value to select a Contact ['', 'a', '*de*']: ");
                 List<IContactLineDTO> Result = _AddressBook.GetOverview(sFilter).Cast<IContactLineDTO>().ToList();               
                 if (Result.Count > 0)
                 {
+                    _UserInterface.WriteMessage("");
                     _UserInterface.WriteMessage($"The Contacts passing the filter '{sFilter}' are:");
                     foreach (IContactLineDTO Line in Result)
                     {
-                        _UserInterface.WriteMessage($"{Line.Id})\t{Line.Name} {Line.ContentsCode}");
+                        CurrentLetter = Line.Name.Substring(0, 1);
+                        if (CurrentLetter != PreviousLetter)
+                        {
+                            _UserInterface.WriteWarning("[" + CurrentLetter + "]");
+                            PreviousLetter = CurrentLetter;
+                        }
+                        sLine = string.Format("{0,-40} {1,3}", Line.Name, Line.ContentsCode);
+                        _UserInterface.WriteMessage(sLine);
                     }
+                    _UserInterface.WriteMessage("");
                 }
                 else
                 {
                     if (string.IsNullOrEmpty(sFilter))
+                    {
+                        _UserInterface.WriteMessage("");
                         _UserInterface.WriteWarning("The Address Book has no Contacts!");
+                        _UserInterface.WriteMessage("");
+                    }                      
                     else
+                    {
+                        _UserInterface.WriteMessage("");
                         _UserInterface.WriteWarning($"There are no Contacts found passing that filter!");
+                        _UserInterface.WriteMessage("");
+                    }                    
                 }                   
                 return (true, false);
             }

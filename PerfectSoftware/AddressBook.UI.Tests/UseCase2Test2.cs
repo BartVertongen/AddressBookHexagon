@@ -16,6 +16,7 @@ namespace UseCaseTests2
     public class UseCase2Test2 : IDisposable
     {
         private AddressBook _AddressBook;
+        private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
         private IAddressBookUICommandFactory _CommandFactory;
@@ -27,9 +28,7 @@ namespace UseCaseTests2
         {
             _AddressBook = new AddressBook();
             _AddressBook.XmlFile = "AddressBookUseCase2.xml";
-            _Console = new TestConsole();
-            _UserInterface = new ConsoleUserInterface(_Console);
-            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+
         }
 
         /// <summary>
@@ -50,11 +49,13 @@ namespace UseCaseTests2
         {
             //Arrange
             _AddressBook.Load();
+            _InputIterator = (IInputIterator)new InputIterator(null, name, street, postalcode, town, phone, email);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
             IUICommand AddCommand = _CommandFactory.GetCommand("a");
 
-            //Actions
-
-            //Assert
+            //Action and Assert
             Assert.True(AddCommand.Run().WasSuccessful);
         }
     }

@@ -1,12 +1,11 @@
 //Copyright 2021 Bart Vertongen.
 
-using System;
-using System.IO;
 using Xunit;
 using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.UI;
+
 
 namespace UseCaseTests2
 {
@@ -15,8 +14,8 @@ namespace UseCaseTests2
     /// </summary>
     public class ExtendedUseCase2_4ATest2
     {
-        private AddressBook _AddressBook;
-        private Contact _ContactFirst, _ContactDouble;
+        private readonly AddressBook _AddressBook;
+        private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
 
@@ -25,12 +24,10 @@ namespace UseCaseTests2
         /// </summary>
         public ExtendedUseCase2_4ATest2()
         {
-            _AddressBook = new AddressBook();
-            _AddressBook.XmlFile = "AddressBookUseCase2_4A.xml";
-            _ContactFirst = new Contact(_AddressBook);
-            _ContactDouble = new Contact(_AddressBook);
-            _Console = new TestConsole();
-            _UserInterface = new ConsoleUserInterface();
+            _AddressBook = new AddressBook
+            {
+                XmlFile = "AddressBookUseCase2_4A.xml"
+            };
         }
 
 
@@ -42,31 +39,22 @@ namespace UseCaseTests2
         [InlineData("David Deschepper", "+3209/45.14.81", "")]
         public void UseCase2_4A_CreationWithExistingName_ShouldFail(string name, string phone, string email)
         {
-            //Arrange
-            _ContactFirst.Name = name;
-            _ContactFirst.PhoneNumber = phone;
-            _ContactFirst.Email = email;
-            new AddContactCommand(_AddressBook, _UserInterface).Run();
+            //Arrange: add a Contact
+            IUICommand AddCommand;
+            _InputIterator = (IInputIterator)new InputIterator(null, name, null, null, null, phone, email);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            AddCommand = new AddContactCommand(_AddressBook, _UserInterface);
+            AddCommand.Run();
 
-            //Action
-            //Step1: USER trigger the adding a new Contact.
-            // This is done by starting the Unit Test.
-
-            //Step2 SYSTEM Asks for Input of the Name
-            _Console.Write("Give in a Unique name for the new Contact: ");
-
-            //Step3: USER supplies a Name
-            //Step4: SYSTEM will validate the Name
-            Action testCode = () => _ContactDouble.Name = _Console.ReadLine();
-
-            TestConsole.UserInput = name;
-            //Here we execute the testCode
-            var ex = Record.Exception(testCode);
-            _Console.WriteLine();
+            //Action: Add the same contact
+            _InputIterator = (IInputIterator)new InputIterator(null, name, null, null, null, phone, email);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            AddCommand = new AddContactCommand(_AddressBook, _UserInterface);
 
             //Assert
-            Assert.NotNull(ex);
-            Assert.IsType<InvalidDataException>(ex);
+            Assert.False(AddCommand.Run().WasSuccessful);
         }
     }
 }

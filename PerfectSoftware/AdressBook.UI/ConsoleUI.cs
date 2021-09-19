@@ -16,11 +16,13 @@ namespace PS.AddressBook.UI
         }
 
         public string ReadValue(string message)
-        {
+        {          
             if (_Console == null)
             {
+                ConsoleColor OldColor = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(message);
+                Console.ForegroundColor = OldColor;
                 return Console.ReadLine();
             }
             else
@@ -34,8 +36,10 @@ namespace PS.AddressBook.UI
         {
             if (_Console == null)
             {
+                ConsoleColor OldColor = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(message);
+                Console.ForegroundColor = OldColor;
             }
             else
             {
@@ -47,8 +51,10 @@ namespace PS.AddressBook.UI
         {
             if (_Console == null)
             {
+                ConsoleColor OldColor = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine(message);
+                Console.ForegroundColor = OldColor;
             }
             else
             {
@@ -60,8 +66,10 @@ namespace PS.AddressBook.UI
         {
             if (_Console == null)
             {
+                ConsoleColor OldColor = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(message);
+                Console.ForegroundColor = OldColor;
             }
             else
                 Console.WriteLine("ERROR: " + message);

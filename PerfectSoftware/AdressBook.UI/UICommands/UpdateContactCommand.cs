@@ -76,11 +76,11 @@ namespace PS.AddressBook.UI.Commands
             try
             {
                 //Select an existing Contact
-                SelectContactCommand SelectCommand = new SelectContactCommand(_AddressBook, _UserInterface);
+                IUICommand SelectCommand = _CommandFactory.GetCommand("s");
                 SelectCommand.Run();
 
                 //Get the original selected Contact
-                _OriginalContact = (Contact)_AddressBook.GetContact(SelectCommand.SelectedContactName);
+                _OriginalContact = (Contact)_AddressBook.GetContact(_AddressBook.SelectedContactName);
                 //Get the new values
                 this.GetUpdatedContact();
                 if (_UpdatedContact.IsValid())

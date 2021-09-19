@@ -21,33 +21,42 @@ namespace PS.AddressBook.UI.Commands
             _UserInterface = ui;
         }
 
-        public string ShortName { get; } = "l";
+        public string ShortName { get; } = "s";
 
-        public string Name { get; } = "list";
+        public string Name { get; } = "select";
 
-        public string Description { get; } = "Gives an overview of Contacts in the AddressBook.";
-
-        public string SelectedContactName { get; private set; }
+        public string Description { get; } = "Selects a Contact from the AddressBook.";
 
         public (bool WasSuccessful, bool IsTerminating) Run(string argument = "")
         {
-            string sID, sFilter="";
+            string sFilter = "";
 
             try
             {
-                sFilter = _UserInterface.ReadValue("Give the filter value to select a Contact ['', 'a', '*de*'] :");
+                string sID, CurrentLetter, PreviousLetter = "";
+                string sLine;
+
+
+                sFilter = _UserInterface.ReadValue("Give the filter value to select a Contact ['', 'a', '*de*']: ");
                 List<IContactLineDTO> Result = _AddressBook.GetOverview(sFilter).Cast<IContactLineDTO>().ToList();
-                _UserInterface.WriteMessage("The Contacts passing the filter '{strFilter}' are:");
+                _UserInterface.WriteMessage($"The Contacts passing the filter '{sFilter}' are:");
                 foreach (IContactLineDTO Line in Result)
                 {
-                    _UserInterface.WriteMessage($"{Line.Id})\t{Line.Name} {Line.ContentsCode}");
+                    CurrentLetter = Line.Name.Substring(0, 1);
+                    if (CurrentLetter != PreviousLetter)
+                    {
+                        _UserInterface.WriteWarning("[" + CurrentLetter + "]");
+                        PreviousLetter = CurrentLetter;
+                    }
+                    sLine = string.Format("{0,-40} {1,3}", Line.Name, Line.ContentsCode);
+                    _UserInterface.WriteMessage(sLine);
                 }
-                sID = _UserInterface.ReadValue("Give the Id of the Contact you want to delete: ");
+                sID = _UserInterface.ReadValue("Give the Id of the Contact you want to select: ");
 
                 if (int.TryParse(sID, out int Selected))
-                    this.SelectedContactName = Result[Selected - 1].Name;
+                    _AddressBook.SelectedContactName = Result[Selected - 1].Name;
                 else
-                    this.SelectedContactName = "";
+                    _AddressBook.SelectedContactName = "";
                 return (true, false);
             }
             catch (Exception ex)
