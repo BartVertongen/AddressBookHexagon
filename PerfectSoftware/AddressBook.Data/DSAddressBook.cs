@@ -40,7 +40,7 @@ namespace PS.AddressBook.Data
             }
                 
             AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
-            using (FileStream fs = new FileStream(this.FullPath, FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new(this.FullPath, FileMode.Create, FileAccess.Write))
             {
                 AddressBookSerializer.Serialize(fs, TempBook);
             }
@@ -52,19 +52,24 @@ namespace PS.AddressBook.Data
             XmlSerializer AddressBookSerializer;
             AddressBookDTO TempBook;
 
+            //Check if a Full File Name is given.
             if (string.IsNullOrEmpty(this.FullPath))
             {
                 throw new InvalidDataException("DSAddressBook needs a Full Filename of an existing xml-file.");
-            }         
-            AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
-            using (FileStream fs = new FileStream(this.FullPath, FileMode.Open, FileAccess.Read))
-            {
-                TempBook = AddressBookSerializer.Deserialize(fs) as AddressBookDTO;
             }
-            book.Clear();
-            foreach( IContactDTO aContact in TempBook)
+            //Check if the File exists
+            if (File.Exists(this.FullPath))
             {
-                book.Add(aContact);
+                AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
+                using (FileStream fs = new(this.FullPath, FileMode.Open, FileAccess.Read))
+                {
+                    TempBook = AddressBookSerializer.Deserialize(fs) as AddressBookDTO;
+                }
+                book.Clear();
+                foreach (IContactDTO aContact in TempBook)
+                {
+                    book.Add(aContact);
+                }
             }
         }
     }

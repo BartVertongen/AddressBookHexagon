@@ -16,10 +16,11 @@ namespace PS.AddressBook.UI
     /// This is a class that allows you to set all the future inputs for the Test Console.
     /// Everytime you call 'GetInput' the next item is returned.
     /// </summary>
-    public class InputIterator
+    public class InputIterator: IInputIterator
     {
         private static int iCounter = 1;
         private readonly string _Filter;
+        private readonly string _Selection;
         private readonly string _Name;
         private readonly string _Street;
         private readonly string _PostalCode;
@@ -27,9 +28,12 @@ namespace PS.AddressBook.UI
         private readonly string _Phone;
         private readonly string _Email;
 
-        public InputIterator(string filter, string name, string street, string postalcode, string town, string phone, string email)
+        public InputIterator(string filter, string selection, 
+                string name, string street, string postalcode, string town, string phone, string email)
         {
+            iCounter = 1;
             _Filter = filter;
+            _Selection = selection;
             _Name = name;
             _Street = street;
             _PostalCode = postalcode;
@@ -52,9 +56,23 @@ namespace PS.AddressBook.UI
             }              
         }
 
+        private bool CanGiveSelection()
+        {
+            if (iCounter == 2 && _Selection != "-1")
+            {
+                iCounter++;
+                return true;
+            }
+            else
+            {
+                iCounter++;
+                return false;
+            }
+        }
+
         private bool CanGiveName()
         {
-            if (iCounter == 2 && _Name != null)
+            if (iCounter == 3 && _Name != null)
             {
                 iCounter++;
                 return true;
@@ -68,7 +86,7 @@ namespace PS.AddressBook.UI
 
         private bool CanGiveStreet()
         {
-            if (iCounter == 3 && _Street != null)
+            if (iCounter == 4 && _Street != null)
             {
                 iCounter++;
                 return true;
@@ -82,7 +100,7 @@ namespace PS.AddressBook.UI
 
         private bool CanGivePostalCode()
         {
-            if (iCounter == 4 && _PostalCode != null)
+            if (iCounter == 5 && _PostalCode != null)
             {
                 iCounter++;
                 return true;
@@ -96,7 +114,7 @@ namespace PS.AddressBook.UI
 
         private bool CanGiveTown()
         {
-            if (iCounter == 5 && _Town != null)
+            if (iCounter == 6 && _Town != null)
             {
                 iCounter++;
                 return true;
@@ -110,7 +128,7 @@ namespace PS.AddressBook.UI
 
         private bool CanGivePhone()
         {
-            if (iCounter == 6 && _Phone != null)
+            if (iCounter == 7 && _Phone != null)
             {
                 iCounter++;
                 return true;
@@ -124,7 +142,7 @@ namespace PS.AddressBook.UI
 
         private bool CanGiveEmail()
         {
-            if (iCounter == 7 && _Email != null)
+            if (iCounter == 8 && _Email != null)
             {
                 iCounter++;
                 return true;
@@ -139,7 +157,9 @@ namespace PS.AddressBook.UI
         public string GetInput()
         {
             if (this.CanGiveFilter())
-                return _Filter;               
+                return _Filter;
+            else if (this.CanGiveSelection())
+                return _Selection;
             else if (this.CanGiveName())
                 return _Name;
             else if (this.CanGiveStreet())
@@ -159,8 +179,8 @@ namespace PS.AddressBook.UI
 
     public class TestConsole : IConsole
     {
-        List<string> _Contents;
-        private IInputIterator _InputIterator;
+        private readonly List<string> _Contents;
+        private readonly IInputIterator _InputIterator;
 
         public TestConsole(IInputIterator inputs)
         {

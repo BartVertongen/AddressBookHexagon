@@ -24,7 +24,7 @@ namespace PS.AddressBook.Business
         {
             _Configuration = config;
             if (_Configuration == null)
-                XmlFile = "AddresBook.xml";
+                XmlFile = "AddressBook.xml";
             else
                 XmlFile = _Configuration.GetSection("ContactsFile").Value;
             this.Load();
@@ -130,7 +130,7 @@ namespace PS.AddressBook.Business
             foreach(IContactDTO dtoContact in TempBook)
             {
                 AdapterFromContactDTO ContactAdapter = new(dtoContact);
-                Contact bussContact = new Contact(ContactAdapter);
+                Contact bussContact = new(ContactAdapter);
                 this.Add(bussContact);
             }
         }
@@ -142,7 +142,7 @@ namespace PS.AddressBook.Business
         {
             string sXmlFile;
             DSAddressBook aDSAddressBook;
-            List<IContactDTO> TempBook = new List<IContactDTO>();
+            List<IContactDTO> TempBook = new();
 
             sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
             aDSAddressBook = new DSAddressBook
@@ -151,8 +151,8 @@ namespace PS.AddressBook.Business
             };
             foreach (IContact bussContact in this)
             {
-                AdapterToContactDTO Adapter = new AdapterToContactDTO(bussContact);
-                ContactDTO dtoContact = new ContactDTO(Adapter);
+                AdapterToContactDTO Adapter = new(bussContact);
+                ContactDTO dtoContact = new(Adapter);
                 TempBook.Add(dtoContact);
             }
             aDSAddressBook.Save(TempBook);

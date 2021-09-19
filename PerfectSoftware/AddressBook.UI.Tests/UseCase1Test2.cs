@@ -2,7 +2,9 @@
 
 using System;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 using Xunit;
+using Moq;
 using PS.AddressBook.Business;
 using PS.AddressBook.UI;
 using PS.AddressBook.UI.Commands;
@@ -27,12 +29,14 @@ namespace UseCaseTests2
         /// </summary>
         public UseCase1Test2()
         {
-            _AddressBook = new AddressBook();
-            _AddressBook.XmlFile = "AddressBookUseCase1.xml";
-            if (File.Exists(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile))
+            string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase1.xml";
+            Mock <IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase1.xml");
+            if (File.Exists(FullPath))
             {
-                File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
+                File.Delete(FullPath);
             }
+            _AddressBook = new AddressBook(MockConfig.Object);            
             this.CreateAddressBookUseCase1();
         }
 
@@ -43,8 +47,7 @@ namespace UseCaseTests2
         public void UseCase1(string filter)
         {
             //Arrange
-            _AddressBook.Load();
-            _InputIterator = (IInputIterator)new InputIterator(filter, null, null, null, null, null, null);
+            _InputIterator = new InputIterator(filter, "-1", null, null, null, null, null, null);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
             _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);

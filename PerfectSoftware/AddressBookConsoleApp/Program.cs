@@ -35,7 +35,7 @@ namespace PS.AddressBook.ConsoleApp
             services.AddTransient<IAddressBookCLIService, AddressBookCLIService>();          
         }
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             // Initialize serilog logger
             Log.Logger = new LoggerConfiguration()

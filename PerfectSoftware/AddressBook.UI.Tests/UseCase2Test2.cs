@@ -28,7 +28,6 @@ namespace UseCaseTests2
         {
             _AddressBook = new AddressBook();
             _AddressBook.XmlFile = "AddressBookUseCase2.xml";
-
         }
 
         /// <summary>
@@ -49,7 +48,7 @@ namespace UseCaseTests2
         {
             //Arrange
             _AddressBook.Load();
-            _InputIterator = (IInputIterator)new InputIterator(null, name, street, postalcode, town, phone, email);
+            _InputIterator = (IInputIterator)new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
             _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);

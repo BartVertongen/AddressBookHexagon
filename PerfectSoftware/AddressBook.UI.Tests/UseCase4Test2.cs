@@ -21,7 +21,7 @@ namespace UseCaseTests2
     /// </remarks>
     public class UseCase4Test2
     {
-        private AddressBook _AddressBook;
+        private readonly AddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private ConsoleUserInterface _UserInterface;
@@ -50,13 +50,13 @@ namespace UseCaseTests2
         }
 
         [Theory]
-        [InlineData("jan", 1)]
-        [InlineData("*de*", 1)]
-        public void UseCase4(string filter, int selectedContact)
+        [InlineData("jan", "1")]
+        [InlineData("*de*", "1")]
+        public void UseCase4(string filter, string selectedContact)
         {
             //Arrange
             _AddressBook.Load();
-            _InputIterator = (IInputIterator)new InputIterator(filter, null, null, null, null, null, null);
+            _InputIterator = (IInputIterator)new InputIterator(filter, selectedContact, null, null, null, null, null, null);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
             _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);

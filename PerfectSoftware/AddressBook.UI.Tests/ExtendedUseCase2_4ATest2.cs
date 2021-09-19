@@ -41,14 +41,14 @@ namespace UseCaseTests2
         {
             //Arrange: add a Contact
             IUICommand AddCommand;
-            _InputIterator = (IInputIterator)new InputIterator(null, name, null, null, null, phone, email);
+            _InputIterator = (IInputIterator)new InputIterator(null, "-1", name, null, null, null, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
             AddCommand = new AddContactCommand(_AddressBook, _UserInterface);
             AddCommand.Run();
 
             //Action: Add the same contact
-            _InputIterator = (IInputIterator)new InputIterator(null, name, null, null, null, phone, email);
+            _InputIterator = (IInputIterator)new InputIterator(null, "-1", name, null, null, null, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
             AddCommand = new AddContactCommand(_AddressBook, _UserInterface);
