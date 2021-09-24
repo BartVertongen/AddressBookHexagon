@@ -72,7 +72,7 @@ namespace PS.AddressBook.UI
                 Console.ForegroundColor = OldColor;
             }
             else
-                Console.WriteLine("ERROR: " + message);
+                _Console.WriteLine("ERROR: " + message);
         }
     }
 }

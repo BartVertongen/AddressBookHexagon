@@ -14,7 +14,7 @@ namespace PS.AddressBook.UI.Commands
         private readonly BussAddressBook _AddressBook;
         private readonly IConsoleUserInterface _UserInterface;
         private readonly IAddressBookUICommandFactory _CommandFactory;
-        private Contact _UpdatedContact, _OriginalContact;
+        private Contact _Contact;
 
         /// <summary>
         /// The Command to create and add a Contact.
@@ -36,38 +36,37 @@ namespace PS.AddressBook.UI.Commands
 
         private void GetUpdatedContact()
         {
-            _UpdatedContact = new Contact(_AddressBook);
-            _UpdatedContact.Name = _OriginalContact.Name;
+            string sNewStreet, sNewPostalCode, sNewTown, sNewPhone, sNewEmail;
 
             //Street
-            _UserInterface.WriteMessage($"The current value for the street and number is {_OriginalContact.Address.Street}.");
-            _UpdatedContact.Address.Street = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
-            if (_UpdatedContact.Address.Street.ToUpper() == "XX")
-                _UpdatedContact.Address.Street = _OriginalContact.Address.Street;
+            _UserInterface.WriteMessage($"The current value for the street and number is {_Contact.Address.Street}.");
+            sNewStreet = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
+            if (sNewStreet.ToUpper() != "XX")
+                _Contact.Address.Street = sNewStreet;
 
             //Postal Code.
-            _UserInterface.WriteMessage($"The current value for the postal code is {_OriginalContact.Address.PostalCode}.");
-            _UpdatedContact.Address.PostalCode = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
-            if (_UpdatedContact.Address.PostalCode.ToUpper() == "XX")
-                _UpdatedContact.Address.PostalCode = _OriginalContact.Address.PostalCode;
+            _UserInterface.WriteMessage($"The current value for the postal code is {_Contact.Address.PostalCode}.");
+            sNewPostalCode = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
+            if (sNewPostalCode.ToUpper() != "XX")
+                _Contact.Address.PostalCode = sNewPostalCode;
 
             //Town
-            _UserInterface.WriteMessage($"The current value for the town is {_OriginalContact.Address.Town}.");
-            _UpdatedContact.Address.Town = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
-            if (_UpdatedContact.Address.Town.ToUpper() == "XX")
-                _UpdatedContact.Address.Town = _OriginalContact.Address.Town;
+            _UserInterface.WriteMessage($"The current value for the town is {_Contact.Address.Town}.");
+            sNewTown = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
+            if (sNewTown.ToUpper() != "XX")
+                _Contact.Address.Town = sNewTown;
 
             //Phone
-            _UserInterface.WriteMessage($"The current value for the phone number is {_OriginalContact.PhoneNumber}.");
-            _UpdatedContact.PhoneNumber = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
-            if (_UpdatedContact.PhoneNumber.ToUpper() == "XX")
-                _UpdatedContact.PhoneNumber = _OriginalContact.PhoneNumber;
+            _UserInterface.WriteMessage($"The current value for the phone number is {_Contact.PhoneNumber}.");
+            sNewPhone = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
+            if (sNewPhone.ToUpper() != "XX")
+                _Contact.PhoneNumber = sNewPhone;
 
             //Email
-            _UserInterface.WriteMessage($"The current value for the email is {_OriginalContact.Email}.");
-            _UpdatedContact.Email = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
-            if (_UpdatedContact.Email.ToUpper() == "XX")
-                _UpdatedContact.Email = _OriginalContact.Email;
+            _UserInterface.WriteMessage($"The current value for the email is {_Contact.Email}.");
+            sNewEmail = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
+            if (sNewEmail.ToUpper() != "XX")
+                _Contact.Email = sNewEmail;
         }
 
         public (bool WasSuccessful, bool IsTerminating) Run(string argument="")
@@ -80,21 +79,21 @@ namespace PS.AddressBook.UI.Commands
                 SelectCommand.Run();
 
                 //Get the original selected Contact
-                _OriginalContact = (Contact)_AddressBook.GetContact(_AddressBook.SelectedContactName);
+                _Contact = (Contact)_AddressBook.GetContact(_AddressBook.SelectedContactName);
                 //Get the new values
                 this.GetUpdatedContact();
-                if (_UpdatedContact.IsValid())
+                if (_Contact.IsValid())
                 {
-                    _AddressBook.Update(_UpdatedContact);
+                    _AddressBook.Update(_Contact);
                     _AddressBook.Save();
-                    _UserInterface.WriteMessage($"The Contact with Name '{_UpdatedContact.Name}' is updated.");
+                    _UserInterface.WriteMessage($"The Contact with Name '{_Contact.Name}' is updated.");
                     return (true, false);
                 }
                 else
                 {
                     string Line;
 
-                    if (!_UpdatedContact.Address.IsValid())
+                    if (!_Contact.Address.IsValid())
                         Line = $"The Contact could not be updated because the Address was not valid!";
                     else
                         Line = $"The Contact could not be updated because the new values were not valid!";
@@ -106,7 +105,7 @@ namespace PS.AddressBook.UI.Commands
             {
                 string Line;
 
-                Line = $"An Error Occurred in UpdateContact Command with ContactName={_UpdatedContact.Name}.";
+                Line = $"An Error Occurred in UpdateContact Command with ContactName={_Contact.Name}.";
                 _UserInterface.WriteError(Line);
                 _UserInterface.WriteError("The error description is " + ex.Message);
                 return (false, false);

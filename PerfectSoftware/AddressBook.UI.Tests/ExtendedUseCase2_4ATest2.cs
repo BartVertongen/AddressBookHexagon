@@ -1,10 +1,14 @@
 //Copyright 2021 Bart Vertongen.
 
+using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using Moq;
 using Xunit;
-using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.UI;
+using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
 namespace UseCaseTests2
@@ -14,20 +18,25 @@ namespace UseCaseTests2
     /// </summary>
     public class ExtendedUseCase2_4ATest2
     {
-        private readonly AddressBook _AddressBook;
+        private BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
+        private IAddressBookUICommandFactory _CommandFactory;
 
         /// <summary>
         /// All the initialization for the tests.
         /// </summary>
         public ExtendedUseCase2_4ATest2()
         {
-            _AddressBook = new AddressBook
+            string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
+            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase2.xml");
+            if (File.Exists(FullPath))
             {
-                XmlFile = "AddressBookUseCase2_4A.xml"
-            };
+                File.Delete(FullPath);
+            }
+            _AddressBook = new BussAddressBook(MockConfig.Object);
         }
 
 
@@ -41,17 +50,19 @@ namespace UseCaseTests2
         {
             //Arrange: add a Contact
             IUICommand AddCommand;
-            _InputIterator = (IInputIterator)new InputIterator(null, "-1", name, null, null, null, phone, email);
+            _AddressBook.Clear();
+            _InputIterator = new InputIterator(null, "-1", name, null, null, null, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
-            AddCommand = new AddContactCommand(_AddressBook, _UserInterface);
-            AddCommand.Run();
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory.GetCommand("a").Run();
 
             //Action: Add the same contact
-            _InputIterator = (IInputIterator)new InputIterator(null, "-1", name, null, null, null, phone, email);
+            _InputIterator = new InputIterator(null, "-1", name, null, null, null, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
-            AddCommand = new AddContactCommand(_AddressBook, _UserInterface);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            AddCommand = _CommandFactory.GetCommand("a");
 
             //Assert
             Assert.False(AddCommand.Run().WasSuccessful);

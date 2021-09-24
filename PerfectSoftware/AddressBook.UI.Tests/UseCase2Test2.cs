@@ -1,11 +1,14 @@
 //Copyright 2021 Bart Vertongen.
 
 using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 using Xunit;
-using PS.AddressBook.Business;
+using Moq;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI;
 using PS.AddressBook.UI.Commands;
+using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
 namespace UseCaseTests2
@@ -15,7 +18,7 @@ namespace UseCaseTests2
     /// </summary>
     public class UseCase2Test2 : IDisposable
     {
-        private AddressBook _AddressBook;
+        private BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -26,8 +29,14 @@ namespace UseCaseTests2
         /// </summary>
         public UseCase2Test2()
         {
-            _AddressBook = new AddressBook();
-            _AddressBook.XmlFile = "AddressBookUseCase2.xml";
+            string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
+            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase2.xml");
+            if (File.Exists(FullPath))
+            {
+                File.Delete(FullPath);
+            }
+            _AddressBook = new BussAddressBook(MockConfig.Object);
         }
 
         /// <summary>
@@ -47,8 +56,7 @@ namespace UseCaseTests2
                                         string postalcode, string town, string phone, string email)
         {
             //Arrange
-            _AddressBook.Load();
-            _InputIterator = (IInputIterator)new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
+            _InputIterator = new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
             _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);

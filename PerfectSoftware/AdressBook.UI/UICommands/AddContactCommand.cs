@@ -38,12 +38,25 @@ namespace PS.AddressBook.UI.Commands
         /// </summary>
         private void GetContactData()
         {
-            _Contact.Name = _UserInterface.ReadValue("Give a name for the new Contact: ");
-            _Contact.Address.Street = _UserInterface.ReadValue("Give a street and number for the Address of the new Contact: ");
-            _Contact.Address.PostalCode = _UserInterface.ReadValue("Give a postal code for the Address of the new Contact: ");
-            _Contact.Address.Town = _UserInterface.ReadValue("Give a town for the Address of the new Contact: ");
-            _Contact.PhoneNumber = _UserInterface.ReadValue("Give a phone number for the new Contact: ");
-            _Contact.Email = _UserInterface.ReadValue("Give an email for the new Contact: ");
+            string sResponse;
+
+            sResponse = _UserInterface.ReadValue("Give a name for the new Contact: ");
+            if (sResponse != null) _Contact.Name = sResponse;
+
+            sResponse = _UserInterface.ReadValue("Give a street and number for the Address of the new Contact: ");
+            if (sResponse != null) _Contact.Address.Street = sResponse;
+
+            sResponse = _UserInterface.ReadValue("Give a postal code for the Address of the new Contact: ");
+            if (sResponse != null) _Contact.Address.PostalCode = sResponse;
+
+            sResponse  = _UserInterface.ReadValue("Give a town for the Address of the new Contact: ");
+            if (sResponse != null) _Contact.Address.Town = sResponse;
+
+            sResponse = _UserInterface.ReadValue("Give a phone number for the new Contact: ");
+            if (sResponse != null) _Contact.PhoneNumber = sResponse;
+
+            sResponse = _UserInterface.ReadValue("Give an email for the new Contact: ");
+            if (sResponse != null) _Contact.Email = sResponse;
             _UserInterface.WriteMessage("");
         }
 

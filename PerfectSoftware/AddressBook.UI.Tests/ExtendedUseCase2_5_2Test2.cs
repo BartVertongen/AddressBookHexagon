@@ -1,10 +1,14 @@
 //Copyright 2021 Bart Vertongen.
 
+using System.IO;
+using System;
+using Microsoft.Extensions.Configuration;
+using Moq;
 using Xunit;
-using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.UI;
+using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
 namespace UseCaseTests2
@@ -14,7 +18,7 @@ namespace UseCaseTests2
     /// </summary>
     public class UseCase2_5_2Test2
     {
-        private readonly AddressBook _AddressBook;
+        private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -25,10 +29,14 @@ namespace UseCaseTests2
         /// </summary>
         public UseCase2_5_2Test2()
         {
-            _AddressBook = new AddressBook(null)
+            string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
+            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase2.xml");
+            if (File.Exists(FullPath))
             {
-                XmlFile = "AddressBookUseCase2.xml"
-            };
+                File.Delete(FullPath);
+            }
+            _AddressBook = new BussAddressBook(MockConfig.Object);
         }
 
         /// <summary>
@@ -42,20 +50,15 @@ namespace UseCaseTests2
         [InlineData("Jan Franchipan", "", "9500", "Geraardsbergen", "+3254/48.72.49", "janfranchi@telenet.be")]
         [InlineData("Jan Franchipan", "Weverijstraat 12", "", "Geraardsbergen", "+3254/48.72.49", "janfranchi@telenet.be")]
         [InlineData("Jan Franchipan", "Weverijstraat 12", "9500", "", "+3254/48.72.49", "janfranchi@telenet.be")]
-        public void UseCase2_5_2_CreationAdressWithMissingData_ShouldGiveEmptyAddress(string name, string street, 
+        public void UseCase2_5_2_CreationAdressWithMissingData_ShouldFail(string name, string street, 
                                                             string postalcode, string town, string phone, string email)
         {
             //Arrange
-            _AddressBook.Load();
-            _InputIterator = (IInputIterator)new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
+            _InputIterator = new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
             _Console = new TestConsole(_InputIterator);
-            _UserInterface = new ConsoleUserInterface();
+            _UserInterface = new ConsoleUserInterface(_Console);
             _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
             IUICommand AddCommand = _CommandFactory.GetCommand("a");
-
-            //TODO select the new added Contact
-
-            //TODO show it.
 
             //Action and Assert
             Assert.False(AddCommand.Run().WasSuccessful);

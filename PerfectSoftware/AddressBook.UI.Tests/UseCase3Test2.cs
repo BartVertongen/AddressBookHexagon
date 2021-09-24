@@ -2,12 +2,13 @@
 
 using System;
 using System.IO.Abstractions;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.UI;
+using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
 namespace UseCaseTests2
@@ -17,7 +18,7 @@ namespace UseCaseTests2
     /// </summary>
     public class UseCase3Test2
     {
-        private AddressBook _AddressBook;
+        private BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -35,16 +36,16 @@ namespace UseCaseTests2
             FileMock = new Mock<IFile>();
             FileMock.Setup(f => f.Exists(It.IsAny<String>())).Returns(true);
             FileMock.Setup(f => f.Delete(It.IsAny<String>()));
-
             _File = FileMock.Object;
-            _AddressBook = new AddressBook();
-            _AddressBook.XmlFile = "AddressBookUseCase3.xml";
-            if (_File.Exists(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile))
-            {
-                _File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
-            }
-            this.CreateAddressBookUseCase3();
 
+            string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase3.xml";
+            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase3.xml");
+            if (_File.Exists(FullPath))
+            {
+                _File.Delete(FullPath);
+            }
+            _AddressBook = new BussAddressBook(MockConfig.Object);
         }
 
         /// <summary>
@@ -57,47 +58,40 @@ namespace UseCaseTests2
                 string newStreet, string newPostCode, string newTown, string newPhone, string newEmail)
         {
             //Arrange
-            _AddressBook.Load();
-            _InputIterator = (IInputIterator)new InputIterator(filter, "-1", null, newStreet, newPostCode, newTown, newPhone, newEmail);
+            _AddressBook.Clear();
+            _InputIterator = new InputIterator(null, "-1", "An Dematras", "", "", "", "02/5820103", "");
             _Console = new TestConsole(_InputIterator);
-            _UserInterface = new ConsoleUserInterface();
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory.GetCommand("a").Run();
+
+            _InputIterator = new InputIterator(null, "-1", "André Hazes", "", "", "", "", "andre@heaven.com");
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory.GetCommand("a").Run();
+
+            _InputIterator = new InputIterator(null, "-1", "Jan Franchipan", "", "", "", "", "jan@eigenbelang.be");
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory.GetCommand("a").Run();
+
+            _InputIterator = new InputIterator(null, "-1", "Josephine DePin", "Weverijstraat 12", "9500", "Geraardsbergen", "054/44.87.26", "jospin@proximus.be");
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory.GetCommand("a").Run();
+
+
+            _InputIterator = new InputIterator(filter, "1", null, newStreet, newPostCode, newTown, newPhone, newEmail);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
             _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
             IUICommand UpdateCommand = _CommandFactory.GetCommand("u");
 
             //Actions and Assert
             Assert.True(UpdateCommand.Run().WasSuccessful);
-        }
-
-
-        private void CreateAddressBookUseCase3()
-        {
-            Contact NewContact;
-            Address NewAddress;
-
-            NewContact = new Contact();
-            NewContact.Name = "An Dematras";
-            NewContact.PhoneNumber = "02/5820103";
-            _AddressBook.Add(NewContact);
-
-            NewContact = new Contact();
-            NewContact.Name = "André Hazes";
-            NewContact.Email = "andre@heaven.com";
-            _AddressBook.Add(NewContact);
-
-            NewContact = new Contact();
-            NewContact.Name = "Jan Franchipan";
-            NewContact.Email = "jan@eigenbelang.be";
-            _AddressBook.Add(NewContact);
-
-            NewContact = new Contact();
-            NewContact.Name = "Josephine DePin";
-            NewContact.Email = "jospin@proximus.be";
-            NewContact.PhoneNumber = "054/44.87.26";
-            NewAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
-            NewContact.Address = NewAddress;
-            _AddressBook.Add(NewContact);
-
-            _AddressBook.Save();
         }
     }
 }

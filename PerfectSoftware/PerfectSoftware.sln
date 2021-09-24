@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdressBook.UI", "AdressBook.UI\AdressBook.UI.csproj", "{A6117D07-3F05-4168-A663-ACC383E346D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.UI", "AdressBook.UI\AddressBook.UI.csproj", "{A6117D07-3F05-4168-A663-ACC383E346D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Business", "AddressBook.Business\AddressBook.Business.csproj", "{4A2A8E57-FB72-4FA1-912E-257076A1EEBB}"
 EndProject

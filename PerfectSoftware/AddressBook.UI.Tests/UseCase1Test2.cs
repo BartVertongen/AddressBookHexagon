@@ -9,6 +9,7 @@ using PS.AddressBook.Business;
 using PS.AddressBook.UI;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.Business.Interfaces;
+using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
 namespace UseCaseTests2
@@ -18,7 +19,7 @@ namespace UseCaseTests2
     /// </summary>
     public class UseCase1Test2
     {
-        private readonly AddressBook _AddressBook;
+        private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -36,7 +37,7 @@ namespace UseCaseTests2
             {
                 File.Delete(FullPath);
             }
-            _AddressBook = new AddressBook(MockConfig.Object);            
+            _AddressBook = new BussAddressBook(MockConfig.Object);            
             this.CreateAddressBookUseCase1();
         }
 
