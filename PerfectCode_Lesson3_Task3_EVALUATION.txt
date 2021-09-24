@@ -1,4 +1,4 @@
-Improve the code from lesson3 task2.
+Improve the code from lesson3 task3.
 ======================================
 ======================================
 - Find a way to test the Use Cases as close as possible to the original Use Cases.
