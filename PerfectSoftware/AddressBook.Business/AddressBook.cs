@@ -14,6 +14,8 @@ using PS.AddressBook.Data.Interfaces;
 
 namespace PS.AddressBook.Business
 {
+    //TODO: DSAddressBook shuld be injected so we can Mock it and have isolated UnitTests.
+    //  If all the UnitTests are executed some fail sometimes.
     public class AddressBook : List<IContact>, IAddressBook
     {
         public string XmlFile;
@@ -44,9 +46,9 @@ namespace PS.AddressBook.Business
             {
                 Selection = this.OrderBy(ctt => ctt.Name).ToList();
             }
-            else if (filter[0] == '*' && filter[filter.Length-1] == '*')
+            else if (filter[0] == '*' && filter[^1] == '*')
             {
-                PureFilter = filter.Substring(1, filter.Length - 2);
+                PureFilter = filter[1..^1]; //^1 = length - i
                 Selection = this.Where(ctt => ctt.Name.ToUpper().Contains(PureFilter.ToUpper())).OrderBy(ctt => ctt.Name).ToList();
             }
             else
@@ -123,8 +125,10 @@ namespace PS.AddressBook.Business
             List<IContactDTO> TempBook = new();
             
             sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
-            aDSAddressBook = new DSAddressBook();
-            aDSAddressBook.FullPath = sXmlFile;
+            aDSAddressBook = new DSAddressBook
+            {
+                FullPath = sXmlFile
+            };
             aDSAddressBook.Load(TempBook);
             this.Clear();
             foreach(IContactDTO dtoContact in TempBook)

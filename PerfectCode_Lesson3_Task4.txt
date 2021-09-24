@@ -1,0 +1,8 @@
+Improve the code from lesson3 task2.
+======================================
+======================================
+
+- Make a WEB API For AddressBook -- Expose the AddressBook Service.
+
+
+- Improve the quality of the software (Unit Tests, Structure, Interfaces)
