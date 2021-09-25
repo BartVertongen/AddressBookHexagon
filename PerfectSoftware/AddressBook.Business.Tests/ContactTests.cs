@@ -29,11 +29,13 @@ namespace PS.AddressBook.Business.Tests
 
             //Actions
             anAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
-            aContact = new Contact();
-            aContact.Name = "Oscar Degrave";
-            aContact.Address = anAddress;
-            aContact.PhoneNumber = "054/45.14.78";
-            aContact.Email = "odegrave@telenet.be";
+            aContact = new Contact
+            {
+                Name = "Oscar Degrave",
+                Address = anAddress,
+                PhoneNumber = "054/45.14.78",
+                Email = "odegrave@telenet.be"
+            };
 
             //Asserts
             Assert.True(aContact.IsValid());
@@ -49,9 +51,11 @@ namespace PS.AddressBook.Business.Tests
 
             //Actions
             anAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
-            aContact = new Contact();
-            aContact.Name = "Oscar Degrave";
-            aContact.Address = anAddress;
+            aContact = new Contact
+            {
+                Name = "Oscar Degrave",
+                Address = anAddress
+            };
 
             //Asserts
             Assert.False(aContact.IsValid());
@@ -64,9 +68,11 @@ namespace PS.AddressBook.Business.Tests
             Contact aContact;
 
             //Actions
-            aContact = new Contact();
-            aContact.Name = "Oscar Degrave";
-            aContact.PhoneNumber = "054/48.74.64";
+            aContact = new Contact
+            {
+                Name = "Oscar Degrave",
+                PhoneNumber = "054/48.74.64"
+            };
 
             //Asserts
             Assert.True(aContact.IsValid());

@@ -1,24 +1,25 @@
 //Copyright 2021 Bart Vertongen.
 
-using System;
 using System.IO;
+using System;
 using Microsoft.Extensions.Configuration;
-using Xunit;
 using Moq;
+using Xunit;
+using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.UI;
 using PS.AddressBook.UI.Commands;
+using PS.AddressBook.UI;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
-namespace UseCaseTests2
+namespace UseCaseTests
 {
     /// <summary>
     /// Creation of a new Contact in AddressBook.
     /// </summary>
-    public class UseCase2Test2 : IDisposable
+    public class UseCase2_5_2Test
     {
-        private BussAddressBook _AddressBook;
+        private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -27,7 +28,7 @@ namespace UseCaseTests2
         /// <summary>
         /// All the initialization for the tests.
         /// </summary>
-        public UseCase2Test2()
+        public UseCase2_5_2Test()
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
             Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
@@ -36,24 +37,23 @@ namespace UseCaseTests2
             {
                 File.Delete(FullPath);
             }
-            _AddressBook = new BussAddressBook(MockConfig.Object);
+            Mock<IDSAddressBook> MockDSAddressBook = new Mock<IDSAddressBook>();
+            _AddressBook = new BussAddressBook(MockDSAddressBook.Object);
         }
 
         /// <summary>
-        /// The cleanup code.
+        /// UseCase2 Main
         /// </summary>
-        public void Dispose()
-        {
-            _AddressBook.Clear();
-        }
-
+        /// <remarks>
+        /// Starting this test is equal to trigger for Contact creation.
+        /// So this is Step 1.
+        /// </remarks>
         [Theory]
-        [InlineData("Anthony Hopkins", "", "", "", "+3202530014", "AHopkins@stars.com")]
-        [InlineData("Jan Franchipan", "Weverijstraat 12", "9500", "Geraardsbergen", "+3254/48.72.49", "janfranchi@telenet.be")]
-        [InlineData("An Delmare", "", "", "", "", "an_weetal@proximus.be")]
-        [InlineData("David Deschepper", "", "", "", "+3209/45.14.81", "")]
-        public void UseCase2Main_ValidData_ShouldBeSuccessful(string name, string street, 
-                                        string postalcode, string town, string phone, string email)
+        [InlineData("Jan Franchipan", "", "9500", "Geraardsbergen", "+3254/48.72.49", "janfranchi@telenet.be")]
+        [InlineData("Jan Franchipan", "Weverijstraat 12", "", "Geraardsbergen", "+3254/48.72.49", "janfranchi@telenet.be")]
+        [InlineData("Jan Franchipan", "Weverijstraat 12", "9500", "", "+3254/48.72.49", "janfranchi@telenet.be")]
+        public void UseCase2_5_2_CreationAdressWithMissingData_ShouldFail(string name, string street, 
+                                                            string postalcode, string town, string phone, string email)
         {
             //Arrange
             _InputIterator = new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
@@ -63,7 +63,7 @@ namespace UseCaseTests2
             IUICommand AddCommand = _CommandFactory.GetCommand("a");
 
             //Action and Assert
-            Assert.True(AddCommand.Run().WasSuccessful);
+            Assert.False(AddCommand.Run().WasSuccessful);
         }
     }
 }

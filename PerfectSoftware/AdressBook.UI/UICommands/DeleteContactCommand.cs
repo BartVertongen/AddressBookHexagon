@@ -34,7 +34,7 @@ namespace PS.AddressBook.UI.Commands
 
             try
             {               
-                SelectContactCommand SelectCommand = new SelectContactCommand(_AddressBook, _UserInterface);
+                SelectContactCommand SelectCommand = new(_AddressBook, _UserInterface);
 
                 SelectCommand.Run();
                 sName = _AddressBook.SelectedContactName;
@@ -42,7 +42,7 @@ namespace PS.AddressBook.UI.Commands
                 {
                     _AddressBook.Delete(sName);
                     _AddressBook.Save();
-                    _UserInterface.WriteMessage($"The Contact with Name {sName} is deleted.");
+                    _UserInterface.WriteMessage($"The Contact with Name '{sName}' is deleted.");
                     return (true, false);
                 }
                 else

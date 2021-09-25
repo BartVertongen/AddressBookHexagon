@@ -5,20 +5,20 @@ using System.IO.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
+using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
-using PS.AddressBook.UI;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
-namespace UseCaseTests2
+namespace PS.AddressBook.UI.UseCases
 {
     /// <summary>
     /// Creation of a new Contact in AddressBook.
     /// </summary>
-    public class UseCase3Test2
+    public class UseCase3Test
     {
-        private BussAddressBook _AddressBook;
+        private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -30,7 +30,7 @@ namespace UseCaseTests2
         /// <summary>
         /// All the initialization for the tests.
         /// </summary>
-        public UseCase3Test2()
+        public UseCase3Test()
         {
             //We should not use a real File but Mock it.
             FileMock = new Mock<IFile>();
@@ -45,7 +45,8 @@ namespace UseCaseTests2
             {
                 _File.Delete(FullPath);
             }
-            _AddressBook = new BussAddressBook(MockConfig.Object);
+            Mock<IDSAddressBook> MockDSAddressBook = new Mock<IDSAddressBook>();
+            _AddressBook = new BussAddressBook(MockDSAddressBook.Object);
         }
 
         /// <summary>

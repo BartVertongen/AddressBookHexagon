@@ -1,22 +1,30 @@
-﻿// By Bart Vertongen copyright 2021
+//Copyright 2021 Bart Vertongen.
 
+using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using Xunit;
 using Moq;
 using PS.AddressBook.Data;
 using PS.AddressBook.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
+using PS.AddressBook.UI.Commands;
+using PS.AddressBook.Business.Interfaces;
+using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
-namespace PS.AddressBook.Business.Tests
+namespace PS.AddressBook.UI.UseCases
 {
     /// <summary>
-    /// Give Overview of All Contacts with possible filtering.
+    /// Give Overview of All Contacts with possible filtering
     /// </summary>
     public class UseCase1Test
     {
+        private readonly BussAddressBook _AddressBook;
+        private IInputIterator _InputIterator;
+        private IConsole _Console;
+        private IConsoleUserInterface _UserInterface;
+        private IAddressBookUICommandFactory _CommandFactory;
+
         class DSAddressBookMock : IDSAddressBook
         {
             public DSAddressBookMock(IConfigurationRoot config)
@@ -39,7 +47,7 @@ namespace PS.AddressBook.Business.Tests
 
                 NewContact = new ContactDTO
                 {
-                    Name = "André Hazes",
+                    Name = "Andr� Hazes",
                     Email = "andre@heaven.com"
                 };
                 book.Add(NewContact);
@@ -72,67 +80,39 @@ namespace PS.AddressBook.Business.Tests
             }
         }
 
-        private AddressBook _AddressBook;
-        private List<ContactLineDTO> _ResultList;
-        IList<IContactDTO> _ContactDTOList;
-        private string _Filter;
 
+        /// <summary>
+        /// All the initialization for the tests.
+        /// </summary>
         public UseCase1Test()
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase1.xml";
 
-            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            Mock <IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
 
             IDSAddressBook MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
-            _AddressBook = new AddressBook(MockDSAddressBook);
-            _Filter = "";
+
+            _AddressBook = new BussAddressBook(MockDSAddressBook);            
         }
 
         [Theory]
-        [InlineData("", 4)]
-        [InlineData("a", 2)]
-        [InlineData("*de*", 2)]
-        [InlineData("*phi*", 1)]
-        public void UseCase1Execute_WithFilter_ShouldGiveResultCount(string filter, int count)
+        [InlineData("")]
+        [InlineData("a")]
+        [InlineData("*de*")]
+        public void UseCase1(string filter)
         {
             //Arrange
+            _InputIterator = new InputIterator(filter, "-1", null, null, null, null, null, null);
+            _Console = new TestConsole(_InputIterator);
+            _UserInterface = new ConsoleUserInterface(_Console);
+            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
 
             //Actions
-            this.Step1(filter);
-            this.Step2();
-            this.Step3();
+            IUICommand GetList = _CommandFactory.GetCommand("l");
 
             //Assert
-            Assert.Equal(count, _ResultList.Count);
-        }
-
-        /// <summary>
-        /// START:TRIGGER: USER asks for an overview of the adress Book Contacts with possible filtering.
-        /// </summary>
-        private void Step1(string filter)
-        {
-            //Console.WriteLine($"UseCase1: Give Overview of All Contacts with possible filtering.");
-            //Console.Write($"Give in the filter you want to Use: ");
-            _Filter = filter;
-            //Console.WriteLine();
-        }
-
-        /// <summary>
-        /// The SYSTEM gets all Contacts from the DB passing the filter.
-        /// </summary>
-        private void Step2()
-        {
-            this._ResultList = _AddressBook.GetOverview(_Filter).Cast<ContactLineDTO>().ToList();
-        }
-
-        /// <summary>
-        /// END: The SYSTEM shows the collected Contacts.
-        /// POSTCONDITION: We should have a list of the Contacts filtered by the given filter string.
-        /// </summary>
-        private void Step3()
-        {
-            //We can not show anything because there is no user interface
-        }
+            Assert.True(GetList.Run().WasSuccessful);
+        } 
     }
 }

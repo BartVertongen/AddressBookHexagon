@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using PS.AddressBook.Data.Interfaces;
 
 
-namespace AddressBook.Data.Interfaces
+namespace PS.AddressBook.Data.Interfaces
 {
     public interface IDSAddressBook
     {
-        public string FullPath { get; set; }
+        public string FullPath { get; }
 
         public void Save(IList<IContactDTO> book);
 

@@ -5,20 +5,21 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
+using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.UI;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 
-namespace UseCaseTests2
+namespace UseCaseTests
 {
     /// <summary>
     /// Creation of a new Contact in AddressBook.
     /// </summary>
-    public class ExtendedUseCase2_4ATest2
+    public class ExtendedUseCase2_4ATest
     {
-        private BussAddressBook _AddressBook;
+        private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -27,7 +28,7 @@ namespace UseCaseTests2
         /// <summary>
         /// All the initialization for the tests.
         /// </summary>
-        public ExtendedUseCase2_4ATest2()
+        public ExtendedUseCase2_4ATest()
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
             Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
@@ -36,7 +37,8 @@ namespace UseCaseTests2
             {
                 File.Delete(FullPath);
             }
-            _AddressBook = new BussAddressBook(MockConfig.Object);
+            Mock<IDSAddressBook> MockDSAddressBook = new Mock<IDSAddressBook>();
+            _AddressBook = new BussAddressBook(MockDSAddressBook.Object);
         }
 
 

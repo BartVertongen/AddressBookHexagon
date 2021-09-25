@@ -3,15 +3,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.Data
 {
-    public class DSAddressBook
+    public class DSAddressBook: IDSAddressBook
     {
-        public string FullPath { get; set; }
+        public string FullPath { get; private set; }
 
+        public DSAddressBook(IConfigurationRoot config)
+        {
+            FullPath = config.GetSection("ContactsFile").Value;
+        }
 
         public void Save(IList<IContactDTO> book)
         {

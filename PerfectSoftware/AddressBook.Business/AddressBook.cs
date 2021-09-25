@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
-using PS.AddressBook.Business.Adapters;
-using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.Data;
 using PS.AddressBook.Data.Interfaces;
+using PS.AddressBook.Business.Adapters;
+using PS.AddressBook.Business.Interfaces;
 
 
 namespace PS.AddressBook.Business
@@ -18,17 +18,12 @@ namespace PS.AddressBook.Business
     //  If all the UnitTests are executed some fail sometimes.
     public class AddressBook : List<IContact>, IAddressBook
     {
-        public string XmlFile;
         public string SelectedContactName;
-        private readonly IConfigurationRoot _Configuration;
+        private IDSAddressBook _DSAddressBook;
 
-        public AddressBook(IConfigurationRoot config=null)
+        public AddressBook(IDSAddressBook dsAddressBook)
         {
-            _Configuration = config;
-            if (_Configuration == null)
-                XmlFile = "AddressBook.xml";
-            else
-                XmlFile = _Configuration.GetSection("ContactsFile").Value;
+            _DSAddressBook = dsAddressBook;
             this.Load();
             SelectedContactName = "";
         }
@@ -120,16 +115,9 @@ namespace PS.AddressBook.Business
         /// </summary>
         public void Load()
         {
-            string sXmlFile;
-            DSAddressBook aDSAddressBook;
             List<IContactDTO> TempBook = new();
             
-            sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
-            aDSAddressBook = new DSAddressBook
-            {
-                FullPath = sXmlFile
-            };
-            aDSAddressBook.Load(TempBook);
+            _DSAddressBook.Load(TempBook);
             this.Clear();
             foreach(IContactDTO dtoContact in TempBook)
             {
@@ -144,22 +132,15 @@ namespace PS.AddressBook.Business
         /// </summary>
         public void Save()
         {
-            string sXmlFile;
-            DSAddressBook aDSAddressBook;
             List<IContactDTO> TempBook = new();
 
-            sXmlFile = Environment.CurrentDirectory + "\\" + XmlFile;
-            aDSAddressBook = new DSAddressBook
-            {
-                FullPath = sXmlFile
-            };
             foreach (IContact bussContact in this)
             {
                 AdapterToContactDTO Adapter = new(bussContact);
                 ContactDTO dtoContact = new(Adapter);
                 TempBook.Add(dtoContact);
             }
-            aDSAddressBook.Save(TempBook);
+            _DSAddressBook.Save(TempBook);
         }
     }
 }

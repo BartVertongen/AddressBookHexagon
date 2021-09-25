@@ -1,5 +1,8 @@
 ﻿//By Bart Vertongen copyright 2021.
 
+using Microsoft.Extensions.Configuration;
+using Moq;
+using PS.AddressBook.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +23,12 @@ namespace PS.AddressBook.Business.Tests
 
         public UseCase4Test()
         {
+            string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase4.xml";
+            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase4.xml");
+
+            Mock<IDSAddressBook> MockDSAddressBook = new Mock<IDSAddressBook>();
+            _AddressBook = new AddressBook(MockDSAddressBook.Object);
             this.PreCondition();
         }
 
@@ -48,12 +57,8 @@ namespace PS.AddressBook.Business.Tests
         /// </summary>
         private void PreCondition()
         {
-            _AddressBook = new AddressBook();
-            _AddressBook.XmlFile = "AddressBookUseCase4.xml";
-            if (File.Exists(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile))
-            {
-                File.Delete(Environment.CurrentDirectory + "\\" + _AddressBook.XmlFile);
-            }
+            
+
             this.CreateAddressBookUseCase4();
             _Filter = "";
         }
@@ -117,25 +122,33 @@ namespace PS.AddressBook.Business.Tests
             Contact NewContact;
             Address NewAddress;
 
-            NewContact = new Contact();
-            NewContact.Name = "An Dematras";
-            NewContact.PhoneNumber = "02/5820103";
+            NewContact = new Contact
+            {
+                Name = "An Dematras",
+                PhoneNumber = "02/5820103"
+            };
             _AddressBook.Add(NewContact);
 
-            NewContact = new Contact();
-            NewContact.Name = "André Hazes";
-            NewContact.Email = "andre@heaven.com";
+            NewContact = new Contact
+            {
+                Name = "André Hazes",
+                Email = "andre@heaven.com"
+            };
             _AddressBook.Add(NewContact);
 
-            NewContact = new Contact();
-            NewContact.Name = "Jan Franchipan";
-            NewContact.Email = "jan@eigenbelang.be";
+            NewContact = new Contact
+            {
+                Name = "Jan Franchipan",
+                Email = "jan@eigenbelang.be"
+            };
             _AddressBook.Add(NewContact);
 
-            NewContact = new Contact();
-            NewContact.Name = "Josephine DePin";
-            NewContact.Email = "jospin@proximus.be";
-            NewContact.PhoneNumber = "054/44.87.26";
+            NewContact = new Contact
+            {
+                Name = "Josephine DePin",
+                Email = "jospin@proximus.be",
+                PhoneNumber = "054/44.87.26"
+            };
             NewAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
             NewContact.Address = NewAddress;
             _AddressBook.Add(NewContact);

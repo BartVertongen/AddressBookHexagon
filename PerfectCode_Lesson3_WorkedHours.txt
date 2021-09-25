@@ -264,3 +264,5 @@ Work Done 8h on 17-09-3021. Lesson3 Task 3: Refactor UICommands.
 Work Done 7h on 18-09-3021. Lesson3 Task 3: Make a Console Application.
 Work Done 7h on 23-09-3021. Lesson3 Task 3: Write and Improve UnitTests
 Work Done 2h on 23-09-3021. Lesson3 Task 3: Improve UnitTests
+Work Done 4h on 24-09-3021. Lesson3 Task 3: Improve UnitTests
+Work Done 4h on 25-09-3021. Lesson3 Task 3: Improve UnitTests
