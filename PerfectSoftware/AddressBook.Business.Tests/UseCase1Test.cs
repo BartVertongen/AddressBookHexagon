@@ -72,16 +72,16 @@ namespace PS.AddressBook.Business.Tests
             }
         }
 
-        private AddressBook _AddressBook;
+        private readonly AddressBook _AddressBook;
         private List<ContactLineDTO> _ResultList;
-        IList<IContactDTO> _ContactDTOList;
+        //IList<IContactDTO> _ContactDTOList;
         private string _Filter;
 
         public UseCase1Test()
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase1.xml";
 
-            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
 
             IDSAddressBook MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);

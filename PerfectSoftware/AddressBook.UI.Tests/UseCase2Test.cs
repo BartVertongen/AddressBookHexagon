@@ -24,6 +24,171 @@ namespace PS.AddressBook.UI.UseCases
         private IConsoleUserInterface _UserInterface;
         private IAddressBookUICommandFactory _CommandFactory;
 
+        /// <summary>
+        /// This is a class that allows you to set all the future inputs for the Test Console.
+        /// Every time you call 'GetInput' the next item is returned.
+        /// </summary>
+        public class UserInputMock : IInputIterator
+        {
+            private static int iCounter = 1;
+            private readonly string _Filter;
+            private bool bFilterProcessed = false;
+            private readonly string _Selection;
+            private bool bSelectionProcessed = false;
+            private readonly string _Name;
+            private bool bNameProcessed = false;
+            private readonly string _Street;
+            private bool bStreetProcessed = false;
+            private readonly string _PostalCode;
+            private bool bPostalCodeProcessed = false;
+            private readonly string _Town;
+            private bool bTownProcessed = false;
+            private readonly string _Phone;
+            private bool bPhoneProcessed = false;
+            private readonly string _Email;
+            private bool bEmailProcessed = false;
+
+            public UserInputMock(string filter, string selection,
+                    string name, string street, string postalcode, string town, string phone, string email)
+            {
+                iCounter = 1;
+                _Filter = filter;
+                _Selection = selection;
+                _Name = name;
+                _Street = street;
+                _PostalCode = postalcode;
+                _Town = town;
+                _Phone = phone;
+                _Email = email;
+            }
+
+            private bool CanGiveName()
+            {
+                if (iCounter == 1 && _Name != null)
+                {
+                    iCounter++;
+                    bNameProcessed = true;
+                    return true;
+                }
+                else if (iCounter == 1 && _Name == null)
+                {
+                    iCounter++;
+                    bNameProcessed = true;
+                    return false;
+                }
+                else
+                    return false;
+            }
+
+            private bool CanGiveStreet()
+            {
+                if (iCounter == 2 && _Street != null)
+                {
+                    iCounter++;
+                    bStreetProcessed = true;
+                    return true;
+                }
+                else if (iCounter == 2 && _Street == null)
+                {
+                    iCounter++;
+                    bStreetProcessed = true;
+                    return false;
+                }
+                else
+                    return false;
+            }
+
+            private bool CanGivePostalCode()
+            {
+                if (iCounter == 3 && _PostalCode != null)
+                {
+                    iCounter++;
+                    this.bPostalCodeProcessed = true;
+                    return true;
+                }
+                else if (iCounter == 3 && _PostalCode == null)
+                {
+                    iCounter++;
+                    this.bPostalCodeProcessed = true;
+                    return false;
+                }
+                else
+                    return false;
+            }
+
+            private bool CanGiveTown()
+            {
+                if (iCounter == 4 && _Town != null)
+                {
+                    iCounter++;
+                    this.bTownProcessed = true;
+                    return true;
+                }
+                else if (iCounter == 4 && _Town == null)
+                {
+                    iCounter++;
+                    this.bTownProcessed = true;
+                    return false;
+                }
+                else
+                    return false;
+            }
+
+            private bool CanGivePhone()
+            {
+                if (iCounter == 5 && _Phone != null)
+                {
+                    iCounter++;
+                    this.bPhoneProcessed = true;
+                    return true;
+                }
+                else if (iCounter == 5 && _Phone == null)
+                {
+                    iCounter++;
+                    this.bPhoneProcessed = true;
+                    return false;
+                }
+                else
+                    return false;
+            }
+
+            private bool CanGiveEmail()
+            {
+                if (iCounter == 6 && _Email != null)
+                {
+                    iCounter++;
+                    this.bEmailProcessed = true;
+                    return true;
+                }
+                else if (iCounter == 6 && _Email == null)
+                {
+                    iCounter++;
+                    this.bEmailProcessed = true;
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+            public string GetInput()
+            {
+                if (!bNameProcessed && this.CanGiveName())
+                    return _Name;
+                else if (!bStreetProcessed && this.CanGiveStreet())
+                    return _Street;
+                else if (!bPostalCodeProcessed && this.CanGivePostalCode())
+                    return _PostalCode;
+                else if (!bTownProcessed && this.CanGiveTown())
+                    return _Town;
+                else if (!bPhoneProcessed && this.CanGivePhone())
+                    return _Phone;
+                else if (!bEmailProcessed && this.CanGiveEmail())
+                    return _Email;
+                else
+                    return null;
+            }
+        }
+
         class DSAddressBookMock : IDSAddressBook
         {
             public DSAddressBookMock(IConfigurationRoot config)
@@ -73,7 +238,7 @@ namespace PS.AddressBook.UI.UseCases
                                         string postalcode, string town, string phone, string email)
         {
             //Arrange
-            _InputIterator = new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
+            _InputIterator = new UserInputMock(null, "-1", name, street, postalcode, town, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
             _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);

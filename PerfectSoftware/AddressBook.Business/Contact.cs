@@ -38,7 +38,7 @@ namespace PS.AddressBook.Business
             this.Email = "";
         }
 
-        public AddressBook AddressBook { private get;  set;  }
+        public IAddressBook AddressBook { private get;  set;  }
 
         public string Name
         { 
@@ -59,21 +59,41 @@ namespace PS.AddressBook.Business
 
         public string Email { get; set; }
 
+        static public string GetContentsCode(IContact contact)
+        {
+            string sContentsCode;
+            Address bussAddress = new Address
+            {
+                Street = contact.Address.Street,
+                PostalCode = contact.Address.PostalCode,
+                Town = contact.Address.Town
+            };
+            sContentsCode = bussAddress.IsEmpty() ? "*" : "A";
+            sContentsCode += string.IsNullOrEmpty(contact.PhoneNumber) ? "*" : "P";
+            sContentsCode += string.IsNullOrEmpty(contact.Email) ? "*" : "E";
+            return sContentsCode;
+        }
+
+        static public string GetContentsCode(IContactDTO contact)
+        {
+            string sContentsCode;
+            Address bussAddress = new Address
+            {
+                Street = contact.Address.Street,
+                PostalCode = contact.Address.PostalCode,
+                Town = contact.Address.Town
+            };
+            sContentsCode = bussAddress.IsEmpty() ? "*" : "A";
+            sContentsCode += string.IsNullOrEmpty(contact.PhoneNumber) ? "*" : "P";
+            sContentsCode += string.IsNullOrEmpty(contact.Email) ? "*" : "E";
+            return sContentsCode;
+        }
+
         public string ContentsCode
         {
             get
             {
-                string sContentsCode;
-                Address bussAddress = new Address
-                {
-                    Street = this.Address.Street,
-                    PostalCode = this.Address.PostalCode,
-                    Town = this.Address.Town
-                };
-                sContentsCode = bussAddress.IsEmpty() ? "*" : "A";
-                sContentsCode += string.IsNullOrEmpty(this.PhoneNumber) ? "*" : "P";
-                sContentsCode += string.IsNullOrEmpty(this.Email) ? "*" : "E";
-                return sContentsCode;
+                return Contact.GetContentsCode(this);
             } 
         }
 
@@ -90,23 +110,28 @@ namespace PS.AddressBook.Business
             }
         }
 
-        public bool IsValid()
+        static public bool IsValid (IContact contact)
         {
-            if (string.IsNullOrEmpty(this.Name))
+            if (string.IsNullOrEmpty(contact.Name))
                 return false;
-            else if (string.IsNullOrEmpty(this.PhoneNumber) && string.IsNullOrEmpty(this.Email))
+            else if (string.IsNullOrEmpty(contact.PhoneNumber) && string.IsNullOrEmpty(contact.Email))
                 return false;
-            else if (!this.Address.IsValid())
+            else if (!contact.Address.IsValid())
                 return false;
             else
                 return true;
+        }
+
+        public bool IsValid()
+        {
+            return Contact.IsValid(this);
         }
 
         /// <summary>
         /// Creates a Deep Copy of this Contact.
         /// </summary>
         /// <returns></returns>
-        public Contact DeepClone()
+        public IContact DeepClone()
         {
             Contact oCopy = new Contact
             {

@@ -88,7 +88,7 @@ namespace PS.AddressBook.UI.UseCases
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase1.xml";
 
-            Mock <IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            Mock <IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
 
             IDSAddressBook MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);

@@ -33,14 +33,14 @@ namespace PS.AddressBook.Business.Tests
             }
         }
 
-        private readonly IConfigurationRoot _Configuration;
+        //private readonly IConfigurationRoot _Configuration;
         private readonly IDSAddressBook _DSAddressBook;
 
         public AddressBookTests()
         {
             string sFullPath = Environment.CurrentDirectory + "\\AddressBook.xml";
 
-            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(sFullPath);
 
             _DSAddressBook = new DSAddressBook(MockConfig.Object);
@@ -146,7 +146,7 @@ namespace PS.AddressBook.Business.Tests
                 Name = "Elizabeth De Prinses",
                 PhoneNumber = "02/581.14.78"
             };
-            IdemContact = ValidContact.DeepClone();
+            IdemContact = (Contact)ValidContact.DeepClone();
             anAddressBook.Add(ValidContact);
             Action testCode = () => anAddressBook.Add(IdemContact);
             var ex = Record.Exception(testCode);

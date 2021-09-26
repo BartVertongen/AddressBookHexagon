@@ -4,7 +4,7 @@ namespace PS.AddressBook.UI
 {
     /// <summary>
     /// This is a class that allows you to set all the future inputs for the Test Console.
-    /// Everytime you call 'GetInput' the next item is returned.
+    /// Every time you call 'GetInput' the next item is returned.
     /// </summary>
     public class InputIterator: IInputIterator
     {
@@ -15,15 +15,15 @@ namespace PS.AddressBook.UI
         private bool bSelectionProcessed = false;
         private readonly string _Name;
         private bool bNameProcessed = false;
-        private string _Street;
+        private readonly string _Street;
         private bool bStreetProcessed = false;
-        private string _PostalCode;
+        private readonly string _PostalCode;
         private bool bPostalCodeProcessed = false;
-        private string _Town;
+        private readonly string _Town;
         private bool bTownProcessed = false;
-        private string _Phone;
+        private readonly string _Phone;
         private bool bPhoneProcessed = false;
-        private string _Email;
+        private readonly string _Email;
         private bool bEmailProcessed = false;
 
         public InputIterator(string filter, string selection,

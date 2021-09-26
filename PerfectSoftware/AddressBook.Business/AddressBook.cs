@@ -1,7 +1,5 @@
 ﻿//Copyright 2021 Bart Vertongen
 
-
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +17,7 @@ namespace PS.AddressBook.Business
     public class AddressBook : List<IContact>, IAddressBook
     {
         public string SelectedContactName;
-        private IDSAddressBook _DSAddressBook;
+        private readonly IDSAddressBook _DSAddressBook;
 
         public AddressBook(IDSAddressBook dsAddressBook)
         {
@@ -63,9 +61,9 @@ namespace PS.AddressBook.Business
         /// Adds a new Contact to the AddressBook in memory.
         /// </summary>
         /// <param name="newContact"></param>
-        public void Add(Contact newContact)
+        new public void Add(IContact newContact)
         {
-            if (newContact.IsValid() && !this.ContainsName(newContact.Name))
+            if (Contact.IsValid(newContact) && !this.ContainsName(newContact.Name))
                 base.Add(newContact);
             else
                 throw new InvalidDataException("You tried to Add an invalid Contact to an AddressBook!");
@@ -83,8 +81,8 @@ namespace PS.AddressBook.Business
 
         public bool ContainsName(string nameToFind)
         {
-            Contact oContact = (Contact)this.SingleOrDefault(ctt => ctt.Name == nameToFind);
-            if (oContact == null)
+            var Result = this.SingleOrDefault(ctt => ctt.Name == nameToFind);
+            if (Result == null)
                 return false;
             else
                 return true;
@@ -104,9 +102,9 @@ namespace PS.AddressBook.Business
         /// Replaces the old Contact data with new Contact Data in the AddressBook.
         /// </summary>
         /// <param name="changedContact"></param>
-        public void Update(Contact changedContact)
+        public void Update(IContact changedContact)
         {
-            Contact Found = (Contact)this.FirstOrDefault(ctt => ctt.Name == changedContact.Name);
+            IContact Found = (Contact)this.FirstOrDefault(ctt => ctt.Name == changedContact.Name);
             if (Found != null) Found = changedContact;
         }
 
