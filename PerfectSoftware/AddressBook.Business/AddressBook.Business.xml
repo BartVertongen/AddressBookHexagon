@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AddressBook.Business</name>
+    </assembly>
+    <members>
+        <member name="M:PS.AddressBook.Business.Address.#ctor">
+            <summary>
+            Constructor for an empty Address.
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Business.Address.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor for a valid Address.
+            </summary>
+            <param name="street">Can not be null or empty</param>
+            <param name="postalCode">Can not be null or empty</param>
+            <param name="town">Can not be null or empty</param>
+        </member>
+        <member name="M:PS.AddressBook.Business.AddressBook.Add(PS.AddressBook.Data.Interfaces.IContact)">
+            <summary>
+            Adds a new Contact to the AddressBook in memory.
+            </summary>
+            <param name="newContact"></param>
+        </member>
+        <member name="M:PS.AddressBook.Business.AddressBook.GetContact(System.String)">
+            <summary>
+            Finds the Contact with the given name.
+            </summary>
+            <param name="nameToFind"></param>
+            <returns>null if the Contact Name is not found.</returns>
+        </member>
+        <member name="M:PS.AddressBook.Business.AddressBook.Delete(System.String)">
+            <summary>
+            Deletes an existing Contact from the AddressBook in memory.
+            </summary>
+            <param name="nameToDelete"></param>
+        </member>
+        <member name="M:PS.AddressBook.Business.AddressBook.Update(PS.AddressBook.Data.Interfaces.IContact)">
+            <summary>
+            Replaces the old Contact data with new Contact Data in the AddressBook.
+            </summary>
+            <param name="changedContact"></param>
+        </member>
+        <member name="M:PS.AddressBook.Business.AddressBook.Load">
+            <summary>
+            Loads the AddresBook with the Contacts from an Xml File.
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Business.AddressBook.Save">
+            <summary>
+            Writes the Contacts in the AddresBook in memory to an Xml File.
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Business.Contact.#ctor(PS.AddressBook.Business.AddressBook)">
+            <summary>
+            Constructor for Contact.
+            </summary>
+            <param name="addressBook"></param>
+        </member>
+        <member name="M:PS.AddressBook.Business.Contact.DeepClone">
+            <summary>
+            Creates a Deep Copy of this Contact.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PS.AddressBook.Business.ContactLineDTO">
+            <summary>
+            A ContactLine is a short overview of a Contact.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Business.ContactLineDTO.Id">
+            <summary>
+            A Unique Id for this ContactLine.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Business.ContactLineDTO.Name">
+            <summary>
+            The Unique Name of the Contact.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Business.ContactLineDTO.ContentsCode">
+            <summary>
+            A Code that gives an overview of the Contents of the Contact.
+            </summary>
+            <example>
+            "APE" => Has Address, PhoneNumber and Email
+            "**E" => Has only an Email.
+            </example>     
+        </member>
+        <member name="P:PS.AddressBook.Business.Interfaces.ICommandResponse.IsTerminating">
+            <summary>
+            Is this a termination command ?
+            </summary>
+        </member>
+        <member name="T:PS.AddressBook.Business.Interfaces.IConsole">
+            <summary>
+            Used for Mocking the real Console.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Business.Interfaces.IContactLineDTO.Name">
+            <summary>
+            The Unique Name of the Contact.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Business.Interfaces.IContactLineDTO.ContentsCode">
+            <summary>
+            A Code that gives an overview of the Contents of the Contact.
+            </summary>
+            <example>
+            "APE" => Has Address, PhoneNumber and Email
+            "**E" => Has only an Email.
+            </example>
+        </member>
+    </members>
+</doc>

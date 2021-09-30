@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>PS.AddressBook.Business</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\VertSoft\PerfectSoftware\Workshop\PerfectSoftware\AddressBook.Business\AddressBook.Business.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

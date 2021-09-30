@@ -1,11 +1,10 @@
+//By Bart Vertongen copyright 2021.
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Serilog;
+
 
 namespace WebAPIAddressBook
 {
@@ -13,6 +12,12 @@ namespace WebAPIAddressBook
     {
         public static void Main(string[] args)
         {
+            // Initialize serilog logger
+            Log.Logger = new LoggerConfiguration()
+                 .MinimumLevel.Debug()
+                 .WriteTo.File("WebAPIAddressBook.log")
+                 .CreateLogger();
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -20,6 +25,12 @@ namespace WebAPIAddressBook
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                                 {
+                                     config.AddJsonFile("appsettings.json",
+                                         optional: true,
+                                         reloadOnChange: true);
+                                 });
                     webBuilder.UseStartup<Startup>();
                 });
     }

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AddressBook.Data</name>
+    </assembly>
+    <members>
+        <member name="T:PS.AddressBook.Data.AddressBookDTO">
+            <summary>
+            AddressBook Data Transfer Object
+            </summary>
+        </member>
+        <member name="T:PS.AddressBook.Data.AddressDTO">
+            <summary>
+            Address Data Transfer Type.
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Data.AddressDTO.#ctor">
+            <summary>
+            The default constructor for an Adress Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.AddressDTO.Street">
+             <summary>
+            The Street of an Address Data Transfer Object.
+             </summary>
+        </member>
+        <member name="T:PS.AddressBook.Data.ContactDTO">
+            <summary>
+            The Contact Data Transfer Object
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Data.ContactDTO.#ctor">
+            <summary>
+            The default constructor for the Contact Data Transfer Object.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.ContactDTO.Name">
+            <summary>
+            The Unique Name of the Contact.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.ContactDTO.PS#AddressBook#Data#Interfaces#IContactDTO#Address">
+            <summary>
+            To prevent problems with IContactDTO we have this property
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.ContactDTO.Email">
+            <summary>
+            The Email of the Contact.
+            </summary>
+        </member>
+        <member name="T:PS.AddressBook.Data.Interfaces.IContact">
+            <summary>
+            The Interface for the Contact Business Object.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.Interfaces.IContact.Name">
+            <summary>
+            The Name of the Contact
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.Interfaces.IContact.PhoneNumber">
+            <summary>
+            The Phone Number of the Contact.
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Data.Interfaces.IContact.IsValid">
+            <summary>
+            Flag whether this Contact contains valid data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PS.AddressBook.Data.Interfaces.IContact.DeepClone">
+            <summary>
+            Creates a Deep Copy of this Contact.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

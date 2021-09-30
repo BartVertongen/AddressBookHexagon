@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAPIAddressBook</name>
+    </assembly>
+    <members>
+        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.GetOverview(System.String)">
+            <summary>
+            Shows an overview of all Contacts in the addressbook filtered by filter which can be empty.
+            </summary>
+            <param name="filter">'a' starts with 'a'; '*de*' contains 'de'</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Get(System.String)">
+            <summary>
+            Gets the Contact with the given name from the addressbook.
+            </summary>
+            <param name="name">Th namer of the wanted contact.</param>
+            <returns>the requested contact</returns>
+        </member>
+    </members>
+</doc>

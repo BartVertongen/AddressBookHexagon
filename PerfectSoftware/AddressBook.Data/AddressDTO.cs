@@ -1,6 +1,7 @@
 ﻿//By Bart Vertongen copyright 2021
 
-using System.Runtime.Serialization;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using PS.AddressBook.Data.Interfaces;
 
 
@@ -10,8 +11,12 @@ namespace PS.AddressBook.Data
     /// Address Data Transfer Type.
     /// </summary>
     //[DataContract(Name = "Address", Namespace = "http://vertongensoftware.be")]
+    [Display(Name ="Address")]
     public class AddressDTO : IAddressDTO
     {
+        /// <summary>
+        /// The default constructor for an Adress Data Transfer Object
+        /// </summary>
         public AddressDTO()
         {
             this.Street = "";
@@ -26,10 +31,19 @@ namespace PS.AddressBook.Data
             this.Town = dtoRef.Town;
         }
 
+        /// <summary>
+        ///The Street of an Address Data Transfer Object.
+        /// </summary>
+        [Required]
+        [DefaultValue("")]
         public string Street { get; set; }
 
+        [Required]
+        [DefaultValue("")]
         public string PostalCode { get; set; }
 
+        [Required]
+        [DefaultValue("")]
         public string Town { get; set; }
     }
 }

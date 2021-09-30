@@ -3,12 +3,21 @@
 
 namespace PS.AddressBook.Data.Interfaces
 {
+    /// <summary>
+    /// The Interface for the Contact Business Object.
+    /// </summary>
     public interface IContact
     {
+        /// <summary>
+        /// The Name of the Contact
+        /// </summary>
         string Name { get; set; }
 
         IAddress Address { get; set; }
 
+        /// <summary>
+        /// The Phone Number of the Contact.
+        /// </summary>
         string PhoneNumber { get; set; }
 
         string Email { get; set; }
@@ -17,7 +26,10 @@ namespace PS.AddressBook.Data.Interfaces
 
         public string ContentsCode { get; }
 
-
+        /// <summary>
+        /// Flag whether this Contact contains valid data.
+        /// </summary>
+        /// <returns></returns>
         public bool IsValid();
 
         /// <summary>

@@ -1,18 +1,25 @@
 ﻿//By Bart Vertongen copyright 2021
 
 using System.Xml.Serialization;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.Data
 {
-    //We do this so the XML node will be Contact and not ContactDTO
+    /// <summary>
+    /// The Contact Data Transfer Object
+    /// </summary>
     [XmlType("Contact")]
     [XmlRoot("Contact")]
     public class ContactDTO : IContactDTO
     {
         private IAddressDTO _Address;
 
+        /// <summary>
+        /// The default constructor for the Contact Data Transfer Object.
+        /// </summary>
         public ContactDTO()
         {
             this.Name = "";
@@ -29,6 +36,10 @@ namespace PS.AddressBook.Data
             this.Address = new AddressDTO(dtoRef.Address);
         }
 
+        /// <summary>
+        /// The Unique Name of the Contact.
+        /// </summary>
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
@@ -48,8 +59,15 @@ namespace PS.AddressBook.Data
             set { _Address = value; }
         }
 
+        [Required]
+        [DefaultValue("")]
         public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// The Email of the Contact.
+        /// </summary>
+        [Required]
+        [DefaultValue("")]
         public string Email { get; set; }
 
     }
