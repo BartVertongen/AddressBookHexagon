@@ -52,6 +52,13 @@
             Writes the Contacts in the AddresBook in memory to an Xml File.
             </summary>
         </member>
+        <member name="M:PS.AddressBook.Business.AddressBookService.GetOverview(System.String)">
+            <summary>
+            Gives an overview of the Contacts in the AddressBook filtered.
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
         <member name="M:PS.AddressBook.Business.AddressBookService.Update(PS.AddressBook.Data.Interfaces.IContactDTO)">
             <summary>
             Changes an existing Contact from the AddressBook.

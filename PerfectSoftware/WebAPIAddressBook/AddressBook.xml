@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<AddressBook xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Contact>
+    <Name>Bart Vertongen</Name>
+    <Address>
+      <Street>Remparden 12 bus 43</Street>
+      <PostalCode>9700</PostalCode>
+      <Town>Oudenaarde</Town>
+    </Address>
+    <PhoneNumber>0470/94.58.06</PhoneNumber>
+    <Email>bartvertongen70@gmail.com</Email>
+  </Contact>
+  <Contact>
+    <Name>Christiane Daneels</Name>
+    <Address>
+      <Street>Coupl'Voie 10 bus 0201</Street>
+      <PostalCode>9600</PostalCode>
+      <Town>Ronse</Town>
+    </Address>
+    <Email>christiane.daneels@outlook.com</Email>
+  </Contact>
+</AddressBook>

@@ -49,19 +49,21 @@ namespace WebAPIAddressBook
                 c.IncludeXmlComments(xmlPath);
 
             });
+
             // Add logging
             services.AddSingleton(LoggerFactory.Create(builder =>
             {
                 builder.AddSerilog(dispose: true); //Takes care of ILogger
             }));
+
             services.AddLogging();
 
             // Add access to generic IConfigurationRoot
             services.AddSingleton(Configuration);
             services.AddSingleton<IConfiguration>(Configuration);          
-            services.AddTransient<IDSAddressBook, DSAddressBook>();
-            services.AddTransient<IAddressBook, AddressBook>();
-            services.AddTransient<IAddressBookService, AddressBookService>();
+            services.AddSingleton<IDSAddressBook, DSAddressBook>();
+            services.AddSingleton<IAddressBook, AddressBook>();
+            services.AddSingleton<IAddressBookService, AddressBookService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

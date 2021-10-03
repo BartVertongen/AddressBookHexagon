@@ -24,6 +24,9 @@ namespace PS.AddressBook.Data.Interfaces
 
         public IAddressBook AddressBook {  set; }
 
+        /// <summary>
+        /// Gives a Code to show what data is available in this Contact.
+        /// </summary>
         public string ContentsCode { get; }
 
         /// <summary>

@@ -64,6 +64,11 @@
             The Phone Number of the Contact.
             </summary>
         </member>
+        <member name="P:PS.AddressBook.Data.Interfaces.IContact.ContentsCode">
+            <summary>
+            Gives a Code to show what data is available in this Contact.
+            </summary>
+        </member>
         <member name="M:PS.AddressBook.Data.Interfaces.IContact.IsValid">
             <summary>
             Flag whether this Contact contains valid data.

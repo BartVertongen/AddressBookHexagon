@@ -18,5 +18,9 @@ namespace PS.AddressBook.Data.Interfaces
         void Update(IContact changedContact);
 
         bool ContainsName(string name);
+
+        void Load();
+
+        void Save();
     }
 }

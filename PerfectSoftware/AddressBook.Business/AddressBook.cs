@@ -45,9 +45,10 @@ namespace PS.AddressBook.Business
             {
                 Selection = this.Where(ctt => ctt.Name.ToUpper().StartsWith(filter.ToUpper())).OrderBy(ctt => ctt.Name).ToList();
             }
-            foreach(Contact oContact in Selection)
+            foreach(IContact oContact in Selection)
             {
-                ContactLineDTO oContactLine = oContact.ContactLine;
+                Contact CurrContact = new(oContact);
+                ContactLineDTO oContactLine = CurrContact.ContactLine;
                 oContactLine.Id = ++ID;
                 Result.Add(oContactLine);
             }

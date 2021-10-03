@@ -24,6 +24,7 @@ namespace PS.AddressBook.Business
             {
                 AdapterFromContactDTO Adapter = new(newContact);
                 _AddressBook.Add((IContact)Adapter);
+                _AddressBook.Save();
             }
             catch (Exception)
             {
@@ -34,6 +35,7 @@ namespace PS.AddressBook.Business
         public void Delete(string name)
         {
             _AddressBook.Delete(name);
+            _AddressBook.Save();
         }
 
         public IContactDTO Get(string name)
@@ -51,6 +53,11 @@ namespace PS.AddressBook.Business
             }
         }
 
+        /// <summary>
+        /// Gives an overview of the Contacts in the AddressBook filtered.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public IList<IContactLineDTO> GetOverview(string filter)
         {
             AddressBook objAddressBook = _AddressBook as AddressBook;
@@ -65,6 +72,7 @@ namespace PS.AddressBook.Business
         {
             AdapterFromContactDTO Adapter = new(changedContact);
             _AddressBook.Update(Adapter);
+            _AddressBook.Save();
         }
     }
 }

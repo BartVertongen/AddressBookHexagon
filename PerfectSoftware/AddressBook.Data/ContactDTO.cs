@@ -59,14 +59,12 @@ namespace PS.AddressBook.Data
             set { _Address = value; }
         }
 
-        [Required]
         [DefaultValue("")]
         public string PhoneNumber { get; set; }
 
         /// <summary>
         /// The Email of the Contact.
         /// </summary>
-        [Required]
         [DefaultValue("")]
         public string Email { get; set; }
 
