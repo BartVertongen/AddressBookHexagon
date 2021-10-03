@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Data;
 using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Adapters;
@@ -12,8 +11,6 @@ using PS.AddressBook.Business.Interfaces;
 
 namespace PS.AddressBook.Business
 {
-    //TODO: DSAddressBook shuld be injected so we can Mock it and have isolated UnitTests.
-    //  If all the UnitTests are executed some fail sometimes.
     public class AddressBook : List<IContact>, IAddressBook
     {
         public string SelectedContactName;
@@ -63,10 +60,16 @@ namespace PS.AddressBook.Business
         /// <param name="newContact"></param>
         new public void Add(IContact newContact)
         {
-            if (Contact.IsValid(newContact) && !this.ContainsName(newContact.Name))
+            bool bIsValid, bIsNew;
+
+            bIsValid = Contact.IsValid(newContact);
+            bIsNew = !this.ContainsName(newContact.Name);
+            if (bIsValid && bIsNew)
                 base.Add(newContact);
+            else if (!bIsNew)
+                throw new InvalidDataException($"You tried to Add an existing Contact '{newContact.Name}' to the AddressBook!");
             else
-                throw new InvalidDataException("You tried to Add an invalid Contact to an AddressBook!");
+                throw new InvalidDataException($"You tried to Add an invalid Contact '{newContact.Name}' to an AddressBook!");
         }
 
         /// <summary>

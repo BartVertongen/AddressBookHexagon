@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookCLI", "AddressBo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.UI.Tests", "AddressBook.UI.Tests\AddressBook.UI.Tests.csproj", "{F4856D84-AA45-4EA4-9C56-27A8290805CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIAddressBook", "WebAPIAddressBook\WebAPIAddressBook.csproj", "{125AFD74-79B6-4CE8-A4DA-ADFD55F9EEC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPIAddressBook", "WebAPIAddressBook\WebAPIAddressBook.csproj", "{125AFD74-79B6-4CE8-A4DA-ADFD55F9EEC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiAddressBook.Test", "WebApiAddressBook.Test\WebApiAddressBook.Test.csproj", "{7408CC36-C9F6-4C3D-BD98-6EDBEAF10DE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{125AFD74-79B6-4CE8-A4DA-ADFD55F9EEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{125AFD74-79B6-4CE8-A4DA-ADFD55F9EEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{125AFD74-79B6-4CE8-A4DA-ADFD55F9EEC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7408CC36-C9F6-4C3D-BD98-6EDBEAF10DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7408CC36-C9F6-4C3D-BD98-6EDBEAF10DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7408CC36-C9F6-4C3D-BD98-6EDBEAF10DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7408CC36-C9F6-4C3D-BD98-6EDBEAF10DE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

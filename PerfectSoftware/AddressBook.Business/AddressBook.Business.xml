@@ -52,6 +52,12 @@
             Writes the Contacts in the AddresBook in memory to an Xml File.
             </summary>
         </member>
+        <member name="M:PS.AddressBook.Business.AddressBookService.Update(PS.AddressBook.Data.Interfaces.IContactDTO)">
+            <summary>
+            Changes an existing Contact from the AddressBook.
+            </summary>
+            <param name="changedContact"></param>
+        </member>
         <member name="M:PS.AddressBook.Business.Contact.#ctor(PS.AddressBook.Business.AddressBook)">
             <summary>
             Constructor for Contact.
