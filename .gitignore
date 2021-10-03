@@ -3,6 +3,8 @@
 
 #ignore the folder with PDFs
 
+#ignore log files
+*.log
 
 # User-specific files
 *.rsuser
@@ -33,3 +35,4 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Bb]in/
+/PerfectSoftware/WebAPIAddressBook/*.log
