@@ -53,11 +53,21 @@ namespace PS.AddressBook.Business.Adapters
             { return Contact.GetContentsCode(_Adaptee); }
         }
 
+        public void Assign(IContact newvalues)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         //This should not be done using an Adapter.
         public IContact DeepClone()
         {
             return null;
+        }
+
+        public bool Equals(IContact other)
+        {
+            throw new System.NotImplementedException();
         }
 
         //TODO: IsValid should be a static in Contact

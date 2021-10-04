@@ -5,6 +5,9 @@ using PS.AddressBook.Data.Interfaces;
 
 namespace PS.AddressBook.Business
 {
+    /// <summary>
+    /// Address Business Class
+    /// </summary>
     public class Address: IAddress
     {
         public string Street { get; set; }
@@ -75,6 +78,30 @@ namespace PS.AddressBook.Business
                 return false;
             else
                 return true;
+        }
+
+        /// <summary>
+        /// Checks whether two addresses are equal.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(IAddress other)
+        {
+            if (this.Street != other.Street)
+                return false;
+            else if (this.PostalCode != other.PostalCode)
+                return false;
+            else if (this.Town != other.Town)
+                return false;
+            else
+                return true;
+        }
+
+        public void Assign(IAddress newValues)
+        {
+            this.Street = newValues.Street;
+            this.PostalCode = newValues.PostalCode;
+            this.Town = newValues.Town;
         }
     }
 }

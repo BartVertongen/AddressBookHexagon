@@ -4,6 +4,11 @@
         <name>AddressBook.Business</name>
     </assembly>
     <members>
+        <member name="T:PS.AddressBook.Business.Address">
+            <summary>
+            Address Business Class
+            </summary>
+        </member>
         <member name="M:PS.AddressBook.Business.Address.#ctor">
             <summary>
             Constructor for an empty Address.
@@ -16,6 +21,13 @@
             <param name="street">Can not be null or empty</param>
             <param name="postalCode">Can not be null or empty</param>
             <param name="town">Can not be null or empty</param>
+        </member>
+        <member name="M:PS.AddressBook.Business.Address.Equals(PS.AddressBook.Data.Interfaces.IAddress)">
+            <summary>
+            Checks whether two addresses are equal.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
         </member>
         <member name="M:PS.AddressBook.Business.AddressBook.Add(PS.AddressBook.Data.Interfaces.IContact)">
             <summary>
@@ -71,11 +83,30 @@
             </summary>
             <param name="addressBook"></param>
         </member>
+        <member name="P:PS.AddressBook.Business.Contact.AddressBook">
+            <summary>
+            The AddressBook to which this Contact belongs.
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Business.Contact.IsValid">
+            <summary>
+            Checks whether the Contact is valid.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PS.AddressBook.Business.Contact.DeepClone">
             <summary>
             Creates a Deep Copy of this Contact.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:PS.AddressBook.Business.Contact.Equals(PS.AddressBook.Data.Interfaces.IContact)">
+            <summary>
+            Determins whether a Contact is equal or not.
+            </summary>
+            <param name="other"></param>
+            <returns>true if equal</returns>
+            <remarks>This is needed to be able to remove a Contact from a list.</remarks>
         </member>
         <member name="T:PS.AddressBook.Business.ContactLineDTO">
             <summary>

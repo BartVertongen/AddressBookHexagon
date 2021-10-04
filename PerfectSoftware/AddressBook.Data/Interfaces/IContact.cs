@@ -1,12 +1,14 @@
 ﻿// By Bart Vertongen copyright 2021
 
 
+using System;
+
 namespace PS.AddressBook.Data.Interfaces
 {
     /// <summary>
     /// The Interface for the Contact Business Object.
     /// </summary>
-    public interface IContact
+    public interface IContact : IEquatable<IContact>
     {
         /// <summary>
         /// The Name of the Contact
@@ -40,5 +42,7 @@ namespace PS.AddressBook.Data.Interfaces
         /// </summary>
         /// <returns></returns>
         public IContact DeepClone();
+
+        public void Assign(IContact newvalues);
     }
 }

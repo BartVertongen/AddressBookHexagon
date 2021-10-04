@@ -139,7 +139,6 @@ namespace WebAPIAddressBook.Controllers
                 return NotFound();
 
             _Service.Delete(name);
-
             return NoContent();
         }
     }

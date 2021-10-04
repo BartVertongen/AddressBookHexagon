@@ -33,6 +33,16 @@ namespace PS.AddressBook.Business.Adapters
             set => throw new NotImplementedException();
         }
 
+        public void Assign(IAddress newvalues)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Equals(IAddress other)
+        {
+            throw new NotImplementedException();
+        }
+
         //TODO: Here we repeat code! DRY
         public bool IsValid()
         {

@@ -98,8 +98,10 @@ namespace PS.AddressBook.Business
         /// <param name="nameToDelete"></param>
         public void Delete(string nameToDelete)
         {
-            Contact oContact = (Contact)this.Single(ctt => ctt.Name == nameToDelete);
-            this.Remove(oContact);
+            IContact oContact = this.Single(ctt => ctt.Name == nameToDelete);
+            Contact bussContact = new(oContact);
+            //this does not work
+            base.Remove(bussContact);
         }
 
         /// <summary>
@@ -109,7 +111,10 @@ namespace PS.AddressBook.Business
         public void Update(IContact changedContact)
         {
             IContact Found = (Contact)this.FirstOrDefault(ctt => ctt.Name == changedContact.Name);
-            if (Found != null) Found = changedContact;
+            if (Found != null)
+            {
+                Found.Assign(changedContact);
+            }
         }
 
         /// <summary>

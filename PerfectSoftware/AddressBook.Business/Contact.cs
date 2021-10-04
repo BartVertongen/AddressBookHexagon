@@ -38,6 +38,9 @@ namespace PS.AddressBook.Business
             this.Email = "";
         }
 
+        /// <summary>
+        /// The AddressBook to which this Contact belongs.
+        /// </summary>
         public IAddressBook AddressBook { private get;  set;  }
 
         public string Name
@@ -110,6 +113,7 @@ namespace PS.AddressBook.Business
             }
         }
 
+
         static public bool IsValid (IContact contact)
         {
             if (string.IsNullOrEmpty(contact.Name))
@@ -122,6 +126,10 @@ namespace PS.AddressBook.Business
                 return true;
         }
 
+        /// <summary>
+        /// Checks whether the Contact is valid.
+        /// </summary>
+        /// <returns></returns>
         public bool IsValid()
         {
             return Contact.IsValid(this);
@@ -141,6 +149,34 @@ namespace PS.AddressBook.Business
                 Address = new Address(Address.Street, Address.PostalCode, Address.Town)
             };
             return oCopy;
+        }
+
+        /// <summary>
+        /// Determins whether a Contact is equal or not.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>true if equal</returns>
+        /// <remarks>This is needed to be able to remove a Contact from a list.</remarks>
+        public bool Equals(IContact other)
+        {
+            if (this.Name != other.Name)
+                return false;
+            else if (this.PhoneNumber != other.PhoneNumber)
+                return false;
+            else if (this.Email != other.Email)
+                return false;
+            else if (!this.Address.Equals(other.Address))
+                return false;
+            else
+                return true;
+        }
+
+
+        public void Assign(IContact newValues)
+        {
+            this.PhoneNumber = newValues.PhoneNumber;
+            this.Email = newValues.Email;
+            this.Address.Assign(newValues.Address);
         }
     }
 }

@@ -49,6 +49,32 @@
             The Email of the Contact.
             </summary>
         </member>
+        <member name="T:PS.AddressBook.Data.Interfaces.IAddress">
+            <summary>
+            The interface for an adress.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.Interfaces.IAddress.Street">
+            <summary>
+            The Street of the Address. Also contains number and box.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.Interfaces.IAddress.PostalCode">
+            <summary>
+            A Code related with the Town.
+            </summary>
+        </member>
+        <member name="P:PS.AddressBook.Data.Interfaces.IAddress.Town">
+            <summary>
+            The Town of the address.
+            </summary>
+        </member>
+        <member name="M:PS.AddressBook.Data.Interfaces.IAddress.IsValid">
+            <summary>
+            Checks whether the address is a valid address.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:PS.AddressBook.Data.Interfaces.IContact">
             <summary>
             The Interface for the Contact Business Object.
