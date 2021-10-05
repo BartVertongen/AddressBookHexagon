@@ -266,3 +266,11 @@ Work Done 7h on 23-09-3021. Lesson3 Task 3: Write and Improve UnitTests
 Work Done 2h on 23-09-3021. Lesson3 Task 3: Improve UnitTests
 Work Done 4h on 24-09-3021. Lesson3 Task 3: Improve UnitTests
 Work Done 4h on 25-09-3021. Lesson3 Task 3: Improve UnitTests
+Work Done 12h on 04-10-3021. Lesson3 Task 3: WEB API AddressBook
+-------------------------------------------------------------------
+SUBTotal = 106,5h 
+This is already higher than estimated 
+but we are also learning, it is not yet a routine.
+-------------------------------------------------------------------
+
+
