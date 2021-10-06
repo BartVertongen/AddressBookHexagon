@@ -1,7 +1,6 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using PS.AddressBook.Data.Interfaces;   //TODO remove reference to DataLayer in App
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.Business;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;

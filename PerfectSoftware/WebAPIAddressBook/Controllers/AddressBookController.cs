@@ -6,10 +6,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PS.AddressBook.Data;
 using PS.AddressBook.Business;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
 
 
 namespace WebAPIAddressBook.Controllers
@@ -22,7 +21,7 @@ namespace WebAPIAddressBook.Controllers
     public class AddressBookController : ControllerBase
     {
         private readonly ILogger<AddressBookController> _logger;
-        private IAddressBookService _Service;
+        private readonly IAddressBookService _Service;
 
         /// <summary>
         /// Constructor WEB API for managing Contacts.

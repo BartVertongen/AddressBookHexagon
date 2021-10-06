@@ -1,7 +1,6 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
@@ -12,13 +11,11 @@ namespace PS.AddressBook.UI.Commands
     {
         private readonly BussAddressBook _AddressBook;
         private readonly IConsoleUserInterface _UserInterface;
-        private readonly IAddressBookUICommandFactory _CommandFactory;
 
-        public DeleteContactCommand(IAddressBook book, IConsoleUserInterface ui, IAddressBookUICommandFactory commandFactory)
+        public DeleteContactCommand(IAddressBook book, IConsoleUserInterface ui)
         {
             _AddressBook = (BussAddressBook)book;
             _UserInterface = ui;
-            _CommandFactory = commandFactory;
         }
 
         public string ShortName { get; } = "d";

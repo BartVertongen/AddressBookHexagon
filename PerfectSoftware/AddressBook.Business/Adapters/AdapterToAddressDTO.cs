@@ -1,6 +1,6 @@
 ﻿// By Bart Vertongen copyright 2021
 
-using PS.AddressBook.Data.Interfaces;
+using PS.AddressBook.Business.Interfaces;
 using System;
 
 

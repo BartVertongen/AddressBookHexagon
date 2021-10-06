@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.UI;
 using PS.AddressBook.UI.Commands;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;

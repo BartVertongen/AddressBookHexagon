@@ -12,8 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using PS.AddressBook.Business;
+using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
 
 
 namespace WebAPIAddressBook

@@ -3,7 +3,7 @@
 using System;
 
 
-namespace PS.AddressBook.Data.Interfaces
+namespace PS.AddressBook.Business.Interfaces
 {
     /// <summary>
     /// The interface for an adress.

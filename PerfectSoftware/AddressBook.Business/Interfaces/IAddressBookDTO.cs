@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 
 
-namespace PS.AddressBook.Data.Interfaces
+namespace PS.AddressBook.Business.Interfaces
 {
     public interface IAddressBookDTO: IList<IContactDTO>
     {

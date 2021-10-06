@@ -6,8 +6,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
+using PS.AddressBook.Business.Interfaces;
 
 
 namespace PS.AddressBook.Business.Tests

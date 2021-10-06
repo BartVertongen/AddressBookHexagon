@@ -3,8 +3,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Adapters;
 using PS.AddressBook.Business.Interfaces;
 
@@ -144,7 +142,7 @@ namespace PS.AddressBook.Business
             foreach (IContact bussContact in this)
             {
                 AdapterToContactDTO Adapter = new(bussContact);
-                ContactDTO dtoContact = new(Adapter);
+                IContactDTO dtoContact = Adapter;
                 TempBook.Add(dtoContact);
             }
             _DSAddressBook.Save(TempBook);

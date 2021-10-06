@@ -6,8 +6,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
+using PS.AddressBook.Business.Interfaces;
 
 
 namespace PS.AddressBook.Business.Tests
@@ -65,15 +64,14 @@ namespace PS.AddressBook.Business.Tests
         {
             //Arrange
             AddressBookService ABService;
-            ContactDTO ValidContact;
+            IContactDTO ValidContact;
+            Mock<IContactDTO> MockContact = new();
+            MockContact.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
+            MockContact.SetupGet(p => p.PhoneNumber).Returns("02/581.14.78");
 
             //Actions
             ABService = new AddressBookService(_AddressBook);
-            ValidContact = new ContactDTO
-            {
-                Name = "Elizabeth De Prinses",
-                PhoneNumber = "02/581.14.78"
-            };
+            ValidContact = MockContact.Object;
             ABService.Add(ValidContact);
 
             //Asserts
@@ -85,14 +83,13 @@ namespace PS.AddressBook.Business.Tests
         {
             //Arrange
             AddressBookService ABService;
-            ContactDTO InvalidContact;
+            IContactDTO InvalidContact;
+            Mock<IContactDTO> MockContact = new();
+            MockContact.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
 
             //Actions
             ABService = new AddressBookService(_AddressBook);
-            InvalidContact = new ContactDTO
-            {
-                Name = "Elizabeth De Prinses"
-            };
+            InvalidContact = MockContact.Object;
             void testCode() => ABService.Add(InvalidContact); //a local function
             var ex = Record.Exception(testCode);
 
@@ -107,15 +104,14 @@ namespace PS.AddressBook.Business.Tests
         {
             //Arrange
             AddressBookService ABService;
-            ContactDTO ValidContact;
+            IContactDTO ValidContact;
+            Mock<IContactDTO> MockContact = new();
+            MockContact.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
+            MockContact.SetupGet(p => p.PhoneNumber).Returns("02/581.14.78");
 
             //Actions
             ABService = new AddressBookService(_AddressBook);
-            ValidContact = new ContactDTO
-            {
-                Name = "Elizabeth De Prinses",
-                PhoneNumber = "02/581.14.78"
-            };
+            ValidContact = MockContact.Object;
             ABService.Add(ValidContact);
             Action testCode = () => ABService.Add(ValidContact);
             var ex = Record.Exception(testCode);

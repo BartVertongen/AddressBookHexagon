@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AddressBook.Business\AddressBook.Business.csproj" />
+    <ProjectReference Include="..\AddressBook.Data\AddressBook.Data.csproj" />
     <ProjectReference Include="..\AdressBook.UI\AddressBook.UI.csproj" />
   </ItemGroup>
 

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using PS.AddressBook.Business.Adapters;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.Business

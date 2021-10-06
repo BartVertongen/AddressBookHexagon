@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.Business.Interfaces;
+using PS.AddressBook.Data;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
 
 

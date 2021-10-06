@@ -2,7 +2,6 @@
 
 using PS.AddressBook.Business.Commands;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.UI.Commands
@@ -25,35 +24,18 @@ namespace PS.AddressBook.UI.Commands
 
         public IUICommand GetCommand(string input)
         {
-            switch (input.ToLower())
+            return input.ToLower() switch
             {
-                case "q":
-                case "quit":
-                    return new QuitCommand(_UserInterface);
-                case "a":
-                case "add":
-                    return new AddContactCommand(_AddressBook, _UserInterface);
-                case "d":
-                case "delete":
-                    return new DeleteContactCommand(_AddressBook, _UserInterface, this);
-                case "s":
-                case "select":
-                    return new SelectContactCommand(_AddressBook, _UserInterface);
-                case "u":
-                case "update":
-                    return new UpdateContactCommand(_AddressBook, _UserInterface, this);
-                case "v":
-                case "view":
-                    return new ViewContactCommand(_AddressBook, _UserInterface);
-                case "?":
-                case "help":
-                    return new HelpCommand(_UserInterface);
-                case "l":
-                case "list":
-                    return new GetOverViewCommand(_AddressBook, _UserInterface);
-                default:
-                    return new UnknownCommand(_UserInterface);
-            }
+                "q" or "quit" => new QuitCommand(_UserInterface),
+                "a" or "add" => new AddContactCommand(_AddressBook, _UserInterface),
+                "d" or "delete" => new DeleteContactCommand(_AddressBook, _UserInterface),
+                "s" or "select" => new SelectContactCommand(_AddressBook, _UserInterface),
+                "u" or "update" => new UpdateContactCommand(_AddressBook, _UserInterface, this),
+                "v" or "view" => new ViewContactCommand(_AddressBook, _UserInterface),
+                "?" or "help" => new HelpCommand(_UserInterface),
+                "l" or "list" => new GetOverViewCommand(_AddressBook, _UserInterface),
+                _ => new UnknownCommand(_UserInterface),
+            };
         }
     }
 }

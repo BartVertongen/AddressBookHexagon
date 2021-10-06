@@ -5,7 +5,6 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using PS.AddressBook.UI;
@@ -31,13 +30,13 @@ namespace UseCaseTests
         public UseCase2_5_2Test()
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
-            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase2.xml");
             if (File.Exists(FullPath))
             {
                 File.Delete(FullPath);
             }
-            Mock<IDSAddressBook> MockDSAddressBook = new Mock<IDSAddressBook>();
+            Mock<IDSAddressBook> MockDSAddressBook = new();
             _AddressBook = new BussAddressBook(MockDSAddressBook.Object);
         }
 

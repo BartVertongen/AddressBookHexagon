@@ -1,4 +1,7 @@
+// By Bart Vertongen copyright 2021
 
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -6,9 +9,7 @@ using Moq;
 using Xunit;
 using PS.AddressBook.Business;
 using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
-using System;
-using System.Collections.Generic;
+using PS.AddressBook.Business.Interfaces;
 using WebAPIAddressBook.Controllers;
 
 
@@ -19,7 +20,7 @@ namespace WebApiAddressBook.Test
         IDSAddressBook          _DSAddressBook;
         IAddressBook            _AddressBook;
         IAddressBookService     _Service;
-        AddressBookController _Controller;
+        AddressBookController   _Controller;
 
         class DSAddressBookMock : IDSAddressBook
         {

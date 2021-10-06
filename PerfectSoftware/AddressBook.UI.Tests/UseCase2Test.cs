@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
@@ -32,9 +31,9 @@ namespace PS.AddressBook.UI.UseCases
         {
             private static int iCounter = 1;
             private readonly string _Filter;
-            private bool bFilterProcessed = false;
+            private readonly bool bFilterProcessed = false;
             private readonly string _Selection;
-            private bool bSelectionProcessed = false;
+            private readonly bool bSelectionProcessed = false;
             private readonly string _Name;
             private bool bNameProcessed = false;
             private readonly string _Street;
@@ -215,7 +214,7 @@ namespace PS.AddressBook.UI.UseCases
         public UseCase2Test()
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
-            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
             IDSAddressBook MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
             _AddressBook = new BussAddressBook(MockDSAddressBook);

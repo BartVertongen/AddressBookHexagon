@@ -1,10 +1,9 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System.Collections.Generic;
-using PS.AddressBook.Data.Interfaces;
 
 
-namespace PS.AddressBook.Data.Interfaces
+namespace PS.AddressBook.Business.Interfaces
 {
     public interface IDSAddressBook
     {

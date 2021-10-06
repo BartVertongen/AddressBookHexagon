@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
 using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
 using PS.AddressBook.UI.Commands;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
@@ -159,7 +158,7 @@ namespace PS.AddressBook.UI.UseCases
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase4.xml";
             aMockConfig = new Mock<IConfigurationRoot>();
             aMockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
-            DSAddressBookMock aMockDSAddressBook = new DSAddressBookMock();
+            DSAddressBookMock aMockDSAddressBook = new();
             BussAddressBook anAddressBook = new BussAddressBook(aMockDSAddressBook);
             anInputIterator = new MockInputIterator(filter, selectedContact);
             aConsole = new TestConsole(anInputIterator);

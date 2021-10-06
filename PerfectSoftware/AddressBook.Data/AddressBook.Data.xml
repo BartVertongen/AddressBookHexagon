@@ -39,7 +39,7 @@
             The Unique Name of the Contact.
             </summary>
         </member>
-        <member name="P:PS.AddressBook.Data.ContactDTO.PS#AddressBook#Data#Interfaces#IContactDTO#Address">
+        <member name="P:PS.AddressBook.Data.ContactDTO.PS#AddressBook#Business#Interfaces#IContactDTO#Address">
             <summary>
             To prevent problems with IContactDTO we have this property
             </summary>
@@ -48,64 +48,6 @@
             <summary>
             The Email of the Contact.
             </summary>
-        </member>
-        <member name="T:PS.AddressBook.Data.Interfaces.IAddress">
-            <summary>
-            The interface for an adress.
-            </summary>
-        </member>
-        <member name="P:PS.AddressBook.Data.Interfaces.IAddress.Street">
-            <summary>
-            The Street of the Address. Also contains number and box.
-            </summary>
-        </member>
-        <member name="P:PS.AddressBook.Data.Interfaces.IAddress.PostalCode">
-            <summary>
-            A Code related with the Town.
-            </summary>
-        </member>
-        <member name="P:PS.AddressBook.Data.Interfaces.IAddress.Town">
-            <summary>
-            The Town of the address.
-            </summary>
-        </member>
-        <member name="M:PS.AddressBook.Data.Interfaces.IAddress.IsValid">
-            <summary>
-            Checks whether the address is a valid address.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:PS.AddressBook.Data.Interfaces.IContact">
-            <summary>
-            The Interface for the Contact Business Object.
-            </summary>
-        </member>
-        <member name="P:PS.AddressBook.Data.Interfaces.IContact.Name">
-            <summary>
-            The Name of the Contact
-            </summary>
-        </member>
-        <member name="P:PS.AddressBook.Data.Interfaces.IContact.PhoneNumber">
-            <summary>
-            The Phone Number of the Contact.
-            </summary>
-        </member>
-        <member name="P:PS.AddressBook.Data.Interfaces.IContact.ContentsCode">
-            <summary>
-            Gives a Code to show what data is available in this Contact.
-            </summary>
-        </member>
-        <member name="M:PS.AddressBook.Data.Interfaces.IContact.IsValid">
-            <summary>
-            Flag whether this Contact contains valid data.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PS.AddressBook.Data.Interfaces.IContact.DeepClone">
-            <summary>
-            Creates a Deep Copy of this Contact.
-            </summary>
-            <returns></returns>
         </member>
     </members>
 </doc>

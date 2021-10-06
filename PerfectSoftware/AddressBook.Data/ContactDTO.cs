@@ -3,7 +3,7 @@
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using PS.AddressBook.Data.Interfaces;
+using PS.AddressBook.Business.Interfaces;
 
 
 namespace PS.AddressBook.Data

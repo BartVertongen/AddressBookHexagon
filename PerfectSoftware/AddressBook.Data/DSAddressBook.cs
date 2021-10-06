@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
-using PS.AddressBook.Data.Interfaces;
+using PS.AddressBook.Business.Interfaces;
 
 
 namespace PS.AddressBook.Data
@@ -45,10 +45,8 @@ namespace PS.AddressBook.Data
             }
                 
             AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
-            using (FileStream fs = new(this.FullPath, FileMode.Create, FileAccess.Write))
-            {
-                AddressBookSerializer.Serialize(fs, TempBook);
-            }
+            using FileStream fs = new(this.FullPath, FileMode.Create, FileAccess.Write);
+            AddressBookSerializer.Serialize(fs, TempBook);
         }
 
 

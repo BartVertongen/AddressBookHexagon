@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Data.Interfaces;
 
 
 namespace PS.AddressBook.Business

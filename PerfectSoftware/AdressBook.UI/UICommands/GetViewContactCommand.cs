@@ -1,9 +1,6 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using PS.AddressBook.Data.Interfaces;
 using PS.AddressBook.Business.Interfaces;
 using BussAddressBook = PS.AddressBook.Business.AddressBook;
 

@@ -1,13 +1,12 @@
 ﻿//By Bart Vertongen copyright 2021.
 
-using Microsoft.Extensions.Configuration;
-using Moq;
-using PS.AddressBook.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Moq;
 using Xunit;
+using PS.AddressBook.Business.Interfaces;
 
 
 namespace PS.AddressBook.Business.Tests
@@ -17,14 +16,14 @@ namespace PS.AddressBook.Business.Tests
     /// </summary>
     public class UseCase4Test
     {
-        private AddressBook _AddressBook;
+        private readonly AddressBook _AddressBook;
         private List<ContactLineDTO> _ResultList;
         private string _Filter, _SelectedName;
 
         public UseCase4Test()
         {
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase4.xml";
-            Mock<IConfigurationRoot> MockConfig = new Mock<IConfigurationRoot>();
+            Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase4.xml");
 
             Mock<IDSAddressBook> MockDSAddressBook = new Mock<IDSAddressBook>();

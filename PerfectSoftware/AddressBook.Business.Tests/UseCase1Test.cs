@@ -2,12 +2,11 @@
 
 using Microsoft.Extensions.Configuration;
 using Moq;
-using PS.AddressBook.Data;
-using PS.AddressBook.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using PS.AddressBook.Business.Interfaces;
 
 
 namespace PS.AddressBook.Business.Tests
@@ -28,21 +27,19 @@ namespace PS.AddressBook.Business.Tests
 
             public void Load(IList<IContactDTO> book)
             {
-                ContactDTO NewContact;
+                IContactDTO NewContact1, NewContact2;
 
-                NewContact = new ContactDTO
-                {
-                    Name = "An Dematras",
-                    PhoneNumber = "02/5820103"
-                };
-                book.Add(NewContact);
+                Mock<IContactDTO> MockContact1 = new();
+                MockContact1.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
+                MockContact1.SetupGet(p => p.PhoneNumber).Returns("02/581.14.78");
+                NewContact1 = MockContact1.Object;
+                book.Add(NewContact1);
 
-                NewContact = new ContactDTO
-                {
-                    Name = "André Hazes",
-                    Email = "andre@heaven.com"
-                };
-                book.Add(NewContact);
+                Mock<IContactDTO> MockContact2 = new();
+                MockContact2.SetupGet(p => p.Name).Returns("André Hazes");
+                MockContact2.SetupGet(p => p.Email).Returns("andre@heaven.com");
+                NewContact2 = MockContact2.Object;
+                book.Add(NewContact2);
 
                 NewContact = new ContactDTO
                 {
@@ -74,7 +71,6 @@ namespace PS.AddressBook.Business.Tests
 
         private readonly AddressBook _AddressBook;
         private List<ContactLineDTO> _ResultList;
-        //IList<IContactDTO> _ContactDTOList;
         private string _Filter;
 
         public UseCase1Test()
