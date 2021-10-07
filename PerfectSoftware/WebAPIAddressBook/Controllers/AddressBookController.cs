@@ -65,7 +65,7 @@ namespace WebAPIAddressBook.Controllers
         [HttpGet]
         public ActionResult<ContactDTO> Get(string name)
         {
-            IContactDTO aContact = _Service.Get(name);
+            IContactDTO aContact;
             ContactDTO Result;
 
             aContact = _Service.Get(name);

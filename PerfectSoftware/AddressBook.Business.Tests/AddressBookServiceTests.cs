@@ -31,7 +31,6 @@ namespace PS.AddressBook.Business.Tests
             }
         }
 
-        //private readonly IConfigurationRoot _Configuration;
         private readonly IDSAddressBook _DSAddressBook;
         private readonly AddressBook    _AddressBook;
 
@@ -64,10 +63,16 @@ namespace PS.AddressBook.Business.Tests
         {
             //Arrange
             AddressBookService ABService;
+            Mock<IAddressDTO> MockAddress = new();
+            MockAddress.SetupGet(a => a.Street).Returns("");
+            MockAddress.SetupGet(a => a.PostalCode).Returns("");
+            MockAddress.SetupGet(a => a.Town).Returns("");
             IContactDTO ValidContact;
             Mock<IContactDTO> MockContact = new();
             MockContact.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
             MockContact.SetupGet(p => p.PhoneNumber).Returns("02/581.14.78");
+            MockContact.SetupGet(p => p.Email).Returns("");
+            MockContact.SetupGet(p => p.Address).Returns(MockAddress.Object);
 
             //Actions
             ABService = new AddressBookService(_AddressBook);
@@ -83,9 +88,16 @@ namespace PS.AddressBook.Business.Tests
         {
             //Arrange
             AddressBookService ABService;
+            Mock<IAddressDTO> MockAddress = new();
+            MockAddress.SetupGet(a => a.Street).Returns("");
+            MockAddress.SetupGet(a => a.PostalCode).Returns("");
+            MockAddress.SetupGet(a => a.Town).Returns("");
             IContactDTO InvalidContact;
             Mock<IContactDTO> MockContact = new();
             MockContact.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
+            MockContact.SetupGet(p => p.PhoneNumber).Returns("");
+            MockContact.SetupGet(p => p.Email).Returns("");
+            MockContact.SetupGet(p => p.Address).Returns(MockAddress.Object);
 
             //Actions
             ABService = new AddressBookService(_AddressBook);
@@ -105,9 +117,15 @@ namespace PS.AddressBook.Business.Tests
             //Arrange
             AddressBookService ABService;
             IContactDTO ValidContact;
+            Mock<IAddressDTO> MockAddress = new();
+            MockAddress.SetupGet(a => a.Street).Returns("");
+            MockAddress.SetupGet(a => a.PostalCode).Returns("");
+            MockAddress.SetupGet(a => a.Town).Returns("");
             Mock<IContactDTO> MockContact = new();
             MockContact.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
             MockContact.SetupGet(p => p.PhoneNumber).Returns("02/581.14.78");
+            MockContact.SetupGet(p => p.Email).Returns("");
+            MockContact.SetupGet(p => p.Address).Returns(MockAddress.Object);
 
             //Actions
             ABService = new AddressBookService(_AddressBook);

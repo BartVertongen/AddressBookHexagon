@@ -1,7 +1,6 @@
 // Bart Vertongen copyright 2021.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -13,26 +12,6 @@ namespace PS.AddressBook.Business.Tests
 {
     public class AddressBookTests
     {
-        class DSAddressBookMock : IDSAddressBook
-        {
-            public DSAddressBookMock(IConfigurationRoot config)
-            {
-                FullPath = config.GetSection("ContactsFile").Value;
-            }
-
-            public string FullPath { get; private set; }
-
-            public void Load(IList<IContactDTO> book)
-            {
-            }
-
-            public void Save(IList<IContactDTO> book)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        //private readonly IConfigurationRoot _Configuration;
         private readonly IDSAddressBook _DSAddressBook;
 
         public AddressBookTests()
@@ -42,7 +21,8 @@ namespace PS.AddressBook.Business.Tests
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(sFullPath);
 
-            _DSAddressBook = new DSAddressBook(MockConfig.Object);
+            Mock<IDSAddressBook> MockDSAddressBook = new();
+            _DSAddressBook = MockDSAddressBook.Object;
         }
 
         [Fact]

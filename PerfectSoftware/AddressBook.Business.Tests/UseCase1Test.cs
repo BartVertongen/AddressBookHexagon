@@ -27,40 +27,56 @@ namespace PS.AddressBook.Business.Tests
 
             public void Load(IList<IContactDTO> book)
             {
-                IContactDTO NewContact1, NewContact2;
+                IContactDTO NewContact1, NewContact2, NewContact3;
+                IContactDTO NewContact4;
 
+                Mock<IAddressDTO> MockAddress1 = new();
+                MockAddress1.SetupGet(p => p.Street).Returns("");
+                MockAddress1.SetupGet(p => p.PostalCode).Returns("");
+                MockAddress1.SetupGet(p => p.Town).Returns("");
                 Mock<IContactDTO> MockContact1 = new();
                 MockContact1.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
                 MockContact1.SetupGet(p => p.PhoneNumber).Returns("02/581.14.78");
+                MockContact1.SetupGet(p => p.Email).Returns("");
+                MockContact1.SetupGet(p => p.Address).Returns(MockAddress1.Object);
                 NewContact1 = MockContact1.Object;
                 book.Add(NewContact1);
 
+                Mock<IAddressDTO> MockAddress2 = new();
+                MockAddress2.SetupGet(p => p.Street).Returns("");
+                MockAddress2.SetupGet(p => p.PostalCode).Returns("");
+                MockAddress2.SetupGet(p => p.Town).Returns("");
                 Mock<IContactDTO> MockContact2 = new();
                 MockContact2.SetupGet(p => p.Name).Returns("André Hazes");
+                MockContact2.SetupGet(p => p.PhoneNumber).Returns("");
                 MockContact2.SetupGet(p => p.Email).Returns("andre@heaven.com");
+                MockContact2.SetupGet(p => p.Address).Returns(MockAddress2.Object);
                 NewContact2 = MockContact2.Object;
                 book.Add(NewContact2);
 
-                NewContact = new ContactDTO
-                {
-                    Name = "Jan Franchipan",
-                    Email = "jan@eigenbelang.be"
-                };
-                book.Add(NewContact);
+                Mock<IAddressDTO> MockAddress3 = new();
+                MockAddress3.SetupGet(p => p.Street).Returns("");
+                MockAddress3.SetupGet(p => p.PostalCode).Returns("");
+                MockAddress3.SetupGet(p => p.Town).Returns("");
+                Mock<IContactDTO> MockContact3 = new();
+                MockContact3.SetupGet(p => p.Name).Returns("Jan Franchipan");
+                MockContact3.SetupGet(p => p.PhoneNumber).Returns("");
+                MockContact3.SetupGet(p => p.Email).Returns("jan@eigenbelang.be");
+                MockContact3.SetupGet(p => p.Address).Returns(MockAddress3.Object);
+                NewContact3 = MockContact3.Object;
+                book.Add(NewContact3);
 
-                NewContact = new ContactDTO
-                {
-                    Name = "Josephine DePin",
-                    Email = "jospin@proximus.be",
-                    PhoneNumber = "054/44.87.26",
-                    Address = new AddressDTO
-                    {
-                        Street = "Weverijstraat 12",
-                        PostalCode = "9500",
-                        Town = "Geraardsbergen"
-                    }
-                };
-                book.Add(NewContact);
+                Mock<IAddressDTO> MockAddress4 = new();
+                MockAddress4.SetupGet(p => p.Street).Returns("Weverijstraat 12");
+                MockAddress4.SetupGet(p => p.PostalCode).Returns("9500");
+                MockAddress4.SetupGet(p => p.Town).Returns("Geraardsbergen");
+                Mock<IContactDTO> MockContact4 = new();
+                MockContact4.SetupGet(p => p.Name).Returns("Josephine DePin");
+                MockContact4.SetupGet(p => p.PhoneNumber).Returns("054/44.87.26");
+                MockContact4.SetupGet(p => p.Email).Returns("jospin@proximus.be");
+                MockContact4.SetupGet(p => p.Address).Returns(MockAddress4.Object);
+                NewContact4 = MockContact4.Object;
+                book.Add(NewContact4);
             }
 
             public void Save(IList<IContactDTO> book)
@@ -87,7 +103,7 @@ namespace PS.AddressBook.Business.Tests
 
         [Theory]
         [InlineData("", 4)]
-        [InlineData("a", 2)]
+        [InlineData("a", 1)]
         [InlineData("*de*", 2)]
         [InlineData("*phi*", 1)]
         public void UseCase1Execute_WithFilter_ShouldGiveResultCount(string filter, int count)
@@ -108,10 +124,7 @@ namespace PS.AddressBook.Business.Tests
         /// </summary>
         private void Step1(string filter)
         {
-            //Console.WriteLine($"UseCase1: Give Overview of All Contacts with possible filtering.");
-            //Console.Write($"Give in the filter you want to Use: ");
             _Filter = filter;
-            //Console.WriteLine();
         }
 
         /// <summary>
