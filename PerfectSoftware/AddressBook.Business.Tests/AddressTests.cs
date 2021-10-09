@@ -1,6 +1,8 @@
 //Copyright 2021 Bart Vertongen.
 
 using Xunit;
+using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Domain.Core;
 
 
 namespace PS.AddressBook.Business.Tests
@@ -43,7 +45,7 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNoStreet_ShouldGiveEmptyAddress()
         {
             //Arrange
-            Address anAddress;
+            IAddress anAddress;
 
             //Actions
             anAddress = new Address("", "9500", "Geraardsbergen");

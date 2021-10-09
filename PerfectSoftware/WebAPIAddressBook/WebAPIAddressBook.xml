@@ -9,7 +9,7 @@
             WEB API for managing Contacts.
             </summary>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.#ctor(PS.AddressBook.Business.IAddressBookService,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.AddressBookController})">
+        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.#ctor(PS.AddressBook.Hexagon.Application.IAddressBookService,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.AddressBookController})">
             <summary>
             Constructor WEB API for managing Contacts.
             </summary>
@@ -30,14 +30,14 @@
             <param name="name">The name of the wanted contact.</param>
             <returns>the requested contact</returns>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Create(PS.AddressBook.Data.ContactDTO)">
+        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Create(PS.AddressBook.Hexagon.Domain.Core.IContactDTO)">
             <summary>
             Creates a new Contact.
             </summary>
             <param name="newContact"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Update(System.String,PS.AddressBook.Data.ContactDTO)">
+        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Update(System.String,PS.AddressBook.Hexagon.Domain.Core.IContactDTO)">
             <summary>
             Changes the Data of an existing Contact except the Name.
             </summary>

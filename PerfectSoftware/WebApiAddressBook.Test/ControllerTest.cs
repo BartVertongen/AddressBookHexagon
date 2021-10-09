@@ -7,22 +7,23 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
-using PS.AddressBook.Business;
-using PS.AddressBook.Data;
-using PS.AddressBook.Business.Interfaces;
+using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Application;
 using WebAPIAddressBook.Controllers;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace WebApiAddressBook.Test
 {
     public class ControllerTest
     {
-        IDSAddressBook          _DSAddressBook;
-        IAddressBook            _AddressBook;
-        IAddressBookService     _Service;
-        AddressBookController   _Controller;
+        private readonly IAddressBookFile        _DSAddressBook;
+        private readonly IAddressBook            _AddressBook;
+        private readonly IAddressBookService    _Service;
+        readonly AddressBookController          _Controller;
 
-        class DSAddressBookMock : IDSAddressBook
+        class DSAddressBookMock : IAddressBookFile
         {
             public DSAddressBookMock(IConfigurationRoot config)
             {
@@ -33,7 +34,7 @@ namespace WebApiAddressBook.Test
 
             public void Load(IList<IContactDTO> book)
             {
-                ContactDTO NewContact;
+                IContactDTO NewContact;
 
                 NewContact = new ContactDTO
                 {
@@ -86,7 +87,7 @@ namespace WebApiAddressBook.Test
             StubConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(sFullPath);
 
             _DSAddressBook = new DSAddressBookMock(StubConfig.Object);
-            _AddressBook = new AddressBook(_DSAddressBook);
+            _AddressBook = new BussAddressBook(_DSAddressBook);
             _Service = new AddressBookService(_AddressBook);
             _Controller = new AddressBookController(_Service, StubLogger.Object);
         }
@@ -111,7 +112,7 @@ namespace WebApiAddressBook.Test
         public void ControllerGet_ExistingName_ShouldGiveContactWithGivenName(string name)
         {
             //Action
-            ActionResult<ContactDTO> Result;
+            ActionResult<IContactDTO> Result;
             Result = _Controller.Get(name);
 
             //Assert
@@ -124,7 +125,7 @@ namespace WebApiAddressBook.Test
         public void ControllerGet_NotExistingName_ShouldGiveNULL(string name)
         {
             //Action
-            ActionResult<ContactDTO> Result;
+            ActionResult<IContactDTO> Result;
             Result = _Controller.Get(name);
 
             //Assert
@@ -137,7 +138,7 @@ namespace WebApiAddressBook.Test
                                                     string postcode, string town, string phone, string email)
         {
             //Arrange
-            ContactDTO aContact = new ContactDTO
+            IContactDTO aContact = new ContactDTO
             {
                 Name = name,
                 PhoneNumber = phone,
@@ -163,7 +164,7 @@ namespace WebApiAddressBook.Test
                                             string postcode, string town, string phone, string email)
         {
             //Arrange
-            ContactDTO aContact = new ContactDTO
+            ContactDTO aContact = new()
             {
                 Name = name,
                 PhoneNumber = phone,

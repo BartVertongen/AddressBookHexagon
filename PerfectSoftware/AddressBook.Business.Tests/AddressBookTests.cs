@@ -5,14 +5,16 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Business.Interfaces;
+using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.Business.Tests
 {
     public class AddressBookTests
     {
-        private readonly IDSAddressBook _DSAddressBook;
+        private readonly IAddressBookFile _DSAddressBook;
 
         public AddressBookTests()
         {
@@ -21,7 +23,7 @@ namespace PS.AddressBook.Business.Tests
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(sFullPath);
 
-            Mock<IDSAddressBook> MockDSAddressBook = new();
+            Mock<IAddressBookFile> MockDSAddressBook = new();
             _DSAddressBook = MockDSAddressBook.Object;
         }
 
@@ -29,10 +31,10 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_NoData_ShouldGiveEmptyAddressBook()
         {
             //Arrange
-            AddressBook anAddressBook;
+            IAddressBook anAddressBook;
 
             //Actions
-            anAddressBook = new AddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook(_DSAddressBook);
 
             //Asserts
             Assert.NotNull(anAddressBook);
@@ -43,11 +45,11 @@ namespace PS.AddressBook.Business.Tests
         public void NewAddressBook_AddValidContact_ShouldSucceed()
         {
             //Arrange
-            AddressBook anAddressBook;
-            Contact ValidContact;
+            IAddressBook anAddressBook;
+            IContact ValidContact;
 
             //Actions
-            anAddressBook = new AddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook(_DSAddressBook);
             ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
@@ -65,11 +67,11 @@ namespace PS.AddressBook.Business.Tests
         public void NewAddressBook_AddInvalidContact_ShouldFail()
         {
             //Arrange
-            AddressBook anAddressBook;
+            IAddressBook anAddressBook;
             Contact InvalidContact;
 
             //Actions
-            anAddressBook = new AddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook(_DSAddressBook);
             InvalidContact = new Contact
             {
                 Name = "Elizabeth De Prinses"
@@ -89,11 +91,11 @@ namespace PS.AddressBook.Business.Tests
         public void NewAddressBook_AddExistingContactSameReference_ShouldFail()
         {
             //Arrange
-            AddressBook anAddressBook;
+            IAddressBook anAddressBook;
             Contact ValidContact;
 
             //Actions
-            anAddressBook = new AddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook(_DSAddressBook);
             ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
@@ -115,11 +117,11 @@ namespace PS.AddressBook.Business.Tests
         public void NewAddressBook_AddExistingContactOtherReference_ShouldFail()
         {
             //Arrange
-            AddressBook anAddressBook;
+            IAddressBook anAddressBook;
             Contact ValidContact, IdemContact;
 
             //Actions
-            anAddressBook = new AddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook(_DSAddressBook);
             ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",

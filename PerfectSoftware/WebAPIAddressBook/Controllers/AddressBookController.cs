@@ -6,9 +6,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PS.AddressBook.Data;
-using PS.AddressBook.Business;
-using PS.AddressBook.Business.Interfaces;
+using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Application;
 
 
 namespace WebAPIAddressBook.Controllers
@@ -63,17 +63,16 @@ namespace WebAPIAddressBook.Controllers
         /// <returns>the requested contact</returns>
         [Route("api/[controller]/contact/{name}")]
         [HttpGet]
-        public ActionResult<ContactDTO> Get(string name)
+        public ActionResult<IContactDTO> Get(string name)
         {
             IContactDTO aContact;
-            ContactDTO Result;
 
             aContact = _Service.Get(name);
             if (aContact == null)
                 return NotFound();
             else
             {
-                Result = new(aContact);
+                ContactDTO Result = new(aContact);
                 return Result;
             }          
         }
@@ -87,7 +86,7 @@ namespace WebAPIAddressBook.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("api/[controller]/contact")]
         [HttpPost]
-        public IActionResult Create(ContactDTO newContact)
+        public IActionResult Create(IContactDTO newContact)
         {
             try
             {
@@ -109,7 +108,7 @@ namespace WebAPIAddressBook.Controllers
         /// <returns></returns>
         [Route("api/[controller]/contact/{name}")]
         [HttpPut]
-        public IActionResult Update(string name, ContactDTO changedContact)
+        public IActionResult Update(string name, IContactDTO changedContact)
         {
             IContactDTO OldContact;
 

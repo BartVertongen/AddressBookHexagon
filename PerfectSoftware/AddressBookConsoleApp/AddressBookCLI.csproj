@@ -24,13 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdressBook.UI\AddressBook.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\AddressBook.Hexagon\AddressBook.Hexagon.csproj" />
+    <ProjectReference Include="..\Infrastructure.Driven\AddressBook.Infrastructure.Driving.Console.csproj" />
   </ItemGroup>
 
 </Project>

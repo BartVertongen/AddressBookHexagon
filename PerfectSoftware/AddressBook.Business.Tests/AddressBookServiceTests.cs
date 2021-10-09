@@ -6,16 +6,17 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Business.Interfaces;
+using PS.AddressBook.Hexagon.Domain.Core;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
-namespace PS.AddressBook.Business.Tests
+namespace PS.AddressBook.Hexagon.Application.Tests
 {
     public class AddressBookServiceTests
     {
-        class DSAddressBookMock : IDSAddressBook
+        class AddressBookFileMock : IAddressBookFile
         {
-            public DSAddressBookMock(IConfigurationRoot config)
+            public AddressBookFileMock(IConfigurationRoot config)
             {
                 FullPath = config.GetSection("ContactsFile").Value;
             }
@@ -31,8 +32,8 @@ namespace PS.AddressBook.Business.Tests
             }
         }
 
-        private readonly IDSAddressBook _DSAddressBook;
-        private readonly AddressBook    _AddressBook;
+        private readonly IAddressBookFile   _DSAddressBook;
+        private readonly IAddressBook       _AddressBook;
 
         public AddressBookServiceTests()
         {
@@ -41,15 +42,16 @@ namespace PS.AddressBook.Business.Tests
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(sFullPath);
 
-            _DSAddressBook = new DSAddressBookMock(MockConfig.Object);
-            _AddressBook = new AddressBook(_DSAddressBook);
+            _DSAddressBook = new AddressBookFileMock(MockConfig.Object);
+            //TODO Can we Mock this ?
+            _AddressBook = new BussAddressBook(_DSAddressBook);
         }
 
         [Fact]
         public void Construction_NoData_ShouldGiveValidAddressBookService()
         {
             //Arrange
-            AddressBookService ABService;
+            IAddressBookService ABService;
 
             //Actions
             ABService = new AddressBookService(_AddressBook);

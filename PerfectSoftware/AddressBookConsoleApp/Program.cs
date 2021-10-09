@@ -5,10 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.UI;
-using PS.AddressBook.UI.Commands;
-using BussAddressBook = PS.AddressBook.Business.AddressBook;
+using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Framework.Console;
+using PS.AddressBook.Hexagon.Framework.Console.Commands;
+using PS.AddressBook.Infrastructure.Driving.Console;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.ConsoleApp
@@ -19,19 +20,26 @@ namespace PS.AddressBook.ConsoleApp
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            // Add application services.
-            // Add logging
+            //Add application services.
+
+            //Framework: Add logging
             services.AddSingleton(LoggerFactory.Create(builder =>
             {
                 builder.AddSerilog(dispose: true); //Takes care of ILogger
             }));
             services.AddLogging();
-            // Add access to generic IConfigurationRoot
+
+            //Infrastructure Driven
+            //REM: Where is the AddressBookFileAdapter ???
             services.AddSingleton(Configuration);
+
+            //Hexagon
             services.AddTransient<IAddressBook, BussAddressBook>();
+
+            //Infrastructure Driving
             services.AddTransient<IConsoleUserInterface, ConsoleUserInterface>();
             services.AddTransient<IAddressBookUICommandFactory, AddressBookUICommandFactory>();
-            services.AddTransient<IAddressBookCLIService, AddressBookCLIService>();          
+            services.AddTransient<IAddressBookCLIService, AddressBookConsoleAdapter>();          
         }
 
         private static void Main()
@@ -41,7 +49,6 @@ namespace PS.AddressBook.ConsoleApp
                  .MinimumLevel.Debug()
                  .WriteTo.File("AddressBookCLI.log")
                  .CreateLogger();
-
 
             // Build configuration
             Log.Information("Creating configuration.");
@@ -59,6 +66,18 @@ namespace PS.AddressBook.ConsoleApp
             Log.Information("Starting service");
             try
             {
+
+                // 1. Instantiate right-side adapter ("go outside the hexagon")
+                // IAddressBookFile FileAdapter = new AddressBookXmlFileAdapter(Configuration);
+
+                // 2. Instantiate the AddressBook Hexagon
+                // IAddressBook Hexagon = new AddressBook(FileAdapter);
+
+
+                // 3. Instantiate the left-side adapter --> AddressBookConsoleAdapter
+                //("I want ask/to go inside")
+                // IAddressBookCLIService ConsoleAdapter = new AddressBookConsoleAdapter(Hexagon);
+
                 serviceProvider.GetService<IAddressBookCLIService>().Run();
                 Log.Information("Ending service");
 

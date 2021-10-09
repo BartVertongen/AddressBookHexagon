@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using PS.AddressBook.Business.Interfaces;
+using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.Business.Tests
@@ -16,7 +18,7 @@ namespace PS.AddressBook.Business.Tests
     /// </summary>
     public class UseCase1Test
     {
-        class DSAddressBookMock : IDSAddressBook
+        class DSAddressBookMock : IAddressBookFile
         {
             public DSAddressBookMock(IConfigurationRoot config)
             {
@@ -85,7 +87,7 @@ namespace PS.AddressBook.Business.Tests
             }
         }
 
-        private readonly AddressBook _AddressBook;
+        private readonly IAddressBook _AddressBook;
         private List<ContactLineDTO> _ResultList;
         private string _Filter;
 
@@ -96,8 +98,8 @@ namespace PS.AddressBook.Business.Tests
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
 
-            IDSAddressBook MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
-            _AddressBook = new AddressBook(MockDSAddressBook);
+            IAddressBookFile MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
+            _AddressBook = new BussAddressBook(MockDSAddressBook);
             _Filter = "";
         }
 

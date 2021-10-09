@@ -1,17 +1,12 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System.Reflection;
-using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.UI.Commands;
+using PS.AddressBook.Hexagon.Framework.Console;
+using PS.AddressBook.Hexagon.Framework.Console.Commands;
 
 
-namespace PS.AddressBook.UI
+namespace PS.AddressBook.CLI
 {
-    public interface IAddressBookCLIService
-    {
-        void Run();
-    }
-
     public class AddressBookCLIService : IAddressBookCLIService
     {
         private readonly IConsoleUserInterface _UserInterface;

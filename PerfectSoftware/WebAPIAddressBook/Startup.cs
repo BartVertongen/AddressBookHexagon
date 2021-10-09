@@ -11,9 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using PS.AddressBook.Business;
-using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Data;
+using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Infrastructure.Driven.File;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace WebAPIAddressBook
@@ -61,8 +62,8 @@ namespace WebAPIAddressBook
             // Add access to generic IConfigurationRoot
             services.AddSingleton(Configuration);
             services.AddSingleton<IConfiguration>(Configuration);          
-            services.AddSingleton<IDSAddressBook, DSAddressBook>();
-            services.AddSingleton<IAddressBook, AddressBook>();
+            services.AddSingleton<IAddressBookFile, AddressBookXmlFileAdapter>();
+            services.AddSingleton<IAddressBook, BussAddressBook>();
             services.AddSingleton<IAddressBookService, AddressBookService>();
         }
 

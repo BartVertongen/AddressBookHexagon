@@ -1,8 +1,9 @@
-﻿
+﻿//By Bart Vertongen copyright 2021
+
 using Xunit;
 
 
-namespace PS.AddressBook.UI.Tests
+namespace PS.AddressBook.Hexagon.Framework.Console.Tests
 {
     public class InputIteratorTest
     {

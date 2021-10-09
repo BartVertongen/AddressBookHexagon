@@ -1,9 +1,10 @@
 //By Bart Vertongen copyright 2021.
 
 using Xunit;
+using PS.AddressBook.Hexagon.Domain.Core;
 
 
-namespace PS.AddressBook.Business.Tests
+namespace PS.AddressBook.Hexagon.Domain.Tests
 {
     public class ContactTests
     {
@@ -11,7 +12,7 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_NoData_ShouldGiveInvalidContact()
         {
             //Arrange
-            Contact aContact;
+            IContact aContact;
 
             //Actions
             aContact = new Contact();
@@ -24,8 +25,8 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_AllValidData_ShouldGiveValidContact()
         {
             //Arrange
-            Address anAddress;
-            Contact aContact;
+            IAddress anAddress;
+            IContact aContact;
 
             //Actions
             anAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
@@ -46,8 +47,8 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNameAndAddress_ShouldGiveInvalidContact()
         {
             //Arrange
-            Address anAddress;
-            Contact aContact;
+            IAddress anAddress;
+            IContact aContact;
 
             //Actions
             anAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
@@ -65,7 +66,7 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNameAndPhone_ShouldGiveValidContact()
         {
             //Arrange
-            Contact aContact;
+            IContact aContact;
 
             //Actions
             aContact = new Contact
@@ -82,12 +83,14 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNameAndEmail_ShouldGiveValidContact()
         {
             //Arrange
-            Contact aContact;
+            IContact aContact;
 
             //Actions
-            aContact = new Contact();
-            aContact.Name = "Oscar Degrave";
-            aContact.Email = "ograve@telenet.be";
+            aContact = new Contact
+            {
+                Name = "Oscar Degrave",
+                Email = "ograve@telenet.be"
+            };
 
             //Asserts
             Assert.True(aContact.IsValid());
@@ -97,11 +100,13 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNameOnly_ShouldGiveEmptyContentsCode()
         {
             //Arrange
-            Contact aContact;
+            IContact aContact;
 
             //Actions
-            aContact = new Contact();
-            aContact.Name = "Oscar Degrave";
+            aContact = new Contact
+            {
+                Name = "Oscar Degrave"
+            };
 
             //Asserts
             Assert.True(aContact.ContentsCode == "***");
@@ -111,12 +116,14 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNameAndAddress_ShouldGiveContentsCodeA()
         {
             //Arrange
-            Contact aContact;
-            Address anAddress;
+            IContact aContact;
+            IAddress anAddress;
 
             //Actions
-            aContact = new Contact();
-            aContact.Name = "Oscar Degrave";
+            aContact = new Contact
+            {
+                Name = "Oscar Degrave"
+            };
             anAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
             aContact.Address = anAddress;
 
@@ -128,12 +135,14 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNameAndPhone_ShouldGiveContentsCodeP()
         {
             //Arrange
-            Contact aContact;
+            IContact aContact;
 
             //Actions
-            aContact = new Contact();
-            aContact.Name = "Oscar Degrave";
-            aContact.PhoneNumber = "054/48.74.64";
+            aContact = new Contact
+            {
+                Name = "Oscar Degrave",
+                PhoneNumber = "054/48.74.64"
+            };
 
             //Asserts
             Assert.True(aContact.ContentsCode == "*P*");

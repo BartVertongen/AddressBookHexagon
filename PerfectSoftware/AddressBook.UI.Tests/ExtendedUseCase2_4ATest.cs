@@ -5,10 +5,10 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.UI.Commands;
-using PS.AddressBook.UI;
-using BussAddressBook = PS.AddressBook.Business.AddressBook;
+using PS.AddressBook.Hexagon.Framework.Console;
+using PS.AddressBook.Hexagon.Framework.Console.Commands;
+using PS.AddressBook.Hexagon.Domain.Core;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace UseCaseTests
@@ -36,7 +36,7 @@ namespace UseCaseTests
             {
                 File.Delete(FullPath);
             }
-            Mock<IDSAddressBook> MockDSAddressBook = new();
+            Mock<IAddressBookFile> MockDSAddressBook = new();
             _AddressBook = new BussAddressBook(MockDSAddressBook.Object);
         }
 

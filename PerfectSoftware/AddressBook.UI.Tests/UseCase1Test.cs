@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.UI.Commands;
-using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.Data;
-using BussAddressBook = PS.AddressBook.Business.AddressBook;
+using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Framework.Console;
+using PS.AddressBook.Hexagon.Framework.Console.Commands;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.UI.UseCases
@@ -24,7 +25,7 @@ namespace PS.AddressBook.UI.UseCases
         private IConsoleUserInterface _UserInterface;
         private IAddressBookUICommandFactory _CommandFactory;
 
-        class DSAddressBookMock : IDSAddressBook
+        class DSAddressBookMock : IAddressBookFile
         {
             public DSAddressBookMock(IConfigurationRoot config)
             {
@@ -35,7 +36,7 @@ namespace PS.AddressBook.UI.UseCases
 
             public void Load(IList<IContactDTO> book)
             {
-                ContactDTO NewContact;
+                IContactDTO NewContact;
 
                 NewContact = new ContactDTO
                 {
@@ -90,7 +91,7 @@ namespace PS.AddressBook.UI.UseCases
             Mock <IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
 
-            IDSAddressBook MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
+            IAddressBookFile MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
 
             _AddressBook = new BussAddressBook(MockDSAddressBook);            
         }

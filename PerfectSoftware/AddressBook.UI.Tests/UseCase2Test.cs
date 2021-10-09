@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Business.Interfaces;
-using PS.AddressBook.UI.Commands;
-using BussAddressBook = PS.AddressBook.Business.AddressBook;
-
+using PS.AddressBook.Hexagon.Framework.Console;
+using PS.AddressBook.Hexagon.Framework.Console.Commands;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Domain.Core;
 
 namespace PS.AddressBook.UI.UseCases
 {
@@ -188,7 +188,7 @@ namespace PS.AddressBook.UI.UseCases
             }
         }
 
-        class DSAddressBookMock : IDSAddressBook
+        class DSAddressBookMock : IAddressBookFile
         {
             public DSAddressBookMock(IConfigurationRoot config)
             {
@@ -216,7 +216,7 @@ namespace PS.AddressBook.UI.UseCases
             string FullPath = Environment.CurrentDirectory + "\\AddressBookUseCase2.xml";
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
-            IDSAddressBook MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
+            IAddressBookFile MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
             _AddressBook = new BussAddressBook(MockDSAddressBook);
         }
 
