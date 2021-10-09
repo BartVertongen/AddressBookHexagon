@@ -10,9 +10,10 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
 {
     public class AddContactCommand : IChangeCommand
     {
+        //TODO: normally we should not use IAddressBook or Contact in this level
         private readonly IAddressBook _AddressBook;       
         private readonly IConsoleUserInterface _UserInterface;
-        private readonly Contact _Contact;
+        private readonly IContact _Contact;
 
         /// <summary>
         /// The Command to create and add a Contact.
