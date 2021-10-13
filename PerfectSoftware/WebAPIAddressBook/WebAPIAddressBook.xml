@@ -4,54 +4,24 @@
         <name>WebAPIAddressBook</name>
     </assembly>
     <members>
-        <member name="T:WebAPIAddressBook.Controllers.AddressBookController">
+        <member name="T:WebAPIAddressBook.Controllers.CreateContactController">
             <summary>
-            WEB API Controller for managing Contacts.
+            WEB API Controller for Creating Contacts.
             </summary>
             <remarks>This Controller is also an WEB API adapter, it uses Ports.</remarks>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.#ctor(PS.AddressBook.Hexagon.Application.IAddressBookService,PS.AddressBook.Hexagon.Application.UseCases.IGetOverviewQuery,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.AddressBookController})">
+        <member name="M:WebAPIAddressBook.Controllers.CreateContactController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.ICreateContactUseCase,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.UpdateContactController})">
             <summary>
             Constructor WEB API for managing Contacts.
             </summary>
-            <param name="service"></param>
-            <param name="overviewQuery">Port for the Contact OverviewQueryService</param>
+            <param name="createContactService">Port for the CreateContactService</param>
             <param name="logger"></param>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.GetOverview(System.String)">
-            <summary>
-            Shows an overview of all Contacts in the addressbook filtered by filter which can be empty.
-            </summary>
-            <param name="filter">'a' starts with 'a'; '*de*' contains 'de'</param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Get(System.String)">
-            <summary>
-            Gets the Contact with the given name from the addressbook.
-            </summary>
-            <param name="name">The name of the wanted contact.</param>
-            <returns>the requested contact</returns>
-        </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Create(PS.AddressBook.Hexagon.Domain.IContactDTO)">
+        <member name="M:WebAPIAddressBook.Controllers.CreateContactController.Create(PS.AddressBook.Hexagon.Domain.IContactDTO)">
             <summary>
             Creates a new Contact.
             </summary>
             <param name="newContact"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Update(System.String,PS.AddressBook.Hexagon.Domain.IContactDTO)">
-            <summary>
-            Changes the Data of an existing Contact except the Name.
-            </summary>
-            <param name="name">The name of an existing Contact.</param>
-            <param name="changedContact">new values for the Contact.</param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPIAddressBook.Controllers.AddressBookController.Delete(System.String)">
-            <summary>
-            Deletes the Contact with the given Name from the AddressBook.
-            </summary>
-            <param name="name">Name of the Contact</param>
             <returns></returns>
         </member>
         <member name="T:WebAPIAddressBook.Controllers.DeleteContactController">
@@ -60,7 +30,7 @@
             </summary>
             <remarks>This Controller is also an WEB API adapter, it uses Ports.</remarks>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.DeleteContactController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.IDeleteContactUseCase,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.AddressBookController})">
+        <member name="M:WebAPIAddressBook.Controllers.DeleteContactController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.IDeleteContactUseCase,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.UpdateContactController})">
             <summary>
             Constructor WEB API adapter for Deleting a Contact.
             </summary>
@@ -80,7 +50,7 @@
             </summary>
             <remarks>This Controller is also an WEB API adapter, it uses Ports.</remarks>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.GetContactWithNameController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.IGetContactWithNameQuery,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.AddressBookController})">
+        <member name="M:WebAPIAddressBook.Controllers.GetContactWithNameController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.IGetContactWithNameQuery,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.UpdateContactController})">
             <summary>
             Constructor WEB API for managing Contacts.
             </summary>
@@ -100,7 +70,7 @@
             </summary>
             <remarks>This Controller is also an WEB API adapter, it uses Ports.</remarks>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.GetOverviewController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.IGetOverviewQuery,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.AddressBookController})">
+        <member name="M:WebAPIAddressBook.Controllers.GetOverviewController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.IGetOverviewQuery,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.UpdateContactController})">
             <summary>
             Constructor WEB API GetOverview Adapter for managing Contacts.
             </summary>
@@ -112,6 +82,28 @@
             Shows an overview of all Contacts in the addressbook filtered by filter which can be empty.
             </summary>
             <param name="filter">'a' starts with 'a'; '*de*' contains 'de'</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPIAddressBook.Controllers.UpdateContactController">
+            <summary>
+            WEB API Controller for Updating Contacts.
+            </summary>
+            <remarks>This Controller is also an WEB API adapter, it uses Ports.</remarks>
+        </member>
+        <member name="M:WebAPIAddressBook.Controllers.UpdateContactController.#ctor(PS.AddressBook.Hexagon.Application.UseCases.IUpdateContactUseCase,PS.AddressBook.Hexagon.Application.UseCases.IGetContactWithNameQuery,Microsoft.Extensions.Logging.ILogger{WebAPIAddressBook.Controllers.UpdateContactController})">
+            <summary>
+            Constructor WEB API for managing Contacts.
+            </summary>
+            <param name="updateContactService">Port for the updateContactService</param>
+            <param name="contactQueryService">Port for GetContactNameQuery</param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:WebAPIAddressBook.Controllers.UpdateContactController.Update(System.String,PS.AddressBook.Hexagon.Domain.IContactDTO)">
+            <summary>
+            Changes the Data of an existing Contact except the Name.
+            </summary>
+            <param name="name">The name of an existing Contact.</param>
+            <param name="changedContact">new values for the Contact.</param>
             <returns></returns>
         </member>
         <member name="T:WebAPIAddressBook.Program">
@@ -141,6 +133,12 @@
             <summary>
             Holds a reference to the Settings of the Application.
             </summary>
+        </member>
+        <member name="M:WebAPIAddressBook.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
         </member>
     </members>
 </doc>

@@ -19,7 +19,7 @@ namespace WebAPIAddressBook.Controllers
     [ApiController]
     public class GetOverviewController : ControllerBase
     {
-        private readonly ILogger<AddressBookController> _logger;
+        private readonly ILogger<UpdateContactController> _logger;
         private readonly IGetOverviewQuery      _GetOverviewPort;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="overviewQuery">Port for the Contact OverviewQueryService</param>
         /// <param name="logger"></param>
-        public GetOverviewController(IGetOverviewQuery overviewQuery, ILogger<AddressBookController> logger)
+        public GetOverviewController(IGetOverviewQuery overviewQuery, ILogger<UpdateContactController> logger)
         {
             _GetOverviewPort = overviewQuery;
             _logger = logger;

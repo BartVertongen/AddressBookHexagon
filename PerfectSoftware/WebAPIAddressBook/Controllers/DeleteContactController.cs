@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Commands;
-
+using PS.AddressBook.Hexagon.Domain;
 
 namespace WebAPIAddressBook.Controllers
 {
@@ -16,7 +16,7 @@ namespace WebAPIAddressBook.Controllers
     [ApiController]
     public class DeleteContactController : ControllerBase
     {
-        private readonly ILogger<AddressBookController> _Logger;
+        private readonly ILogger<UpdateContactController> _Logger;
         private readonly IDeleteContactUseCase          _DeleteContactService;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="service">Port for the Delete Contact Service</param>
         /// <param name="logger"></param>
-        public DeleteContactController(IDeleteContactUseCase service, ILogger<AddressBookController> logger)
+        public DeleteContactController(IDeleteContactUseCase service, ILogger<UpdateContactController> logger)
         {
             _DeleteContactService = service;
             _Logger = logger;
@@ -40,7 +40,7 @@ namespace WebAPIAddressBook.Controllers
         public IActionResult Delete(string name)
         {
             DeleteContactCommand DeleteCommand = new(name);
-            var ToRemoveContact = _DeleteContactService.DeleteContact(DeleteCommand);
+            IContactDTO ToRemoveContact = _DeleteContactService.DeleteContact(DeleteCommand);
 
             if (ToRemoveContact is null)
                 return NotFound();

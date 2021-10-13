@@ -16,7 +16,7 @@ namespace WebAPIAddressBook.Controllers
     [ApiController]
     public class GetContactWithNameController : ControllerBase
     {
-        private readonly ILogger<AddressBookController> _logger;
+        private readonly ILogger<UpdateContactController> _logger;
         private readonly IGetContactWithNameQuery       _GetContactWithNamePort;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="contactWithNameQuery">Port for the Contact GetContactWithNameQueryService</param>
         /// <param name="logger"></param>
-        public GetContactWithNameController(IGetContactWithNameQuery contactWithNameQuery, ILogger<AddressBookController> logger)
+        public GetContactWithNameController(IGetContactWithNameQuery contactWithNameQuery, ILogger<UpdateContactController> logger)
         {
             _GetContactWithNamePort = contactWithNameQuery;
             _logger = logger;

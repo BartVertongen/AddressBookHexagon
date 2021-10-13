@@ -89,7 +89,7 @@ namespace WebApiAddressBook.Test
         {
             string sFullPath = Environment.CurrentDirectory + "\\AddressBook.xml";
 
-            Mock<ILogger<AddressBookController>> StubLogger = new();
+            Mock<ILogger<UpdateContactController>> StubLogger = new();
 
             Mock<IConfigurationRoot> StubConfig = new();
             StubConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(sFullPath);

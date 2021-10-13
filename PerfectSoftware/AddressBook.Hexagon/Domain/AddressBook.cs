@@ -20,6 +20,7 @@ namespace PS.AddressBook.Hexagon.Domain
 
         public AddressBook(IAddressBookFile dsAddressBook, IAddressBookDTO dtoAddressBook)
         {
+            _DSAddressBook = dsAddressBook;
             SelectedContactName = "";
             foreach (IContactDTO dtoContact in dtoAddressBook)
             {
