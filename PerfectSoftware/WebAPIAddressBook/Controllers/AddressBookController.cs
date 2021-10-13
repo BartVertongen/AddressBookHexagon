@@ -6,31 +6,35 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PS.AddressBook.Hexagon.Domain.Core;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.UseCases;
 
 
 namespace WebAPIAddressBook.Controllers
 {
     /// <summary>
-    /// WEB API for managing Contacts.
+    /// WEB API Controller for managing Contacts.
     /// </summary>
+    /// <remarks>This Controller is also an WEB API adapter, it uses Ports.</remarks>
     [Produces("application/json")]
     [ApiController]
     public class AddressBookController : ControllerBase
     {
         private readonly ILogger<AddressBookController> _logger;
-        private readonly IAddressBookService _Service;
+        private readonly IAddressBookService    _Service;
+        private readonly IGetOverviewQuery      _GetOverviewPort;
 
         /// <summary>
         /// Constructor WEB API for managing Contacts.
         /// </summary>
         /// <param name="service"></param>
+        /// <param name="overviewQuery">Port for the Contact OverviewQueryService</param>
         /// <param name="logger"></param>
-        public AddressBookController(IAddressBookService service, ILogger<AddressBookController> logger)
+        public AddressBookController(IAddressBookService service, IGetOverviewQuery overviewQuery, ILogger<AddressBookController> logger)
         {
             _Service = service;
+            _GetOverviewPort = overviewQuery;
             _logger = logger;
         }
 
@@ -44,15 +48,13 @@ namespace WebAPIAddressBook.Controllers
         [HttpGet]
         public ActionResult<List<ContactLineDTO>> GetOverview(string filter = null)
         {
-            List<ContactLineDTO> Result;
             List<IContactLineDTO> ContactLines;
 
             if (filter is null)
-                ContactLines = (List<IContactLineDTO>)_Service.GetOverview("");
+                ContactLines = _GetOverviewPort.GetOverview("");
             else
-                ContactLines = (List<IContactLineDTO>)_Service.GetOverview(filter);
-            Result = ContactLines.Cast<ContactLineDTO>().ToList();
-            return Result;
+                ContactLines = _GetOverviewPort.GetOverview(filter);
+            return ContactLines.Cast<ContactLineDTO>().ToList();
         }
 
 
@@ -72,6 +74,7 @@ namespace WebAPIAddressBook.Controllers
                 return NotFound();
             else
             {
+                //TODO Can we remove the need of type ContactDTO outside the hexagon?
                 ContactDTO Result = new(aContact);
                 return Result;
             }          

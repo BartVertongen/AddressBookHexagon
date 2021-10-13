@@ -1,11 +1,9 @@
 //Copyright 2021 Bart Vertongen.
 
 using System;
-using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Hexagon.Domain.Core;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Framework.Console;
 using PS.AddressBook.Hexagon.Framework.Console.Commands;
@@ -99,7 +97,7 @@ namespace PS.AddressBook.UI.UseCases
 
             public string FullPath { get; private set; }
 
-            public void Load(IList<IContactDTO> book)
+            public void Load(IAddressBookDTO book)
             {
                 IContactDTO NewContact;
 
@@ -139,7 +137,7 @@ namespace PS.AddressBook.UI.UseCases
                 book.Add(NewContact);
             }
 
-            public void Save(IList<IContactDTO> book)
+            public void Save(IAddressBookDTO book)
             {
                 //We save nothing this is just for testing
             }

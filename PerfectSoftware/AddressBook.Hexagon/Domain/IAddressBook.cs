@@ -3,10 +3,12 @@
 using System.Collections.Generic;
 
 
-namespace PS.AddressBook.Hexagon.Domain.Core
+namespace PS.AddressBook.Hexagon.Domain
 {
     public interface IAddressBook: IList<IContact>
     {
+        string SelectedContactName { get; set; }
+
         IList<IContactLineDTO> GetOverview(string filter);
 
         new void Add(IContact newContact);

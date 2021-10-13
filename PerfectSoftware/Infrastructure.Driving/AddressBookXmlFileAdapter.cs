@@ -1,8 +1,8 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain.Core;
+//TODO we should use Application not Domain here
+using PS.AddressBook.Hexagon.Domain;
 
 
 namespace PS.AddressBook.Infrastructure.Driven.File
@@ -11,12 +11,12 @@ namespace PS.AddressBook.Infrastructure.Driven.File
     {
         public string FullPath => throw new NotImplementedException();
 
-        public void Load(IList<IContactDTO> book)
+        public void Load(IAddressBookDTO book)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(IList<IContactDTO> book)
+        public void Save(IAddressBookDTO book)
         {
             throw new NotImplementedException();
         }

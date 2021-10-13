@@ -4,4 +4,28 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Application\Commands\CommandBusExtensions.cs" />
+    <Compile Remove="Application\Commands\Envelope.cs" />
+    <Compile Remove="Application\Commands\EventBusExtensions.cs" />
+    <Compile Remove="Application\Commands\Handling\EventDispatcher.cs" />
+    <Compile Remove="Application\Commands\Handling\ICommandHandler.cs" />
+    <Compile Remove="Application\Commands\Handling\ICommandHandlerRegistry.cs" />
+    <Compile Remove="Application\Commands\Handling\IEventHandler.cs" />
+    <Compile Remove="Application\Commands\Handling\IEventHandlerRegistry.cs" />
+    <Compile Remove="Application\Commands\ICommand.cs" />
+    <Compile Remove="Application\Commands\ICommandBus.cs" />
+    <Compile Remove="Application\Commands\ICommandResponse.cs" />
+    <Compile Remove="Application\Commands\IEvent.cs" />
+    <Compile Remove="Application\Commands\IEventBus.cs" />
+    <Compile Remove="Application\Commands\IEventPublisher.cs" />
+    <Compile Remove="Application\Commands\IMessage.cs" />
+    <Compile Remove="Application\Commands\IMessageBus.cs" />
+    <Compile Remove="Application\Commands\IMessageSessionProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Commands\Handling\" />
+  </ItemGroup>
+
 </Project>

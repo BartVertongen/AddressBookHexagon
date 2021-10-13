@@ -1,13 +1,11 @@
 ﻿//By Bart Vertongen copyright 2021
 
-using PS.AddressBook.Hexagon.Domain.Core;
-
 
 namespace PS.AddressBook.Hexagon.Domain
 {
     public class AdapterToContactDTO : IContactDTO
     {
-        private IContact _Adaptee;
+        private readonly IContact _Adaptee;
 
         public AdapterToContactDTO(IContact adaptee)
         {

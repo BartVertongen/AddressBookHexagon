@@ -1,20 +1,20 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using PS.AddressBook.Hexagon.Domain.Core;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Domain;
+//using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.Hexagon.Framework.Console.Commands
 {
     public class DeleteContactCommand : IChangeCommand
     {
-        private readonly BussAddressBook _AddressBook;
+        private readonly IAddressBook _AddressBook;
         private readonly IConsoleUserInterface _UserInterface;
 
         public DeleteContactCommand(IAddressBook book, IConsoleUserInterface ui)
         {
-            _AddressBook = (BussAddressBook)book;
+            _AddressBook = book;
             _UserInterface = ui;
         }
 

@@ -8,8 +8,16 @@ using Serilog;
 
 namespace WebAPIAddressBook
 {
+    /// <summary>
+    /// This is the Web Application
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// This is the method that starts and runs the Web Application.
+        /// If this method  stops the application stops.
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             // Initialize serilog logger

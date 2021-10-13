@@ -2,7 +2,6 @@
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using PS.AddressBook.Hexagon.Domain.Core;
 
 
 namespace PS.AddressBook.Hexagon.Domain

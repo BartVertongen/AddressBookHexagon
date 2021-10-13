@@ -3,7 +3,7 @@
 using System;
 
 
-namespace PS.AddressBook.Hexagon.Domain.Core
+namespace PS.AddressBook.Hexagon.Domain
 {
     /// <summary>
     /// The Interface for the Contact Business Object.
@@ -30,6 +30,8 @@ namespace PS.AddressBook.Hexagon.Domain.Core
         /// Gives a Code to show what data is available in this Contact.
         /// </summary>
         public string ContentsCode { get; }
+
+        public IContactLineDTO ContactLine { get; }
 
         /// <summary>
         /// Flag whether this Contact contains valid data.

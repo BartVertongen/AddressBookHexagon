@@ -7,7 +7,7 @@ using Moq;
 using Xunit;
 using PS.AddressBook.Hexagon.Framework.Console;
 using PS.AddressBook.Hexagon.Framework.Console.Commands;
-using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 

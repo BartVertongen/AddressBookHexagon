@@ -1,7 +1,5 @@
 ﻿//By Bart Vertongen copyright 2021
 
-using PS.AddressBook.Hexagon.Domain.Core;
-
 
 namespace PS.AddressBook.Hexagon.Domain
 {
@@ -16,32 +14,32 @@ namespace PS.AddressBook.Hexagon.Domain
 
         public string Name
         {
-            get { return _Adaptee.Name; } 
-            set => throw new System.NotImplementedException(); 
+            get { return _Adaptee.Name; }
+            set => throw new System.NotImplementedException();
         }
 
-        public IAddress Address 
+        public IAddress Address
         {
-            get 
+            get
             {
                 AdapterFromAddressDTO Adapter;
                 Adapter = new AdapterFromAddressDTO(_Adaptee.Address);
-                return Adapter; 
+                return Adapter;
             }
-            
-            set => throw new System.NotImplementedException(); 
+
+            set => throw new System.NotImplementedException();
         }
 
-        public string PhoneNumber 
-        { 
+        public string PhoneNumber
+        {
             get { return _Adaptee.PhoneNumber; }
-            set => throw new System.NotImplementedException(); 
+            set => throw new System.NotImplementedException();
         }
 
-        public string Email 
+        public string Email
         {
             get { return _Adaptee.Email; }
-            set => throw new System.NotImplementedException(); 
+            set => throw new System.NotImplementedException();
         }
 
         //An adapter will not implement a Setter.
@@ -51,6 +49,14 @@ namespace PS.AddressBook.Hexagon.Domain
         {
             get
             { return Contact.GetContentsCode(_Adaptee); }
+        }
+
+        public IContactLineDTO ContactLine
+        {
+            get
+            {
+                return Contact.GetContactLine(_Adaptee);
+            }
         }
 
         public void Assign(IContact newvalues)

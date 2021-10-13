@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace PS.AddressBook.Hexagon.Domain.Core
+namespace PS.AddressBook.Hexagon.Domain
 {
     public interface IContactDTO
     {

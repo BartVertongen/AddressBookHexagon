@@ -11,24 +11,40 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using PS.AddressBook.Hexagon.Domain.Core;
-using PS.AddressBook.Hexagon.Application;
+//We should not use the Domain directly
+using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Infrastructure.Driven.File;
+//TODO we should find a way not to use the AddressBook outside the Hexagon.
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application.Services;
 
 
 namespace WebAPIAddressBook
 {
+    /// <summary>
+    /// Contains all the configuration needed for the startup of the application.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Constructor 
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = (IConfigurationRoot)configuration;
         }
 
+        /// <summary>
+        /// Holds a reference to the Settings of the Application.
+        /// </summary>
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -64,7 +80,9 @@ namespace WebAPIAddressBook
             services.AddSingleton<IConfiguration>(Configuration);          
             services.AddSingleton<IAddressBookFile, AddressBookXmlFileAdapter>();
             services.AddSingleton<IAddressBook, BussAddressBook>();
-            services.AddSingleton<IAddressBookService, AddressBookService>();
+            services.AddSingleton<ICreateContactUseCase, CreateContactService>();
+            services.AddSingleton<IDeleteContactUseCase, DeleteContactService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

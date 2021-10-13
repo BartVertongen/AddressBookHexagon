@@ -1,6 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021
 
-using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
 
 
 namespace PS.AddressBook.Hexagon.Framework.Console.Commands

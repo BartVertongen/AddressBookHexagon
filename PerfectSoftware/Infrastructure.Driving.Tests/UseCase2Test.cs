@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
+using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Framework.Console;
 using PS.AddressBook.Hexagon.Framework.Console.Commands;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
-using PS.AddressBook.Hexagon.Domain.Core;
+
 
 namespace PS.AddressBook.UI.UseCases
 {
@@ -197,12 +198,12 @@ namespace PS.AddressBook.UI.UseCases
 
             public string FullPath { get; private set; }
 
-            public void Load(IList<IContactDTO> book)
+            public void Load(IAddressBookDTO book)
             {
                 //Nothing to load, we start from an empty one.
             }
 
-            public void Save(IList<IContactDTO> book)
+            public void Save(IAddressBookDTO book)
             {
                 //We save nothing this is just for testing
             }

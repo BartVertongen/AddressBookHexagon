@@ -3,15 +3,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using PS.AddressBook.Hexagon.Application;
-using PS.AddressBook.Hexagon.Domain.Core;
 
 
 namespace PS.AddressBook.Hexagon.Domain
 {
     public class AddressBook : List<IContact>, IAddressBook
     {
-        public string SelectedContactName;
         private readonly IAddressBookFile _DSAddressBook;
 
         public AddressBook(IAddressBookFile dsAddressBook)
@@ -20,6 +17,19 @@ namespace PS.AddressBook.Hexagon.Domain
             this.Load();
             SelectedContactName = "";
         }
+
+        public AddressBook(IAddressBookFile dsAddressBook, IAddressBookDTO dtoAddressBook)
+        {
+            SelectedContactName = "";
+            foreach (IContactDTO dtoContact in dtoAddressBook)
+            {
+                IContact ContactAdapter = new AdapterFromContactDTO(dtoContact);
+                Contact bussContact = new(ContactAdapter);
+                this.Add(bussContact);
+            }
+        }
+
+        public string SelectedContactName { get; set; }
 
         public IList<IContactLineDTO> GetOverview(string filter)
         {
@@ -46,7 +56,7 @@ namespace PS.AddressBook.Hexagon.Domain
             foreach(IContact oContact in Selection)
             {
                 Contact CurrContact = new(oContact);
-                ContactLineDTO oContactLine = CurrContact.ContactLine;
+                IContactLineDTO oContactLine = CurrContact.ContactLine;
                 oContactLine.Id = ++ID;
                 Result.Add(oContactLine);
             }
@@ -120,8 +130,8 @@ namespace PS.AddressBook.Hexagon.Domain
         /// </summary>
         public void Load()
         {
-            List<IContactDTO> TempBook = new();
-            
+            IAddressBookDTO TempBook = new AddressBookDTO();
+
             _DSAddressBook.Load(TempBook);
             this.Clear();
             foreach(IContactDTO dtoContact in TempBook)
@@ -137,7 +147,7 @@ namespace PS.AddressBook.Hexagon.Domain
         /// </summary>
         public void Save()
         {
-            List<IContactDTO> TempBook = new();
+            AddressBookDTO TempBook = new();
 
             foreach (IContact bussContact in this)
             {

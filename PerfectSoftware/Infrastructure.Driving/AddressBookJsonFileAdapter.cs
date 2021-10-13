@@ -1,11 +1,9 @@
 ﻿//By Bart Vertongen copyright 2021.
 
-using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Hexagon.Domain;
-using PS.AddressBook.Hexagon.Domain.Core;
 
 
 namespace PS.AddressBook.Infrastructure.Driven.File
@@ -19,7 +17,7 @@ namespace PS.AddressBook.Infrastructure.Driven.File
             FullPath = config.GetSection("ContactsFile").Value;
         }
 
-        public void Load(IList<IContactDTO> book)
+        public void Load(IAddressBookDTO book)
         {
             XmlSerializer AddressBookSerializer;
             AddressBookDTO TempBook;
@@ -45,7 +43,7 @@ namespace PS.AddressBook.Infrastructure.Driven.File
             }
         }
 
-        public void Save(IList<IContactDTO> book)
+        public void Save(IAddressBookDTO book)
         {
             XmlSerializer AddressBookSerializer;
             AddressBookDTO TempBook = new();

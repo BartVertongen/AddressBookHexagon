@@ -1,7 +1,7 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
 
 
 namespace PS.AddressBook.Hexagon.Application

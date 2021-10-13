@@ -1,7 +1,7 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 

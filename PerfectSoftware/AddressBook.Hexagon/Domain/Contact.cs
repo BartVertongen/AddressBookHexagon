@@ -1,7 +1,6 @@
 ﻿//Copyright 2021 Bart Vertongen
 
 using System.IO;
-using PS.AddressBook.Hexagon.Domain.Core;
 
 
 namespace PS.AddressBook.Hexagon.Domain
@@ -30,7 +29,7 @@ namespace PS.AddressBook.Hexagon.Domain
         /// Constructor for Contact.
         /// </summary>
         /// <param name="addressBook"></param>
-        public Contact(AddressBook addressBook)
+        public Contact(IAddressBook addressBook)
         {
             AddressBook = addressBook;
             this.Address = new Address();
@@ -65,7 +64,7 @@ namespace PS.AddressBook.Hexagon.Domain
         static public string GetContentsCode(IContact contact)
         {
             string sContentsCode;
-            Address bussAddress = new Address
+            Address bussAddress = new()
             {
                 Street = contact.Address.Street,
                 PostalCode = contact.Address.PostalCode,
@@ -80,7 +79,7 @@ namespace PS.AddressBook.Hexagon.Domain
         static public string GetContentsCode(IContactDTO contact)
         {
             string sContentsCode;
-            Address bussAddress = new Address
+            Address bussAddress = new()
             {
                 Street = contact.Address.Street,
                 PostalCode = contact.Address.PostalCode,
@@ -100,17 +99,19 @@ namespace PS.AddressBook.Hexagon.Domain
             } 
         }
 
-        public ContactLineDTO ContactLine
+        static public IContactLineDTO GetContactLine(IContactDTO contact)
         {
-            get
+            ContactLineDTO oContactLine = new()
             {
-                ContactLineDTO oContactLine = new ContactLineDTO
-                {
-                    Name = this.Name,
-                    ContentsCode = this.ContentsCode
-                };
-                return oContactLine;
-            }
+                Name = contact.Name,
+                ContentsCode = Contact.GetContentsCode(contact)
+            };
+            return oContactLine;
+        }
+
+        public IContactLineDTO ContactLine
+        {
+            get { return Contact.GetContactLine((IContactDTO)this); }
         }
 
 
@@ -141,7 +142,7 @@ namespace PS.AddressBook.Hexagon.Domain
         /// <returns></returns>
         public IContact DeepClone()
         {
-            Contact oCopy = new Contact
+            Contact oCopy = new()
             {
                 Name = this.Name,
                 PhoneNumber = this.PhoneNumber,

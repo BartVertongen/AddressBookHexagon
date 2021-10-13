@@ -2,7 +2,6 @@
 
 using System;
 using PS.AddressBook.Hexagon.Domain;
-using PS.AddressBook.Hexagon.Domain.Core;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
@@ -10,7 +9,7 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
 {
     public class AddContactCommand : IChangeCommand
     {
-        //TODO: normally we should not use IAddressBook or Contact in this level
+        //TODO: normally we should not use IAddressBook or Contact in this layer
         private readonly IAddressBook _AddressBook;       
         private readonly IConsoleUserInterface _UserInterface;
         private readonly IContact _Contact;

@@ -3,7 +3,7 @@
 using System;
 
 
-namespace PS.AddressBook.Hexagon.Domain.Core
+namespace PS.AddressBook.Hexagon.Domain
 {
     /// <summary>
     /// The interface for an adress.

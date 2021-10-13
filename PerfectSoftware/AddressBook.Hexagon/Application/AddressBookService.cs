@@ -2,13 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain.Core;
 using PS.AddressBook.Hexagon.Domain;
 
 
 namespace PS.AddressBook.Hexagon.Application
 {
-    public class AddressBookService : IAddressBookService
+    public class AddressBookService //: IAddressBookService
     {
         private readonly IAddressBook _AddressBook;
 
@@ -31,11 +30,6 @@ namespace PS.AddressBook.Hexagon.Application
             }
         }
 
-        public void Delete(string name)
-        {
-            _AddressBook.Delete(name);
-            _AddressBook.Save();
-        }
 
         public IContactDTO Get(string name)
         {
@@ -50,16 +44,6 @@ namespace PS.AddressBook.Hexagon.Application
                 Adapter = new(FoundContact);
                 return Adapter;
             }
-        }
-
-        /// <summary>
-        /// Gives an overview of the Contacts in the AddressBook filtered.
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
-        public IList<IContactLineDTO> GetOverview(string filter)
-        {
-            return _AddressBook.GetOverview(filter);
         }
 
         /// <summary>
