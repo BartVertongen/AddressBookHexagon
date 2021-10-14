@@ -23,6 +23,7 @@
     <Compile Remove="Application\Commands\IMessage.cs" />
     <Compile Remove="Application\Commands\IMessageBus.cs" />
     <Compile Remove="Application\Commands\IMessageSessionProvider.cs" />
+    <Compile Remove="Application\IAddressBookService.cs" />
   </ItemGroup>
 
   <ItemGroup>
