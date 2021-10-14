@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace PS.AddressBook.Hexagon.Domain
+namespace PS.AddressBook.Hexagon.Application
 {
     /// <summary>
     /// The Contact Data Transfer Object

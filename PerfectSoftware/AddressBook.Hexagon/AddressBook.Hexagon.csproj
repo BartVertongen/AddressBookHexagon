@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\AdapterFromContactDTO.cs" />
     <Compile Remove="Application\Commands\CommandBusExtensions.cs" />
     <Compile Remove="Application\Commands\Envelope.cs" />
     <Compile Remove="Application\Commands\EventBusExtensions.cs" />

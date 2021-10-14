@@ -55,10 +55,10 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
                 _Contact.Address.Town = sNewTown;
 
             //Phone
-            _UserInterface.WriteMessage($"The current value for the phone number is {_Contact.PhoneNumber}.");
+            _UserInterface.WriteMessage($"The current value for the phone number is {_Contact.Phone}.");
             sNewPhone = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
             if (sNewPhone.ToUpper() != "XX")
-                _Contact.PhoneNumber = sNewPhone;
+                _Contact.Phone = sNewPhone;
 
             //Email
             _UserInterface.WriteMessage($"The current value for the email is {_Contact.Email}.");
@@ -83,7 +83,7 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
                 if (_Contact.IsValid())
                 {
                     _AddressBook.Update(_Contact);
-                    _AddressBook.Save();
+                    //_AddressBook.Save();
                     _UserInterface.WriteMessage($"The Contact with Name '{_Contact.Name}' is updated.");
                     return (true, false);
                 }
@@ -91,7 +91,7 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
                 {
                     string Line;
 
-                    if (!_Contact.Address.IsValid())
+                    if (!_Contact.GetAddress().IsValid())
                         Line = $"The Contact could not be updated because the Address was not valid!";
                     else
                         Line = $"The Contact could not be updated because the new values were not valid!";

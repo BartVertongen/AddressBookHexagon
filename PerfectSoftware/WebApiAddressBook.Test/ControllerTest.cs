@@ -11,7 +11,8 @@ using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using AddressBook.Hexagon.Application.Services;
 using WebAPIAddressBook.Controllers;
-
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+using PS.AddressBook.Hexagon.Application;
 
 namespace WebApiAddressBook.Test
 {
@@ -30,7 +31,7 @@ namespace WebApiAddressBook.Test
 
             public string FullPath { get; private set; }
 
-            public void Load(AddressBookDTO book)
+            public void Load(IList<IContactDTO> book)
             {
                 IContactDTO NewContact;
 
@@ -70,18 +71,8 @@ namespace WebApiAddressBook.Test
                 book.Add(NewContact);
             }
 
-            public void Load(IAddressBookDTO book)
-            {
-                throw new NotImplementedException();
-            }
-
             public void Save(IList<IContactDTO> book)
             {
-            }
-
-            public void Save(IAddressBookDTO book)
-            {
-                throw new NotImplementedException();
             }
         }
 

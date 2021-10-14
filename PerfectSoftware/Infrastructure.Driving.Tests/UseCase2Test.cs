@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Framework.Console;
 using PS.AddressBook.Hexagon.Framework.Console.Commands;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+using PS.AddressBook.Hexagon.Application;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
@@ -198,12 +199,12 @@ namespace PS.AddressBook.UI.UseCases
 
             public string FullPath { get; private set; }
 
-            public void Load(IAddressBookDTO book)
+            public void Load(IList<IContactDTO> book)
             {
                 //Nothing to load, we start from an empty one.
             }
 
-            public void Save(IAddressBookDTO book)
+            public void Save(IList<IContactDTO> book)
             {
                 //We save nothing this is just for testing
             }
@@ -218,7 +219,7 @@ namespace PS.AddressBook.UI.UseCases
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
             IAddressBookFile MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
-            _AddressBook = new BussAddressBook(MockDSAddressBook);
+            _AddressBook = new BussAddressBook();
         }
 
         /// <summary>

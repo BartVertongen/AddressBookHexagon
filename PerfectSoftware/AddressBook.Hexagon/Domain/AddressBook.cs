@@ -9,16 +9,16 @@ namespace PS.AddressBook.Hexagon.Domain
 {
     public class AddressBook : List<IContact>, IAddressBook
     {
-        private readonly IAddressBookFile _DSAddressBook;
+        //private readonly IAddressBookFile _DSAddressBook;
 
-        public AddressBook(IAddressBookFile dsAddressBook)
+        public AddressBook(/*IAddressBookFile dsAddressBook*/)
         {
-            _DSAddressBook = dsAddressBook;
-            this.Load();
+            //_DSAddressBook = dsAddressBook;
+            //this.Load();
             SelectedContactName = "";
         }
 
-        public AddressBook(IAddressBookFile dsAddressBook, IAddressBookDTO dtoAddressBook)
+        /*public AddressBook(IAddressBookFile dsAddressBook)
         {
             _DSAddressBook = dsAddressBook;
             SelectedContactName = "";
@@ -28,9 +28,12 @@ namespace PS.AddressBook.Hexagon.Domain
                 Contact bussContact = new(ContactAdapter);
                 this.Add(bussContact);
             }
-        }
+        }*/
 
         public string SelectedContactName { get; set; }
+
+        public bool IsReadOnly => throw new System.NotImplementedException();
+
 
         public IList<IContactLineDTO> GetOverview(string filter)
         {
@@ -68,7 +71,7 @@ namespace PS.AddressBook.Hexagon.Domain
         /// Adds a new Contact to the AddressBook in memory.
         /// </summary>
         /// <param name="newContact"></param>
-        new public void Add(IContact newContact)
+        public new void Add(IContact newContact)
         {
             bool bIsValid, bIsNew;
 
@@ -126,37 +129,34 @@ namespace PS.AddressBook.Hexagon.Domain
             }
         }
 
-        /// <summary>
-        /// Loads the AddresBook with the Contacts from an Xml File.
-        /// </summary>
-        public void Load()
+        public int IndexOf(IContactLineDTO item)
         {
-            IAddressBookDTO TempBook = new AddressBookDTO();
-
-            _DSAddressBook.Load(TempBook);
-            this.Clear();
-            foreach(IContactDTO dtoContact in TempBook)
-            {
-                IContact ContactAdapter = new AdapterFromContactDTO(dtoContact);
-                Contact bussContact = new(ContactAdapter);
-                this.Add(bussContact);
-            }
+            throw new System.NotImplementedException();
         }
 
-        /// <summary>
-        /// Writes the Contacts in the AddresBook in memory to an Xml File.
-        /// </summary>
-        public void Save()
+        public void Insert(int index, IContactLineDTO item)
         {
-            AddressBookDTO TempBook = new();
+            throw new System.NotImplementedException();
+        }
 
-            foreach (IContact bussContact in this)
-            {
-                AdapterToContactDTO Adapter = new(bussContact);
-                IContactDTO dtoContact = Adapter;
-                TempBook.Add(dtoContact);
-            }
-            _DSAddressBook.Save(TempBook);
+        public void Add(IContactLineDTO item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Contains(IContactLineDTO item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CopyTo(IContactLineDTO[] array, int arrayIndex)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Remove(IContactLineDTO item)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -3,6 +3,8 @@
 using System.Collections.Generic;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+using PS.AddressBook.Hexagon.Application;
 
 
 namespace AddressBook.Hexagon.Application.Services
@@ -18,16 +20,28 @@ namespace AddressBook.Hexagon.Application.Services
 
         public List<IContactLineDTO> GetOverview(string filter = "")
         {            
-            IAddressBookDTO oAddressBookDTO = new AddressBookDTO();
+            List<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
             List<IContactLineDTO> Result = new();
 
             _LoadAddressBookPort.Load(oAddressBookDTO);
             foreach(IContactDTO dtoContact in oAddressBookDTO)
             {
                 IContactLineDTO dtoContactLine;
+                IContact oContact;
 
-                AdapterFromContactDTO Adapter = new(dtoContact);
-                dtoContactLine = Adapter.ContactLine;
+                oContact = new Contact
+                {
+                    Name = dtoContact.Name,
+                    Phone = dtoContact.PhoneNumber,
+                    Email = dtoContact.Email,
+                    Address = new Address
+                    {
+                        Street = dtoContact.Address.Street,
+                        PostalCode = dtoContact.Address.PostalCode,
+                        Town = dtoContact.Address.Town
+                    }
+                };
+                dtoContactLine = oContact.ContactLine;
                 Result.Add(dtoContactLine);
             }
             return Result;

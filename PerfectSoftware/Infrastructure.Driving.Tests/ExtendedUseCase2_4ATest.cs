@@ -7,7 +7,7 @@ using Moq;
 using Xunit;
 using PS.AddressBook.Hexagon.Framework.Console;
 using PS.AddressBook.Hexagon.Framework.Console.Commands;
-using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
@@ -37,7 +37,7 @@ namespace UseCaseTests
                 File.Delete(FullPath);
             }
             Mock<IAddressBookFile> MockDSAddressBook = new();
-            _AddressBook = new BussAddressBook(MockDSAddressBook.Object);
+            _AddressBook = new BussAddressBook(/*MockDSAddressBook.Object*/);
         }
 
 

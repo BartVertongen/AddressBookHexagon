@@ -4,13 +4,15 @@ using System;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application.Ports;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
-
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+using System.Collections.Generic;
 
 namespace PS.AddressBook.Hexagon.Application.Services
 {
     /// <summary>
-    /// This is an adapter for the DeleteConactUseCase.
+    /// This is an adapter for the DeleteContactUseCase.
     /// </summary>
     public class CreateContactService : ICreateContactUseCase
     {
@@ -24,10 +26,10 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO CreateContact(CreateContactCommand command)
         {
             IAddressBook oAddressBook;
-            IAddressBookDTO oAddressBookDTO = new AddressBookDTO();
+            IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
 
             _AddressBookFilePort.Load(oAddressBookDTO);
-            oAddressBook = new BussAddressBook(_AddressBookFilePort, oAddressBookDTO);
+            oAddressBook = new BussAddressBook(/*oAddressBookDTO*/);
 
             try
             {
@@ -37,7 +39,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
                 newContact = new Contact(oAddressBook)
                 {
                     Name = command.Name,
-                    PhoneNumber = command.Phone,
+                    Phone = command.Phone,
                     Email = command.Email,
                     Address = new Address()
                     {

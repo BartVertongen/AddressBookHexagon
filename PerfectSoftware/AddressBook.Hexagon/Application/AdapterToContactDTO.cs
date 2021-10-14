@@ -1,7 +1,10 @@
 ﻿//By Bart Vertongen copyright 2021
 
 
-namespace PS.AddressBook.Hexagon.Domain
+using PS.AddressBook.Hexagon.Domain;
+
+
+namespace PS.AddressBook.Hexagon.Application
 {
     public class AdapterToContactDTO : IContactDTO
     {
@@ -23,8 +26,8 @@ namespace PS.AddressBook.Hexagon.Domain
             get 
             {
                 AdapterToAddressDTO Adapter;
-                Adapter = new AdapterToAddressDTO(_Adaptee.Address);
-                return (IAddressDTO)Adapter; 
+                Adapter = new AdapterToAddressDTO(_Adaptee.GetAddress());
+                return Adapter; 
             }
             
             set => throw new System.NotImplementedException(); 
@@ -32,7 +35,7 @@ namespace PS.AddressBook.Hexagon.Domain
 
         public string PhoneNumber 
         {
-            get { return _Adaptee.PhoneNumber; }
+            get { return _Adaptee.Phone; }
             set => throw new System.NotImplementedException(); 
         }
 

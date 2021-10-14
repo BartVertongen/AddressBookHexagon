@@ -1,8 +1,10 @@
 ﻿//By Bart Vertongen copyright 2021.
 
+using System.Collections.Generic;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
@@ -28,11 +30,10 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO DeleteContact(DeleteContactCommand command)
         {
             IAddressBook oAddressBook;
-            IAddressBookDTO oAddressBookDTO;
+            IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
 
-            oAddressBookDTO = new AddressBookDTO();
             _AddressBookFilePort.Load(oAddressBookDTO);
-            oAddressBook = new BussAddressBook(_AddressBookFilePort, oAddressBookDTO);
+            oAddressBook = new BussAddressBook(/*_AddressBookFilePort, oAddressBookDTO*/);
             if (oAddressBook.ContainsName(command.Name))
             {
                 IContact FoundContact;

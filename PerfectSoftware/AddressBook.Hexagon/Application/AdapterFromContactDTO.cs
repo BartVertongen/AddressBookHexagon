@@ -1,7 +1,10 @@
 ﻿//By Bart Vertongen copyright 2021
 
 
-namespace PS.AddressBook.Hexagon.Domain
+using PS.AddressBook.Hexagon.Domain;
+
+
+namespace PS.AddressBook.Hexagon.Application
 {
     public class AdapterFromContactDTO : IContact
     {
@@ -30,7 +33,7 @@ namespace PS.AddressBook.Hexagon.Domain
             set => throw new System.NotImplementedException();
         }
 
-        public string PhoneNumber
+        public string Phone
         {
             get { return _Adaptee.PhoneNumber; }
             set => throw new System.NotImplementedException();
@@ -45,19 +48,8 @@ namespace PS.AddressBook.Hexagon.Domain
         //An adapter will not implement a Setter.
         public IAddressBook AddressBook { set => throw new System.NotImplementedException(); }
 
-        public string ContentsCode
-        {
-            get
-            { return Contact.GetContentsCode(_Adaptee); }
-        }
 
-        public IContactLineDTO ContactLine
-        {
-            get
-            {
-                return Contact.GetContactLine(_Adaptee);
-            }
-        }
+        IAddressDTO IContactDTO.Address { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         public void Assign(IContact newvalues)
         {
@@ -76,9 +68,19 @@ namespace PS.AddressBook.Hexagon.Domain
             throw new System.NotImplementedException();
         }
 
+        public IAddress GetAddress()
+        {
+            return new Address(_Adaptee.Address.Street, _Adaptee.Address.PostalCode, _Adaptee.Address.Town);
+        }
+
         public bool IsValid()
         {
             return Contact.IsValid((IContact)_Adaptee);
+        }
+
+        public void SetAddress(IAddress value)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

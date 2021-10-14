@@ -101,5 +101,16 @@ namespace PS.AddressBook.Hexagon.Domain
             this.PostalCode = newValues.PostalCode;
             this.Town = newValues.Town;
         }
+
+        public IAddress DeepClone()
+        {
+            Address oCopy = new()
+            {
+                Street = this.Street,
+                PostalCode = this.PostalCode,
+                Town = this.Town
+            };
+            return oCopy;
+        }
     }
 }

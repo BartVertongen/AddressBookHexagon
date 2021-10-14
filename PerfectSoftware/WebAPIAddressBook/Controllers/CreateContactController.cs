@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Commands;
-
+using PS.AddressBook.Hexagon.Application;
 
 namespace WebAPIAddressBook.Controllers
 {

@@ -10,26 +10,29 @@ namespace PS.AddressBook.Hexagon.Domain
     /// </summary>
     public interface IContact : IEquatable<IContact>
     {
-        /// <summary>
-        /// The Name of the Contact
-        /// </summary>
-        string Name { get; set; }
-
-        IAddress Address { get; set; }
-
-        /// <summary>
-        /// The Phone Number of the Contact.
-        /// </summary>
-        string PhoneNumber { get; set; }
-
-        string Email { get; set; }
-
         public IAddressBook AddressBook {  set; }
+
+        public string Name { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
+
+        public IAddress Address { get; set; }
+
 
         /// <summary>
         /// Gives a Code to show what data is available in this Contact.
         /// </summary>
         public string ContentsCode { get; }
+
+        /// <summary>
+        /// The Address of the Contact
+        /// </summary>
+        /// <remarks>Hides the IAddressDTO type which is replaced by IAddress</remarks>
+        public IAddress GetAddress();
+
+        public void SetAddress(IAddress value);
 
         public IContactLineDTO ContactLine { get; }
 

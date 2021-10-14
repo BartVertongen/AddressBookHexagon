@@ -5,23 +5,24 @@ using System.IO;
 
 namespace PS.AddressBook.Hexagon.Domain
 {
-    public class Contact: IContact
+    public class Contact : IContact
     {
         private string _Name;
+        private Address _Address;
 
         public Contact()
         {
             this.Name = "";
-            this.Address = new Address();
-            this.PhoneNumber = "";
+            this._Address = new Address();
+            this.Phone = "";
             this.Email = "";
         }
 
         public Contact(IContact bussRef)
         {
             this.Name = bussRef.Name;
-            this.Address = new Address(bussRef.Address);
-            this.PhoneNumber = bussRef.PhoneNumber;
+            this._Address = (Address)bussRef.GetAddress().DeepClone();
+            this.Phone = bussRef.Phone;
             this.Email = bussRef.Email;
         }
 
@@ -32,8 +33,8 @@ namespace PS.AddressBook.Hexagon.Domain
         public Contact(IAddressBook addressBook)
         {
             AddressBook = addressBook;
-            this.Address = new Address();
-            this.PhoneNumber = "";
+            this._Address = new Address();
+            this.Phone = "";
             this.Email = "";
         }
 
@@ -57,7 +58,7 @@ namespace PS.AddressBook.Hexagon.Domain
 
         public IAddress Address { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
 
         public string Email { get; set; }
 
@@ -71,22 +72,7 @@ namespace PS.AddressBook.Hexagon.Domain
                 Town = contact.Address.Town
             };
             sContentsCode = bussAddress.IsEmpty() ? "*" : "A";
-            sContentsCode += string.IsNullOrEmpty(contact.PhoneNumber) ? "*" : "P";
-            sContentsCode += string.IsNullOrEmpty(contact.Email) ? "*" : "E";
-            return sContentsCode;
-        }
-
-        static public string GetContentsCode(IContactDTO contact)
-        {
-            string sContentsCode;
-            Address bussAddress = new()
-            {
-                Street = contact.Address.Street,
-                PostalCode = contact.Address.PostalCode,
-                Town = contact.Address.Town
-            };
-            sContentsCode = bussAddress.IsEmpty() ? "*" : "A";
-            sContentsCode += string.IsNullOrEmpty(contact.PhoneNumber) ? "*" : "P";
+            sContentsCode += string.IsNullOrEmpty(contact.Phone) ? "*" : "P";
             sContentsCode += string.IsNullOrEmpty(contact.Email) ? "*" : "E";
             return sContentsCode;
         }
@@ -99,7 +85,7 @@ namespace PS.AddressBook.Hexagon.Domain
             } 
         }
 
-        static public IContactLineDTO GetContactLine(IContactDTO contact)
+        static public IContactLineDTO GetContactLine(IContact contact)
         {
             ContactLineDTO oContactLine = new()
             {
@@ -111,7 +97,7 @@ namespace PS.AddressBook.Hexagon.Domain
 
         public IContactLineDTO ContactLine
         {
-            get { return Contact.GetContactLine((IContactDTO)this); }
+            get { return Contact.GetContactLine(this); }
         }
 
 
@@ -119,9 +105,9 @@ namespace PS.AddressBook.Hexagon.Domain
         {
             if (string.IsNullOrEmpty(contact.Name))
                 return false;
-            else if (string.IsNullOrEmpty(contact.PhoneNumber) && string.IsNullOrEmpty(contact.Email))
+            else if (string.IsNullOrEmpty(contact.Phone) && string.IsNullOrEmpty(contact.Email))
                 return false;
-            else if (!contact.Address.IsValid())
+            else if (!contact.GetAddress().IsValid())
                 return false;
             else
                 return true;
@@ -145,9 +131,9 @@ namespace PS.AddressBook.Hexagon.Domain
             Contact oCopy = new()
             {
                 Name = this.Name,
-                PhoneNumber = this.PhoneNumber,
+                Phone = this.Phone,
                 Email = this.Email,
-                Address = new Address(Address.Street, Address.PostalCode, Address.Town)
+                _Address = new Address(_Address.Street, _Address.PostalCode, _Address.Town)
             };
             return oCopy;
         }
@@ -162,11 +148,11 @@ namespace PS.AddressBook.Hexagon.Domain
         {
             if (this.Name != other.Name)
                 return false;
-            else if (this.PhoneNumber != other.PhoneNumber)
+            else if (this.Phone != other.Phone)
                 return false;
             else if (this.Email != other.Email)
                 return false;
-            else if (!this.Address.Equals(other.Address))
+            else if (!this._Address.Equals(other.GetAddress()))
                 return false;
             else
                 return true;
@@ -175,9 +161,19 @@ namespace PS.AddressBook.Hexagon.Domain
 
         public void Assign(IContact newValues)
         {
-            this.PhoneNumber = newValues.PhoneNumber;
+            this.Phone = newValues.Phone;
             this.Email = newValues.Email;
-            this.Address.Assign(newValues.Address);
+            this._Address.Assign(newValues.GetAddress());
+        }
+
+        IAddress IContact.GetAddress()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetAddress(IAddress value)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

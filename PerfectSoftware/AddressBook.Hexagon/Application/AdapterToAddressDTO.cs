@@ -1,9 +1,10 @@
 ﻿// By Bart Vertongen copyright 2021
 
+using PS.AddressBook.Hexagon.Domain;
 using System;
 
 
-namespace PS.AddressBook.Hexagon.Domain
+namespace PS.AddressBook.Hexagon.Application
 {
     public class AdapterToAddressDTO : IAddressDTO
     {

@@ -1,10 +1,12 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Application.Ports;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
-
+using System.Collections.Generic;
 
 namespace PS.AddressBook.Hexagon.Application.Services
 {
@@ -23,11 +25,10 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO UpdateContact(UpdateContactCommand command)
         {
             IAddressBook oAddressBook;
-            IAddressBookDTO oAddressBookDTO;
+            IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
 
-            oAddressBookDTO = new AddressBookDTO();
             _AddressBookFilePort.Load(oAddressBookDTO);
-            oAddressBook = new BussAddressBook(_AddressBookFilePort, oAddressBookDTO);
+            oAddressBook = new BussAddressBook(/*_AddressBookFilePort, oAddressBookDTO*/);
             if (oAddressBook.ContainsName(command.Name))
             {
                 IContact FoundContact, ChangedContact;
@@ -36,7 +37,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
                 FoundContact = oAddressBook.GetContact(command.Name);
                 ChangedContact = FoundContact.DeepClone();
                 ChangedContact.Name = command.Name;
-                if (command.Phone != null) ChangedContact.PhoneNumber = command.Phone;
+                if (command.Phone != null) ChangedContact.Phone = command.Phone;
                 if (command.Email != null) ChangedContact.Email = command.Email;
                 if (command.Street != null) ChangedContact.Address.Street = command.Street;
                 if (command.PostalCode != null) ChangedContact.Address.PostalCode = command.PostalCode;

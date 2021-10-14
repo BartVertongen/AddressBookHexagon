@@ -1,17 +1,16 @@
 ﻿// By Bart Vertongen.
 
+using System.Linq;
 using System.Collections.Generic;
 
 
 namespace PS.AddressBook.Hexagon.Domain
 {
-    public interface IAddressBook: IList<IContact>
+    public interface IAddressBook
     {
         string SelectedContactName { get; set; }
 
         IList<IContactLineDTO> GetOverview(string filter);
-
-        new void Add(IContact newContact);
 
         IContact GetContact(string nameToFind);
 
@@ -21,8 +20,6 @@ namespace PS.AddressBook.Hexagon.Domain
 
         bool ContainsName(string name);
 
-        void Load();
-
-        void Save();
+        public void Add(IContact item);
     }
 }

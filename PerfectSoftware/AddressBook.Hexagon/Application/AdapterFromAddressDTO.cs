@@ -1,9 +1,10 @@
 ﻿// By Bart Vertongen copyright 2021
 
 using System;
+using PS.AddressBook.Hexagon.Domain;
 
 
-namespace PS.AddressBook.Hexagon.Domain
+namespace PS.AddressBook.Hexagon.Application
 {
     public class AdapterFromAddressDTO: IAddress
     {
@@ -33,6 +34,11 @@ namespace PS.AddressBook.Hexagon.Domain
         }
 
         public void Assign(IAddress newvalues)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAddress DeepClone()
         {
             throw new NotImplementedException();
         }

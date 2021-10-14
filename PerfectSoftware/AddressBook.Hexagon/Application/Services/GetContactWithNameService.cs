@@ -1,6 +1,8 @@
 ﻿//By Bart Vertongen copyright 2021
 
+
 using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
@@ -18,7 +20,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO GetContactWithName(string name)
         {
             IContact FoundContact;
-            IAddressBook oAddressBook = new BussAddressBook(_LoadAddressBookPort);
+            IAddressBook oAddressBook = new BussAddressBook(/*_LoadAddressBookPort*/);
 
             FoundContact = oAddressBook.GetContact(name);
             if (FoundContact == null)

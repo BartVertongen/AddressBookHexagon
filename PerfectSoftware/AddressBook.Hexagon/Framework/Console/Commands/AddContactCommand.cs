@@ -52,7 +52,7 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
             if (sResponse != null) _Contact.Address.Town = sResponse;
 
             sResponse = _UserInterface.ReadValue("Give a phone number for the new Contact: ");
-            if (sResponse != null) _Contact.PhoneNumber = sResponse;
+            if (sResponse != null) _Contact.Phone = sResponse;
 
             sResponse = _UserInterface.ReadValue("Give an email for the new Contact: ");
             if (sResponse != null) _Contact.Email = sResponse;
@@ -67,7 +67,7 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
                 if (_Contact.IsValid())
                 {
                     _AddressBook.Add(_Contact);
-                    _AddressBook.Save();
+                    //_AddressBook.Save();
                     _UserInterface.WriteMessage("");
                     _UserInterface.WriteWarning($"The Contact with Name '{_Contact.Name}' is added.");
                     _UserInterface.WriteMessage("");
@@ -77,7 +77,7 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
                 {
                     string Line;
 
-                    if (!_Contact.Address.IsValid())
+                    if (!_Contact.GetAddress().IsValid())
                         Line = $"The Contact could not be added because the Address was not valid!";
                     else
                         Line = $"The Contact could not be added because it was not valid!";

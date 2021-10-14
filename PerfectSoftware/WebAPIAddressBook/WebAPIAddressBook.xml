@@ -17,7 +17,7 @@
             <param name="createContactService">Port for the CreateContactService</param>
             <param name="logger"></param>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.CreateContactController.Create(PS.AddressBook.Hexagon.Domain.IContactDTO)">
+        <member name="M:WebAPIAddressBook.Controllers.CreateContactController.Create(PS.AddressBook.Hexagon.Application.IContactDTO)">
             <summary>
             Creates a new Contact.
             </summary>
@@ -98,7 +98,7 @@
             <param name="contactQueryService">Port for GetContactNameQuery</param>
             <param name="logger"></param>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.UpdateContactController.Update(System.String,PS.AddressBook.Hexagon.Domain.IContactDTO)">
+        <member name="M:WebAPIAddressBook.Controllers.UpdateContactController.Update(System.String,PS.AddressBook.Hexagon.Application.IContactDTO)">
             <summary>
             Changes the Data of an existing Contact except the Name.
             </summary>

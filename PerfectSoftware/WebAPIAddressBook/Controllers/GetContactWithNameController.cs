@@ -2,8 +2,8 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application;
 
 
 namespace WebAPIAddressBook.Controllers
@@ -16,7 +16,7 @@ namespace WebAPIAddressBook.Controllers
     [ApiController]
     public class GetContactWithNameController : ControllerBase
     {
-        private readonly ILogger<UpdateContactController> _logger;
+        private readonly ILogger<UpdateContactController> _Logger;
         private readonly IGetContactWithNameQuery       _GetContactWithNamePort;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace WebAPIAddressBook.Controllers
         public GetContactWithNameController(IGetContactWithNameQuery contactWithNameQuery, ILogger<UpdateContactController> logger)
         {
             _GetContactWithNamePort = contactWithNameQuery;
-            _logger = logger;
+            _Logger = logger;
         }
 
 

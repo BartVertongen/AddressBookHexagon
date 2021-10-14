@@ -38,7 +38,7 @@ namespace PS.AddressBook.Hexagon.Framework.Console.Commands
                 if (!string.IsNullOrEmpty(sName))
                 {
                     _AddressBook.Delete(sName);
-                    _AddressBook.Save();
+                    //_AddressBook.Save();
                     _UserInterface.WriteMessage($"The Contact with Name '{sName}' is deleted.");
                     return (true, false);
                 }

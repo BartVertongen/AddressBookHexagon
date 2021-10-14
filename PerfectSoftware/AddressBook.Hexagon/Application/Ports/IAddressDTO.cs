@@ -1,6 +1,6 @@
 ﻿
 
-namespace PS.AddressBook.Hexagon.Domain
+namespace PS.AddressBook.Hexagon.Application
 {
     public interface IAddressDTO
     {

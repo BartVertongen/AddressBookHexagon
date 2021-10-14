@@ -3,8 +3,10 @@
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
-using PS.AddressBook.Hexagon.Domain;
-
+using PS.AddressBook.Hexagon.Application.Ports;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+using PS.AddressBook.Hexagon.Application;
+using System.Collections.Generic;
 
 namespace PS.AddressBook.Infrastructure.Driven.File
 {
@@ -17,10 +19,10 @@ namespace PS.AddressBook.Infrastructure.Driven.File
             FullPath = config.GetSection("ContactsFile").Value;
         }
 
-        public void Load(IAddressBookDTO book)
+        public void Load(IList<IContactDTO> book)
         {
             XmlSerializer AddressBookSerializer;
-            AddressBookDTO TempBook;
+            IList<IContactDTO> TempBook;
 
             //Check if a Full File Name is given.
             if (string.IsNullOrEmpty(this.FullPath))
@@ -33,7 +35,7 @@ namespace PS.AddressBook.Infrastructure.Driven.File
                 AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
                 using (FileStream fs = new(this.FullPath, FileMode.Open, FileAccess.Read))
                 {
-                    TempBook = AddressBookSerializer.Deserialize(fs) as AddressBookDTO;
+                    TempBook = AddressBookSerializer.Deserialize(fs) as IList<IContactDTO>;
                 }
                 book.Clear();
                 foreach (IContactDTO aContact in TempBook)
@@ -43,7 +45,7 @@ namespace PS.AddressBook.Infrastructure.Driven.File
             }
         }
 
-        public void Save(IAddressBookDTO book)
+        public void Save(IList<IContactDTO> book)
         {
             XmlSerializer AddressBookSerializer;
             AddressBookDTO TempBook = new();

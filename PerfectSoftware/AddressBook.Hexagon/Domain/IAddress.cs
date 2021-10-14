@@ -10,20 +10,11 @@ namespace PS.AddressBook.Hexagon.Domain
     /// </summary>
     public interface IAddress: IEquatable<IAddress>
     {
-        /// <summary>
-        /// The Street of the Address. Also contains number and box.
-        /// </summary>
-        public string Street { get; set; }
+        string Street { get; set; }
 
-        /// <summary>
-        /// A Code related with the Town.
-        /// </summary>
-        public string PostalCode { get; set; }
+        string PostalCode { get; set; }
 
-        /// <summary>
-        /// The Town of the address.
-        /// </summary>
-        public string Town { get; set; }
+        string Town { get; set; }
 
         /// <summary>
         /// Checks whether the address is a valid address.
@@ -31,6 +22,12 @@ namespace PS.AddressBook.Hexagon.Domain
         /// <returns></returns>
         bool IsValid();
 
-        public void Assign(IAddress newvalues);
+        /// <summary>
+        /// Creates a Deep Copy of this Address.
+        /// </summary>
+        /// <returns></returns>
+        IAddress DeepClone();
+
+        void Assign(IAddress newvalues);
     }
 }
