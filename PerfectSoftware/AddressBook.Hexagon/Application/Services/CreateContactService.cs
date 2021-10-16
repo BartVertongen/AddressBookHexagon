@@ -1,13 +1,15 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using System;
+using System.Collections.Generic;
 using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Domain.Ports;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
-using PS.AddressBook.Hexagon.Application.Ports;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using System.Collections.Generic;
+using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+
 
 namespace PS.AddressBook.Hexagon.Application.Services
 {
@@ -26,15 +28,16 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO CreateContact(CreateContactCommand command)
         {
             IAddressBook oAddressBook;
+            AddressBookDTOMapper oAddressBookDTOMapper = new();
             IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
 
             _AddressBookFilePort.Load(oAddressBookDTO);
-            oAddressBook = new BussAddressBook(/*oAddressBookDTO*/);
+            oAddressBook = new BussAddressBook();
 
             try
             {
                 IContact newContact;
-                AdapterToContactDTO ContactAdapter;
+                ContactDTOMapper oContactDTOMapper = new();
 
                 newContact = new Contact(oAddressBook)
                 {
@@ -50,10 +53,9 @@ namespace PS.AddressBook.Hexagon.Application.Services
                 };
 
                 oAddressBook.Add(newContact);
-
+                oAddressBookDTO = oAddressBookDTOMapper.MapTo(oAddressBook);
                 _AddressBookFilePort.Save(oAddressBookDTO);
-                ContactAdapter = new AdapterToContactDTO(newContact);
-                return ContactAdapter;
+                return oContactDTOMapper.MapTo(newContact);
             }
             catch (Exception)
             {

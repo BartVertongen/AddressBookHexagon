@@ -1,7 +1,7 @@
 ﻿
 
 using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Application.UseCases

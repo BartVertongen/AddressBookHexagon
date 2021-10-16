@@ -1,9 +1,9 @@
 ﻿//By Bart Vertongen copyright 2021
 
-
-using PS.AddressBook.Hexagon.Domain;
+using System.Collections.Generic;
+using PS.AddressBook.Hexagon.Domain.Ports;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Application.Mappers;
 
 
 namespace PS.AddressBook.Hexagon.Application.Services
@@ -20,15 +20,19 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO GetContactWithName(string name)
         {
             IContact FoundContact;
-            IAddressBook oAddressBook = new BussAddressBook(/*_LoadAddressBookPort*/);
+            IList<IContactDTO> AddressBookDTO = new List<IContactDTO>();
+            AddressBookDTOMapper oAdressBookDTOMapper = new ();
+            IAddressBook oAddressBook;
 
+            _LoadAddressBookPort.Load(AddressBookDTO);
+            oAddressBook = oAdressBookDTOMapper.MapFrom(AddressBookDTO);
             FoundContact = oAddressBook.GetContact(name);
             if (FoundContact == null)
                 return null;
             else
             {
-                AdapterToContactDTO ContactAdapter = new(FoundContact);
-                return ContactAdapter;
+                ContactDTOMapper oContactDTOMapper = new();
+                return oContactDTOMapper.MapTo(FoundContact);
             }
         }
     }

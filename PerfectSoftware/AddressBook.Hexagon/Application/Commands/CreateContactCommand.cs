@@ -1,8 +1,12 @@
 ﻿//By Bart Vertongen copyright 2021
 
+using System;
+using PS.AddressBook.Hexagon.Application.Messaging;
+
+
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class CreateContactCommand
+    public class CreateContactCommand : ICommand
     {
         private readonly string _Name;
         private readonly string _Street;
@@ -36,6 +40,8 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             _Email = email;
         }
 
+        public Guid Id { get; private set; }
+
         public string Name => _Name;
 
         public string Street => _Street;
@@ -47,5 +53,6 @@ namespace PS.AddressBook.Hexagon.Application.Commands
         public string Phone => _Phone;
 
         public string Email => _Email;
+       
     }
 }

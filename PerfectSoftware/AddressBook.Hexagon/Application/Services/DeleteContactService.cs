@@ -1,11 +1,11 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Domain.Ports;
+using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.Hexagon.Application.Services
@@ -30,21 +30,21 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO DeleteContact(DeleteContactCommand command)
         {
             IAddressBook oAddressBook;
+            AddressBookDTOMapper oAddressBookDTOMapper = new();
             IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
 
             _AddressBookFilePort.Load(oAddressBookDTO);
-            oAddressBook = new BussAddressBook(/*_AddressBookFilePort, oAddressBookDTO*/);
+            oAddressBook = oAddressBookDTOMapper.MapFrom(oAddressBookDTO);
             if (oAddressBook.ContainsName(command.Name))
             {
                 IContact FoundContact;
-                AdapterToContactDTO Adapter;
+                ContactDTOMapper oContactDTOMapper = new();
                
                 FoundContact = oAddressBook.GetContact(command.Name);
                 oAddressBook.Delete(command.Name);
                 //Saves the changes to the AddressBook
-                _AddressBookFilePort.Save(oAddressBookDTO);
-                Adapter = new AdapterToContactDTO(FoundContact);
-                return Adapter;
+                _AddressBookFilePort.Save(oAddressBookDTOMapper.MapTo(oAddressBook));
+                return oContactDTOMapper.MapTo(FoundContact);
             }
             else
                 return null;

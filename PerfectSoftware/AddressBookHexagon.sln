@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiAddressBook.Test", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Infrastructure.Driven.File", "Infrastructure.Driving\AddressBook.Infrastructure.Driven.File.csproj", "{33035BBF-8840-457C-8D6B-803957192A84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Infrastructure.Driving.Console", "Infrastructure.Driven\AddressBook.Infrastructure.Driving.Console.csproj", "{6BF9F936-1E82-4676-AE7C-4557AD2A3A65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Framework.Console", "Infrastructure.Driven\AddressBook.Framework.Console.csproj", "{6BF9F936-1E82-4676-AE7C-4557AD2A3A65}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Hexagon", "AddressBook.Hexagon\AddressBook.Hexagon.csproj", "{5CCFD174-640A-4CFF-A7DD-EB5E25B47C58}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Infrastructure.Driving.Console.Tests", "Infrastructure.Driving.Tests\AddressBook.Infrastructure.Driving.Console.Tests.csproj", "{A8A9CF0B-4450-4420-8C61-76EE349829E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Framework.Console.Tests", "Infrastructure.Driving.Tests\AddressBook.Framework.Console.Tests.csproj", "{A8A9CF0B-4450-4420-8C61-76EE349829E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

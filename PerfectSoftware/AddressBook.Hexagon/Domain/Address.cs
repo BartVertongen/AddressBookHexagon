@@ -1,5 +1,7 @@
 ﻿//By Bart Vertongen copyright 2021.
 
+using PS.AddressBook.Hexagon.Domain.Ports;
+
 
 namespace PS.AddressBook.Hexagon.Domain
 {

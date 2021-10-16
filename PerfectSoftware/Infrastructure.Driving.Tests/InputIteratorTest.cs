@@ -1,5 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021
 
+using PS.AddressBook.Framework.Console;
 using Xunit;
 
 

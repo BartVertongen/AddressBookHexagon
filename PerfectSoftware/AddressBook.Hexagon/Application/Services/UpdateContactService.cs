@@ -1,12 +1,12 @@
 ﻿//By Bart Vertongen copyright 2021.
 
-using PS.AddressBook.Hexagon.Domain;
-using PS.AddressBook.Hexagon.Application.Ports;
+using System.Collections.Generic;
+using PS.AddressBook.Hexagon.Domain.Ports;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
-using System.Collections.Generic;
+using PS.AddressBook.Hexagon.Application.Mappers;
+
 
 namespace PS.AddressBook.Hexagon.Application.Services
 {
@@ -25,14 +25,15 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO UpdateContact(UpdateContactCommand command)
         {
             IAddressBook oAddressBook;
+            AddressBookDTOMapper oAddressBookDTOMapper = new();
             IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
 
             _AddressBookFilePort.Load(oAddressBookDTO);
-            oAddressBook = new BussAddressBook(/*_AddressBookFilePort, oAddressBookDTO*/);
+            oAddressBook = oAddressBookDTOMapper.MapFrom(oAddressBookDTO);
             if (oAddressBook.ContainsName(command.Name))
             {
                 IContact FoundContact, ChangedContact;
-                AdapterToContactDTO Adapter;
+                ContactDTOMapper oContactDTOMapper = new ();
 
                 FoundContact = oAddressBook.GetContact(command.Name);
                 ChangedContact = FoundContact.DeepClone();
@@ -45,9 +46,8 @@ namespace PS.AddressBook.Hexagon.Application.Services
 
                 oAddressBook.Update(ChangedContact);
                 //Saves the changes to the AddressBook
-                _AddressBookFilePort.Save(oAddressBookDTO);
-                Adapter = new AdapterToContactDTO(ChangedContact);
-                return Adapter;
+                _AddressBookFilePort.Save(oAddressBookDTOMapper.MapTo(oAddressBook));
+                return oContactDTOMapper.MapTo(ChangedContact);
             }
             else
                 return null;

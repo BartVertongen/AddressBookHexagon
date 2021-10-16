@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Hexagon.Framework.Console;
-using PS.AddressBook.Hexagon.Framework.Console.Commands;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
 using PS.AddressBook.Hexagon.Application;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Framework.Console;
+using PS.AddressBook.Framework.Console.Commands;
 
 
 namespace PS.AddressBook.UI.UseCases
@@ -19,7 +18,7 @@ namespace PS.AddressBook.UI.UseCases
     /// </summary>
     public class UseCase2Test : IDisposable
     {
-        private readonly BussAddressBook _AddressBook;
+        //private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
@@ -219,7 +218,6 @@ namespace PS.AddressBook.UI.UseCases
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
             IAddressBookFile MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
-            _AddressBook = new BussAddressBook();
         }
 
         /// <summary>
@@ -227,7 +225,7 @@ namespace PS.AddressBook.UI.UseCases
         /// </summary>
         public void Dispose()
         {
-            _AddressBook.Clear();
+            //_AddressBook.Clear();
         }
 
         [Theory]
@@ -242,11 +240,11 @@ namespace PS.AddressBook.UI.UseCases
             _InputIterator = new UserInputMock(null, "-1", name, street, postalcode, town, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
-            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory = new AddressBookUICommandFactory(null, null, null, null, null, _UserInterface);
             IUICommand AddCommand = _CommandFactory.GetCommand("a");
 
             //Action and Assert
-            Assert.True(AddCommand.Run().WasSuccessful);
+            Assert.True(AddCommand.Run(out object oResult).WasSuccessful);
         }
     }
 }

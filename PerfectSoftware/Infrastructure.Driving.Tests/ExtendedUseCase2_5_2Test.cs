@@ -5,10 +5,10 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Hexagon.Framework.Console;
-using PS.AddressBook.Hexagon.Framework.Console.Commands;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Framework.Console;
+using PS.AddressBook.Framework.Console.Commands;
 
 
 namespace UseCaseTests
@@ -18,10 +18,10 @@ namespace UseCaseTests
     /// </summary>
     public class UseCase2_5_2Test
     {
-        private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
         private IConsoleUserInterface _UserInterface;
+        private ICreateContactUseCase _CreateContactPort;
         private IAddressBookUICommandFactory _CommandFactory;
 
         /// <summary>
@@ -37,7 +37,6 @@ namespace UseCaseTests
                 File.Delete(FullPath);
             }
             Mock<IAddressBookFile> MockDSAddressBook = new();
-            _AddressBook = new BussAddressBook(/*MockDSAddressBook.Object*/);
         }
 
         /// <summary>
@@ -58,11 +57,11 @@ namespace UseCaseTests
             _InputIterator = new InputIterator(null, "-1", name, street, postalcode, town, phone, email);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
-            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory = new AddressBookUICommandFactory(_CreateContactPort, null, null, null, null, _UserInterface);
             IUICommand AddCommand = _CommandFactory.GetCommand("a");
 
             //Action and Assert
-            Assert.False(AddCommand.Run().WasSuccessful);
+            Assert.False(AddCommand.Run(out object oResult).WasSuccessful);
         }
     }
 }

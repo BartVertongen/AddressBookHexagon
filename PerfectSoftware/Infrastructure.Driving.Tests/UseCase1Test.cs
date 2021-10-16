@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 using Moq;
-using PS.AddressBook.Hexagon.Framework.Console;
-using PS.AddressBook.Hexagon.Framework.Console.Commands;
 using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Framework.Console;
+using PS.AddressBook.Framework.Console.Commands;
 
 
 namespace PS.AddressBook.UI.UseCases
@@ -19,15 +19,15 @@ namespace PS.AddressBook.UI.UseCases
     /// </summary>
     public class UseCase1Test
     {
-        private readonly BussAddressBook _AddressBook;
         private IInputIterator _InputIterator;
         private IConsole _Console;
-        private IConsoleUserInterface _UserInterface;
+        private IConsoleUserInterface   _UserInterface;
+        private IGetOverviewQuery       _GetOverviewPort;
         private IAddressBookUICommandFactory _CommandFactory;
 
-        class DSAddressBookMock : IAddressBookFile
+        class DALAddressBookMock : IAddressBookFile
         {
-            public DSAddressBookMock(IConfigurationRoot config)
+            public DALAddressBookMock(IConfigurationRoot config)
             {
                 FullPath = config.GetSection("ContactsFile").Value;
             }
@@ -91,9 +91,8 @@ namespace PS.AddressBook.UI.UseCases
             Mock <IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
 
-            IAddressBookFile MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
-
-            _AddressBook = new BussAddressBook();            
+            IAddressBookFile MockDALAddressBook = new DALAddressBookMock(MockConfig.Object);
+           
         }
 
         [Theory]
@@ -106,13 +105,13 @@ namespace PS.AddressBook.UI.UseCases
             _InputIterator = new InputIterator(filter, "-1", null, null, null, null, null, null);
             _Console = new TestConsole(_InputIterator);
             _UserInterface = new ConsoleUserInterface(_Console);
-            _CommandFactory = new AddressBookUICommandFactory(_AddressBook, _UserInterface);
+            _CommandFactory = new AddressBookUICommandFactory(null, null, null, _GetOverviewPort,null, _UserInterface);
 
             //Actions
             IUICommand GetList = _CommandFactory.GetCommand("l");
 
             //Assert
-            Assert.True(GetList.Run().WasSuccessful);
+            Assert.True(GetList.Run(out object oResult).WasSuccessful);
         } 
     }
 }

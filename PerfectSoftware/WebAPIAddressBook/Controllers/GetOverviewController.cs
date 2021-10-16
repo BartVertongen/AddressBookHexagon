@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PS.AddressBook.Hexagon.Domain;
+using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.UseCases;
 
 
@@ -19,7 +19,7 @@ namespace WebAPIAddressBook.Controllers
     [ApiController]
     public class GetOverviewController : ControllerBase
     {
-        private readonly ILogger<UpdateContactController> _logger;
+        private readonly ILogger<UpdateContactController> _Logger;
         private readonly IGetOverviewQuery      _GetOverviewPort;
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace WebAPIAddressBook.Controllers
         public GetOverviewController(IGetOverviewQuery overviewQuery, ILogger<UpdateContactController> logger)
         {
             _GetOverviewPort = overviewQuery;
-            _logger = logger;
+            _Logger = logger;
         }
 
 
@@ -41,7 +41,7 @@ namespace WebAPIAddressBook.Controllers
         /// <returns></returns>
         [Route("api/addressbook/overview/{filter?}")]
         [HttpGet]
-        public ActionResult<List<ContactLineDTO>> GetOverview(string filter = null)
+        public ActionResult<List<IContactLineDTO>> GetOverview(string filter = null)
         {
             List<IContactLineDTO> ContactLines;
 
@@ -49,7 +49,7 @@ namespace WebAPIAddressBook.Controllers
                 ContactLines = _GetOverviewPort.GetOverview("");
             else
                 ContactLines = _GetOverviewPort.GetOverview(filter);
-            return ContactLines.Cast<ContactLineDTO>().ToList();
+            return ContactLines.Cast<IContactLineDTO>().ToList();
         }
     }
 }

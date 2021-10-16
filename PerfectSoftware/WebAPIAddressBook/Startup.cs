@@ -11,14 +11,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
-//We should not use the Domain directly
-using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Infrastructure.Driven.File;
-//TODO we should find a way not to use the AddressBook outside the Hexagon.
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Services;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
+
 
 namespace WebAPIAddressBook
 {
@@ -79,13 +76,16 @@ namespace WebAPIAddressBook
             services.AddSingleton(Configuration);
             services.AddSingleton<IConfiguration>(Configuration);          
             services.AddSingleton<IAddressBookFile, AddressBookXmlFileAdapter>();
-            services.AddSingleton<IAddressBook, BussAddressBook>();
-            services.AddSingleton<ICreateContactUseCase, CreateContactService>();
+            services.AddSingleton<ICreateContactUseCase, CreateContactService>();            
             services.AddSingleton<IDeleteContactUseCase, DeleteContactService>();
-
+            services.AddSingleton<IUpdateContactUseCase, UpdateContactService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -2,9 +2,10 @@
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
-namespace PS.AddressBook.Hexagon.Domain
+namespace PS.AddressBook.Hexagon.Application
 {
     /// <summary>
     /// A ContactLine is a short overview of a Contact.

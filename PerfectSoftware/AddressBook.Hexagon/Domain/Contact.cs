@@ -1,6 +1,7 @@
 ﻿//Copyright 2021 Bart Vertongen
 
 using System.IO;
+using PS.AddressBook.Hexagon.Domain.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Domain
@@ -84,22 +85,6 @@ namespace PS.AddressBook.Hexagon.Domain
                 return Contact.GetContentsCode(this);
             } 
         }
-
-        static public IContactLineDTO GetContactLine(IContact contact)
-        {
-            ContactLineDTO oContactLine = new()
-            {
-                Name = contact.Name,
-                ContentsCode = Contact.GetContentsCode(contact)
-            };
-            return oContactLine;
-        }
-
-        public IContactLineDTO ContactLine
-        {
-            get { return Contact.GetContactLine(this); }
-        }
-
 
         static public bool IsValid (IContact contact)
         {

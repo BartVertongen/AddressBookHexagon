@@ -1,13 +1,13 @@
 ﻿// By Bart Vertongen copyright 2021
 
 using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.Mappers;
 
 
-namespace AddressBook.Hexagon.Application.Services
+namespace PS.AddressBook.Hexagon.Application.Services
 {
     public class GetOverviewService : IGetOverviewQuery
     {
@@ -20,29 +20,23 @@ namespace AddressBook.Hexagon.Application.Services
 
         public List<IContactLineDTO> GetOverview(string filter = "")
         {            
-            List<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
+            List<IContactDTO> oAddressBookDTO = new();
             List<IContactLineDTO> Result = new();
+            int iID = 0;
 
             _LoadAddressBookPort.Load(oAddressBookDTO);
             foreach(IContactDTO dtoContact in oAddressBookDTO)
             {
-                IContactLineDTO dtoContactLine;
-                IContact oContact;
+                IContactLineDTO oContactLine;
+                ContactDTOMapper oContactDTOMapper = new();
 
-                oContact = new Contact
+                oContactLine = new ContactLineDTO
                 {
+                    Id = ++iID,
                     Name = dtoContact.Name,
-                    Phone = dtoContact.PhoneNumber,
-                    Email = dtoContact.Email,
-                    Address = new Address
-                    {
-                        Street = dtoContact.Address.Street,
-                        PostalCode = dtoContact.Address.PostalCode,
-                        Town = dtoContact.Address.Town
-                    }
+                    ContentsCode = oContactDTOMapper.MapFrom(dtoContact).ContentsCode
                 };
-                dtoContactLine = oContact.ContactLine;
-                Result.Add(dtoContactLine);
+                Result.Add(oContactLine);
             }
             return Result;
         }

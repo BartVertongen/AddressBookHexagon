@@ -1,45 +1,30 @@
 ﻿//Copyright 2021 Bart Vertongen
 
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using PS.AddressBook.Hexagon.Domain.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Domain
 {
     public class AddressBook : List<IContact>, IAddressBook
     {
-        //private readonly IAddressBookFile _DSAddressBook;
-
-        public AddressBook(/*IAddressBookFile dsAddressBook*/)
+        public AddressBook()
         {
-            //_DSAddressBook = dsAddressBook;
-            //this.Load();
             SelectedContactName = "";
         }
 
-        /*public AddressBook(IAddressBookFile dsAddressBook)
-        {
-            _DSAddressBook = dsAddressBook;
-            SelectedContactName = "";
-            foreach (IContactDTO dtoContact in dtoAddressBook)
-            {
-                IContact ContactAdapter = new AdapterFromContactDTO(dtoContact);
-                Contact bussContact = new(ContactAdapter);
-                this.Add(bussContact);
-            }
-        }*/
 
         public string SelectedContactName { get; set; }
 
         public bool IsReadOnly => throw new System.NotImplementedException();
 
 
-        public IList<IContactLineDTO> GetOverview(string filter)
+        public IList<IContact> GetOverview(string filter)
         {
-            IList<IContactLineDTO> Result = new List<IContactLineDTO>();
             List<IContact> Selection = new();
-            int ID = 0;
 
             string PureFilter;
 
@@ -57,14 +42,7 @@ namespace PS.AddressBook.Hexagon.Domain
             {
                 Selection = this.Where(ctt => ctt.Name.ToUpper().StartsWith(filter.ToUpper())).OrderBy(ctt => ctt.Name).ToList();
             }
-            foreach(IContact oContact in Selection)
-            {
-                Contact CurrContact = new(oContact);
-                IContactLineDTO oContactLine = CurrContact.ContactLine;
-                oContactLine.Id = ++ID;
-                Result.Add(oContactLine);
-            }
-            return Result;
+            return Selection;
         }
 
         /// <summary>
@@ -127,36 +105,6 @@ namespace PS.AddressBook.Hexagon.Domain
             {
                 Found.Assign(changedContact);
             }
-        }
-
-        public int IndexOf(IContactLineDTO item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Insert(int index, IContactLineDTO item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Add(IContactLineDTO item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Contains(IContactLineDTO item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void CopyTo(IContactLineDTO[] array, int arrayIndex)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Remove(IContactLineDTO item)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using System.Reflection;
-using PS.AddressBook.Hexagon.Framework.Console;
-using PS.AddressBook.Hexagon.Framework.Console.Commands;
+using PS.AddressBook.Framework.Console;
+using PS.AddressBook.Framework.Console.Commands;
 
 
 namespace PS.AddressBook.Infrastructure.Driving.Console
@@ -22,7 +22,7 @@ namespace PS.AddressBook.Infrastructure.Driving.Console
         {
             Greeting();
 
-            var Response = _CommandFactory.GetCommand("?").Run();
+            var Response = _CommandFactory.GetCommand("?").Run(out object oResult);
 
             while (!Response.IsTerminating)
             {
@@ -30,7 +30,7 @@ namespace PS.AddressBook.Infrastructure.Driving.Console
                 var input = _UserInterface.ReadValue("> ").ToLower();
                 var command = _CommandFactory.GetCommand(input);
 
-                Response = command.Run();
+                Response = command.Run(out oResult);
 
                 if (!Response.WasSuccessful)
                 {

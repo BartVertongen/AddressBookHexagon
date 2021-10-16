@@ -5,11 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using PS.AddressBook.Hexagon.Domain;
-using PS.AddressBook.Hexagon.Framework.Console;
-using PS.AddressBook.Hexagon.Framework.Console.Commands;
+using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application.Services;
+using PS.AddressBook.Framework.Console;
+using PS.AddressBook.Framework.Console.Commands;
 using PS.AddressBook.Infrastructure.Driving.Console;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.ConsoleApp
@@ -34,9 +34,12 @@ namespace PS.AddressBook.ConsoleApp
             services.AddSingleton(Configuration);
 
             //Hexagon
-            services.AddTransient<IAddressBook, BussAddressBook>();
+            services.AddTransient<ICreateContactUseCase, CreateContactService>();
+            services.AddTransient<IDeleteContactUseCase, DeleteContactService>();
+            services.AddTransient<IUpdateContactUseCase, UpdateContactService>();
+            services.AddTransient<IGetOverviewQuery, GetOverviewService>();
 
-            //Infrastructure Driving
+            //CLI Driving
             services.AddTransient<IConsoleUserInterface, ConsoleUserInterface>();
             services.AddTransient<IAddressBookUICommandFactory, AddressBookUICommandFactory>();
             services.AddTransient<IAddressBookCLIService, AddressBookConsoleAdapter>();          
