@@ -27,7 +27,8 @@ namespace WebAPIAddressBook.Controllers
         /// <param name="updateContactService">Port for the updateContactService</param>
         /// <param name="contactQueryService">Port for GetContactNameQuery</param>
         /// <param name="logger"></param>
-        public UpdateContactController(IUpdateContactUseCase updateContactService, IGetContactWithNameQuery contactQueryService, ILogger<UpdateContactController> logger)
+        public UpdateContactController(IUpdateContactUseCase updateContactService, 
+                    IGetContactWithNameQuery contactQueryService, ILogger<UpdateContactController> logger)
         {
             _GetUpdateContactPort = updateContactService;
             _GetContactWithNamePort = contactQueryService;
