@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
 using PS.AddressBook.Hexagon.Domain;
-using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Application.Ports;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+using PS.AddressBook.Hexagon.Application.UseCases;
 using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
@@ -18,8 +20,8 @@ namespace PS.AddressBook.Business.Tests
     /// </summary>
     public class UseCase4Test
     {
-        private readonly IAddressBook _AddressBook;
-        private List<ContactLineDTO> _ResultList;
+        private readonly IDeleteContactUseCase _DeleteContactPort;
+        private List<IContactLineDTO> _ResultList;
         private string _Filter, _SelectedName;
 
         public UseCase4Test()
@@ -28,8 +30,8 @@ namespace PS.AddressBook.Business.Tests
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns("AddressBookUseCase4.xml");
 
-            Mock<IAddressBookFile> MockDSAddressBook = new();
-            _AddressBook = new BussAddressBook(MockDSAddressBook.Object);
+            Mock<IAddressBookFile> MockDALAddressBook = new();
+            _AddressBook = new BussAddressBook();
             this.PreCondition();
         }
 
@@ -80,7 +82,7 @@ namespace PS.AddressBook.Business.Tests
         /// </summary>
         private void Step2()
         {          
-            this._ResultList = _AddressBook.GetOverview(_Filter).Cast<ContactLineDTO>().ToList();
+            this._ResultList = _AddressBook.GetOverview(_Filter);
         }
 
         /// <summary>
@@ -126,7 +128,7 @@ namespace PS.AddressBook.Business.Tests
             NewContact = new Contact
             {
                 Name = "An Dematras",
-                PhoneNumber = "02/5820103"
+                Phone = "02/5820103"
             };
             _AddressBook.Add(NewContact);
 
@@ -148,7 +150,7 @@ namespace PS.AddressBook.Business.Tests
             {
                 Name = "Josephine DePin",
                 Email = "jospin@proximus.be",
-                PhoneNumber = "054/44.87.26"
+                Phone = "054/44.87.26"
             };
             NewAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
             NewContact.Address = NewAddress;

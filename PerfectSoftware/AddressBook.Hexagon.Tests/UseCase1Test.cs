@@ -1,17 +1,15 @@
 ﻿// By Bart Vertongen copyright 2021
 
-using Microsoft.Extensions.Configuration;
-using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Moq;
 using Xunit;
-using PS.AddressBook.Hexagon.Domain.Core;
-using PS.AddressBook.Hexagon.Domain;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+using PS.AddressBook.Hexagon.Application.UseCases;
+using PS.AddressBook.Hexagon.Application.Ports;
 
-
-namespace PS.AddressBook.Business.Tests
+namespace PS.AddressBook.Hexagon.Application.Tests
 {
     /// <summary>
     /// Give Overview of All Contacts with possible filtering.
@@ -87,8 +85,8 @@ namespace PS.AddressBook.Business.Tests
             }
         }
 
-        private readonly IAddressBook _AddressBook;
-        private List<ContactLineDTO> _ResultList;
+        private readonly IGetOverviewQuery _GetOverviewQueryPort;
+        private List<IContactLineDTO> _ResultList;
         private string _Filter;
 
         public UseCase1Test()
@@ -98,8 +96,7 @@ namespace PS.AddressBook.Business.Tests
             Mock<IConfigurationRoot> MockConfig = new();
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(FullPath);
 
-            IAddressBookFile MockDSAddressBook = new DSAddressBookMock(MockConfig.Object);
-            _AddressBook = new BussAddressBook(MockDSAddressBook);
+            IAddressBookFile MockDALAddressBook = new DSAddressBookMock(MockConfig.Object);
             _Filter = "";
         }
 
@@ -134,7 +131,7 @@ namespace PS.AddressBook.Business.Tests
         /// </summary>
         private void Step2()
         {
-            this._ResultList = _AddressBook.GetOverview(_Filter).Cast<ContactLineDTO>().ToList();
+            this._ResultList = _GetOverviewQueryPort.GetOverview(_Filter);
         }
 
         /// <summary>

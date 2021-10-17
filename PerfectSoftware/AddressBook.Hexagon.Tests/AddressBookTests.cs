@@ -5,16 +5,15 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
-using PS.AddressBook.Hexagon.Domain.Core;
-using PS.AddressBook.Hexagon.Domain;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
+using PS.AddressBook.Hexagon.Domain.Ports;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
 
 
-namespace PS.AddressBook.Business.Tests
+namespace PS.AddressBook.Hexagon.Domain.Tests
 {
     public class AddressBookTests
     {
-        private readonly IAddressBookFile _DSAddressBook;
+        private readonly IAddressBookFile _DALAddressBook;
 
         public AddressBookTests()
         {
@@ -24,7 +23,7 @@ namespace PS.AddressBook.Business.Tests
             MockConfig.SetupGet(p => p.GetSection("ContactsFile").Value).Returns(sFullPath);
 
             Mock<IAddressBookFile> MockDSAddressBook = new();
-            _DSAddressBook = MockDSAddressBook.Object;
+            _DALAddressBook = MockDSAddressBook.Object;
         }
 
         [Fact]
@@ -34,7 +33,7 @@ namespace PS.AddressBook.Business.Tests
             IAddressBook anAddressBook;
 
             //Actions
-            anAddressBook = new BussAddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook();
 
             //Asserts
             Assert.NotNull(anAddressBook);
@@ -46,14 +45,13 @@ namespace PS.AddressBook.Business.Tests
         {
             //Arrange
             IAddressBook anAddressBook;
-            IContact ValidContact;
 
             //Actions
-            anAddressBook = new BussAddressBook(_DSAddressBook);
-            ValidContact = new Contact
+            anAddressBook = new BussAddressBook();
+            IContact ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
-                PhoneNumber = "02/581.14.78"
+                Phone = "02/581.14.78"
             };
             anAddressBook.Add(ValidContact);
 
@@ -71,7 +69,7 @@ namespace PS.AddressBook.Business.Tests
             Contact InvalidContact;
 
             //Actions
-            anAddressBook = new BussAddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook();
             InvalidContact = new Contact
             {
                 Name = "Elizabeth De Prinses"
@@ -92,14 +90,14 @@ namespace PS.AddressBook.Business.Tests
         {
             //Arrange
             IAddressBook anAddressBook;
-            Contact ValidContact;
+            IContact ValidContact;
 
             //Actions
-            anAddressBook = new BussAddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook();
             ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
-                PhoneNumber = "02/581.14.78"
+                Phone = "02/581.14.78"
             };
             anAddressBook.Add(ValidContact);
             Action testCode = () => anAddressBook.Add(ValidContact);
@@ -121,11 +119,11 @@ namespace PS.AddressBook.Business.Tests
             Contact ValidContact, IdemContact;
 
             //Actions
-            anAddressBook = new BussAddressBook(_DSAddressBook);
+            anAddressBook = new BussAddressBook();
             ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
-                PhoneNumber = "02/581.14.78"
+                Phone = "02/581.14.78"
             };
             IdemContact = (Contact)ValidContact.DeepClone();
             anAddressBook.Add(ValidContact);

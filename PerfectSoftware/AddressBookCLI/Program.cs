@@ -7,9 +7,9 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Services;
+using PS.AddressBook.Infrastructure.Driving.Console;
 using PS.AddressBook.Framework.Console;
 using PS.AddressBook.Framework.Console.Commands;
-using PS.AddressBook.Infrastructure.Driving.Console;
 
 
 namespace PS.AddressBook.ConsoleApp

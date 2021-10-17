@@ -2,7 +2,7 @@
 
 using Xunit;
 using PS.AddressBook.Hexagon.Domain;
-using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain.Ports;
 
 
 namespace PS.AddressBook.Business.Tests
@@ -13,7 +13,7 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_NoData_ShouldGiveEmptyAddress()
         {
             //Arrange
-            Address anAddress;
+            IAddress anAddress;
 
             //Actions
             anAddress = new Address();
@@ -29,7 +29,7 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_AllValidData_ShouldGiveValidAddress()
         {
             //Arrange
-            Address anAddress;
+            IAddress anAddress;
 
             //Actions
             anAddress = new Address("Weverijstraat 12", "9500", "Geraardsbergen");
@@ -61,7 +61,7 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNoPostalCode_ShouldGiveEmptyAddress()
         {
             //Arrange
-            Address anAddress;
+            IAddress anAddress;
 
             //Actions
             anAddress = new Address("Weverijstraat 12", "", "Geraardsbergen");
@@ -77,7 +77,7 @@ namespace PS.AddressBook.Business.Tests
         public void Construction_WithNoTown_ShouldGiveEmptyAddress()
         {
             //Arrange
-            Address anAddress;
+            IAddress anAddress;
 
             //Actions
             anAddress = new Address("Weverijstraat 12", "9500", "");

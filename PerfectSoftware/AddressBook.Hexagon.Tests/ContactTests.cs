@@ -1,7 +1,7 @@
 //By Bart Vertongen copyright 2021.
 
 using Xunit;
-using PS.AddressBook.Hexagon.Domain.Core;
+using PS.AddressBook.Hexagon.Domain.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Domain.Tests
@@ -34,7 +34,7 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             {
                 Name = "Oscar Degrave",
                 Address = anAddress,
-                PhoneNumber = "054/45.14.78",
+                Phone = "054/45.14.78",
                 Email = "odegrave@telenet.be"
             };
 
@@ -72,7 +72,7 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             aContact = new Contact
             {
                 Name = "Oscar Degrave",
-                PhoneNumber = "054/48.74.64"
+                Phone = "054/48.74.64"
             };
 
             //Asserts
@@ -141,7 +141,7 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             aContact = new Contact
             {
                 Name = "Oscar Degrave",
-                PhoneNumber = "054/48.74.64"
+                Phone = "054/48.74.64"
             };
 
             //Asserts
