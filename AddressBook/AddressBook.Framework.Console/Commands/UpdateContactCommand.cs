@@ -66,7 +66,7 @@ namespace PS.AddressBook.Framework.Console.Commands
                 oBuilder.AddTown(sNewTown);
 
             //Phone
-            _UserInterface.WriteMessage($"The current value for the phone number is {oldContact.PhoneNumber}.");
+            _UserInterface.WriteMessage($"The current value for the phone number is {oldContact.Phone}.");
             sNewPhone = _UserInterface.ReadValue("Give in 'XX' to keep this value or type in another value: ");
             if (sNewPhone.ToUpper() != "XX")
                 oBuilder.AddPhone(sNewPhone);

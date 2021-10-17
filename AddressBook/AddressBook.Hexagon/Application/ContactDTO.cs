@@ -22,7 +22,7 @@ namespace PS.AddressBook.Hexagon.Application
         public ContactDTO()
         {
             this.Name = "";
-            this.PhoneNumber = "";
+            this.Phone = "";
             this.Email = "";
             this.Address = new AddressDTO();
         }
@@ -30,7 +30,7 @@ namespace PS.AddressBook.Hexagon.Application
         public ContactDTO(IContactDTO dtoRef)
         {
             this.Name = dtoRef.Name;
-            this.PhoneNumber = dtoRef.PhoneNumber;
+            this.Phone = dtoRef.Phone;
             this.Email = dtoRef.Email;
             this.Address = new AddressDTO(dtoRef.Address);
         }
@@ -59,7 +59,7 @@ namespace PS.AddressBook.Hexagon.Application
         }
 
         [DefaultValue("")]
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
 
         /// <summary>
         /// The Email of the Contact.

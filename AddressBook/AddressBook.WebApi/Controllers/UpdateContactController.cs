@@ -1,13 +1,11 @@
 ﻿// By Bart Vertongen copyright 2021
 
-
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application;
+
 
 namespace WebAPIAddressBook.Controllers
 {
@@ -60,7 +58,7 @@ namespace WebAPIAddressBook.Controllers
                         changedContact.Address.Street,
                         changedContact.Address.PostalCode,
                         changedContact.Address.Town,
-                        changedContact.PhoneNumber,
+                        changedContact.Phone,
                         changedContact.Email);
             updatedContact = _GetUpdateContactPort.UpdateContact(oUpdateContactCommand);
             if (updatedContact == null)

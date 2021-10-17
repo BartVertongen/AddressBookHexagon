@@ -35,7 +35,7 @@ namespace PS.AddressBook.Framework.Console.Commands
             _UserInterface.WriteMessage($"\tStreet: {contact.Address.Street}");
             _UserInterface.WriteMessage($"\tPostalCode: {contact.Address.PostalCode}");
             _UserInterface.WriteMessage($"\tTown: {contact.Address.Town}");
-            _UserInterface.WriteMessage($"\tPhone: {contact.PhoneNumber}");
+            _UserInterface.WriteMessage($"\tPhone: {contact.Phone}");
             _UserInterface.WriteMessage($"\tEmail: {contact.Email}");
             _UserInterface.WriteMessage("");
         }

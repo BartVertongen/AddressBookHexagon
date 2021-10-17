@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AddressBook.Hexagon\AddressBook.Hexagon.csproj" />
-    <ProjectReference Include="..\Infrastructure.Driving\AddressBook.Infrastructure.Driven.File.csproj" />
+    <ProjectReference Include="..\AddressBook.Infrastructure.File\AddressBook.Infrastructure.File.csproj" />
   </ItemGroup>
 
 </Project>

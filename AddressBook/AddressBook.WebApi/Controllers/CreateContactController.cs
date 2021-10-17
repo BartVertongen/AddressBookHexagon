@@ -53,7 +53,7 @@ namespace WebAPIAddressBook.Controllers
                 //TODO: a Builder could be a better idea.
                 oCommand = new CreateContactCommand(newContact.Name, newContact.Address.Street,
                             newContact.Address.PostalCode, newContact.Address.Town,
-                                                        newContact.PhoneNumber, newContact.Email);
+                                                        newContact.Phone, newContact.Email);
                 createdContact = _CreateContactPort.CreateContact(oCommand);
                 return CreatedAtAction(nameof(Create), new { name = newContact.Name }, createdContact);
             }

@@ -6,7 +6,7 @@ using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
 
 
-namespace PS.AddressBook.Infrastructure.Driven.File
+namespace PS.AddressBook.Infrastructure.File
 {
     public class AddressBookXmlFileAdapter : IAddressBookFile
     {

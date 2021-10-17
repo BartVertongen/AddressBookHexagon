@@ -14,7 +14,7 @@ namespace PS.AddressBook.Hexagon.Application.Mappers
             IContactDTO Result = new ContactDTO
             {
                 Name = contact.Name,
-                PhoneNumber = contact.Phone,
+                Phone = contact.Phone,
                 Email = contact.Email,
                 Address = (AddressDTO)new AddressDTOMapper().MapTo(contact.Address)
             };
@@ -26,7 +26,7 @@ namespace PS.AddressBook.Hexagon.Application.Mappers
             IContact Result = new Contact
             {
                 Name = contactDTO.Name,
-                Phone = contactDTO.PhoneNumber,
+                Phone = contactDTO.Phone,
                 Email = contactDTO.Email,
                 Address = (Address)new AddressDTOMapper().MapFrom(contactDTO.Address)
             };               

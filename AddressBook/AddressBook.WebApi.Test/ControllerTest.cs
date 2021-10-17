@@ -39,7 +39,7 @@ namespace WebApiAddressBook.Test
                 NewContact = new ContactDTO
                 {
                     Name = "An Dematras",
-                    PhoneNumber = "02/5820103"
+                    Phone = "02/5820103"
                 };
                 book.Add(NewContact);
 
@@ -61,7 +61,7 @@ namespace WebApiAddressBook.Test
                 {
                     Name = "Josephine DePin",
                     Email = "jospin@proximus.be",
-                    PhoneNumber = "054/44.87.26",
+                    Phone = "054/44.87.26",
                     Address = new AddressDTO
                     {
                         Street = "Weverijstraat 12",

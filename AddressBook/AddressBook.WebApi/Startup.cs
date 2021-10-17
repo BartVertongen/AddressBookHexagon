@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using PS.AddressBook.Infrastructure.Driven.File;
+using PS.AddressBook.Infrastructure.File;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Services;
 using PS.AddressBook.Hexagon.Application.Ports.Out;

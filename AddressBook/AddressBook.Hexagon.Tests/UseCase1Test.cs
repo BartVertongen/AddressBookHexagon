@@ -9,6 +9,7 @@ using PS.AddressBook.Hexagon.Application.Ports.Out;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Ports;
 
+
 namespace PS.AddressBook.Hexagon.Application.Tests
 {
     /// <summary>
@@ -36,7 +37,7 @@ namespace PS.AddressBook.Hexagon.Application.Tests
                 MockAddress1.SetupGet(p => p.Town).Returns("");
                 Mock<IContactDTO> MockContact1 = new();
                 MockContact1.SetupGet(p => p.Name).Returns("Elizabeth De Prinses");
-                MockContact1.SetupGet(p => p.PhoneNumber).Returns("02/581.14.78");
+                MockContact1.SetupGet(p => p.Phone).Returns("02/581.14.78");
                 MockContact1.SetupGet(p => p.Email).Returns("");
                 MockContact1.SetupGet(p => p.Address).Returns(MockAddress1.Object);
                 NewContact1 = MockContact1.Object;
@@ -48,7 +49,7 @@ namespace PS.AddressBook.Hexagon.Application.Tests
                 MockAddress2.SetupGet(p => p.Town).Returns("");
                 Mock<IContactDTO> MockContact2 = new();
                 MockContact2.SetupGet(p => p.Name).Returns("André Hazes");
-                MockContact2.SetupGet(p => p.PhoneNumber).Returns("");
+                MockContact2.SetupGet(p => p.Phone).Returns("");
                 MockContact2.SetupGet(p => p.Email).Returns("andre@heaven.com");
                 MockContact2.SetupGet(p => p.Address).Returns(MockAddress2.Object);
                 NewContact2 = MockContact2.Object;
@@ -60,7 +61,7 @@ namespace PS.AddressBook.Hexagon.Application.Tests
                 MockAddress3.SetupGet(p => p.Town).Returns("");
                 Mock<IContactDTO> MockContact3 = new();
                 MockContact3.SetupGet(p => p.Name).Returns("Jan Franchipan");
-                MockContact3.SetupGet(p => p.PhoneNumber).Returns("");
+                MockContact3.SetupGet(p => p.Phone).Returns("");
                 MockContact3.SetupGet(p => p.Email).Returns("jan@eigenbelang.be");
                 MockContact3.SetupGet(p => p.Address).Returns(MockAddress3.Object);
                 NewContact3 = MockContact3.Object;
@@ -72,7 +73,7 @@ namespace PS.AddressBook.Hexagon.Application.Tests
                 MockAddress4.SetupGet(p => p.Town).Returns("Geraardsbergen");
                 Mock<IContactDTO> MockContact4 = new();
                 MockContact4.SetupGet(p => p.Name).Returns("Josephine DePin");
-                MockContact4.SetupGet(p => p.PhoneNumber).Returns("054/44.87.26");
+                MockContact4.SetupGet(p => p.Phone).Returns("054/44.87.26");
                 MockContact4.SetupGet(p => p.Email).Returns("jospin@proximus.be");
                 MockContact4.SetupGet(p => p.Address).Returns(MockAddress4.Object);
                 NewContact4 = MockContact4.Object;

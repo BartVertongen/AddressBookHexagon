@@ -33,11 +33,10 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             IAddressBook anAddressBook;
 
             //Actions
-            anAddressBook = new BussAddressBook();
+            anAddressBook = new AddressBook();
 
             //Asserts
             Assert.NotNull(anAddressBook);
-            Assert.True(anAddressBook.Count == 0);
         }
 
         [Fact]
@@ -47,7 +46,7 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             IAddressBook anAddressBook;
 
             //Actions
-            anAddressBook = new BussAddressBook();
+            anAddressBook = new AddressBook();
             IContact ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
@@ -58,7 +57,6 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             //Asserts
             Assert.NotNull(anAddressBook);
             Assert.True(ValidContact.IsValid());
-            Assert.True(anAddressBook.Count == 1);
         }
 
         [Fact]
@@ -69,7 +67,7 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             Contact InvalidContact;
 
             //Actions
-            anAddressBook = new BussAddressBook();
+            anAddressBook = new AddressBook();
             InvalidContact = new Contact
             {
                 Name = "Elizabeth De Prinses"
@@ -80,7 +78,6 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             //Asserts
             Assert.NotNull(anAddressBook);
             Assert.False(InvalidContact.IsValid());
-            Assert.True(anAddressBook.Count == 0);
             Assert.NotNull(ex);
             Assert.IsType<InvalidDataException>(ex);
         }
@@ -93,7 +90,7 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             IContact ValidContact;
 
             //Actions
-            anAddressBook = new BussAddressBook();
+            anAddressBook = new AddressBook();
             ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
@@ -106,7 +103,6 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             //Asserts
             Assert.NotNull(anAddressBook);
             Assert.True(ValidContact.IsValid());
-            Assert.True(anAddressBook.Count == 1);
             Assert.NotNull(ex);
             Assert.IsType<InvalidDataException>(ex);
         }
@@ -119,7 +115,7 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             Contact ValidContact, IdemContact;
 
             //Actions
-            anAddressBook = new BussAddressBook();
+            anAddressBook = new AddressBook();
             ValidContact = new Contact
             {
                 Name = "Elizabeth De Prinses",
@@ -133,7 +129,6 @@ namespace PS.AddressBook.Hexagon.Domain.Tests
             //Asserts
             Assert.NotNull(anAddressBook);
             Assert.True(ValidContact.IsValid());
-            Assert.True(anAddressBook.Count == 1);
             Assert.NotNull(ex);
             Assert.IsType<InvalidDataException>(ex);
         }
