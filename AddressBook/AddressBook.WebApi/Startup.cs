@@ -79,6 +79,8 @@ namespace WebAPIAddressBook
             services.AddSingleton<ICreateContactUseCase, CreateContactService>();            
             services.AddSingleton<IDeleteContactUseCase, DeleteContactService>();
             services.AddSingleton<IUpdateContactUseCase, UpdateContactService>();
+            services.AddSingleton<IGetOverviewQuery, GetOverviewService>();
+            services.AddSingleton<IGetContactWithNameQuery, GetContactWithNameService>();
         }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace WebAPIAddressBook.Controllers
     [ApiController]
     public class DeleteContactController : ControllerBase
     {
-        private readonly ILogger<UpdateContactController> _Logger;
+        private readonly ILogger<DeleteContactController> _Logger;
         private readonly IDeleteContactUseCase          _DeleteContactService;
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="service">Port for the Delete Contact Service</param>
         /// <param name="logger"></param>
-        public DeleteContactController(IDeleteContactUseCase service, ILogger<UpdateContactController> logger)
+        public DeleteContactController(IDeleteContactUseCase service, ILogger<DeleteContactController> logger)
         {
             _DeleteContactService = service;
             _Logger = logger;

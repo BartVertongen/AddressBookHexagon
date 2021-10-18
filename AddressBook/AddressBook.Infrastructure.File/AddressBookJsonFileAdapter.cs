@@ -1,7 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using System.IO;
-using System.Xml.Serialization;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
@@ -12,7 +11,7 @@ namespace PS.AddressBook.Infrastructure.File
 {
     public class AddressBookJsonFileAdapter : IAddressBookFile
     {
-        private const string ErrFullFilenameNeeded = "AddressBookJsonFileAdapter needs a Full Filename of an existing xml-file.";
+        private const string ErrFullFilenameNeeded = "AddressBookJsonFileAdapter needs a Full Filename of an existing json-file.";
 
         public string FullPath { get; private set; }
 
@@ -23,7 +22,7 @@ namespace PS.AddressBook.Infrastructure.File
 
         public void Load(IList<IContactDTO> book)
         {
-            XmlSerializer AddressBookSerializer;
+            /*XmlSerializer AddressBookSerializer;
             IList<IContactDTO> TempBook;
 
             //Check if a Full File Name is given.
@@ -44,12 +43,12 @@ namespace PS.AddressBook.Infrastructure.File
                 {
                     book.Add(aContact);
                 }
-            }
+            }*/
         }
 
         public void Save(IList<IContactDTO> book)
         {
-            XmlSerializer AddressBookSerializer;
+            /*XmlSerializer AddressBookSerializer;
             AddressBookDTO TempBook = new();
 
             if (string.IsNullOrEmpty(this.FullPath))
@@ -75,7 +74,7 @@ namespace PS.AddressBook.Infrastructure.File
 
             AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
             using FileStream fs = new(this.FullPath, FileMode.Create, FileAccess.Write);
-            AddressBookSerializer.Serialize(fs, TempBook);
+            AddressBookSerializer.Serialize(fs, TempBook);*/
         }
     }
 }

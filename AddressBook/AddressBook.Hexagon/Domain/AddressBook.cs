@@ -89,9 +89,7 @@ namespace PS.AddressBook.Hexagon.Domain
         public void Delete(string nameToDelete)
         {
             IContact oContact = this.Single(ctt => ctt.Name == nameToDelete);
-            Contact bussContact = new(oContact);
-            //this does not work
-            base.Remove(bussContact);
+            this.Remove(oContact);
         }
 
         /// <summary>

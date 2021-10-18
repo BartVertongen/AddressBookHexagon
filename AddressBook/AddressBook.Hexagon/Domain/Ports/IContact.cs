@@ -8,7 +8,7 @@ namespace PS.AddressBook.Hexagon.Domain.Ports
     /// <summary>
     /// The Interface for the Contact Business Object.
     /// </summary>
-    public interface IContact : IEquatable<IContact>
+    public interface IContact
     {
         public IAddressBook AddressBook { set; }
 
@@ -26,13 +26,13 @@ namespace PS.AddressBook.Hexagon.Domain.Ports
         /// </summary>
         public string ContentsCode { get; }
 
-        /// <summary>
+        /*/// <summary>
         /// The Address of the Contact
         /// </summary>
         /// <remarks>Hides the IAddressDTO type which is replaced by IAddress</remarks>
         public IAddress GetAddress();
 
-        public void SetAddress(IAddress value);
+        public void SetAddress(IAddress value);*/
 
         /// <summary>
         /// Flag whether this Contact contains valid data.

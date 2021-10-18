@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using PS.AddressBook.Hexagon.Domain.Ports;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
 using PS.AddressBook.Hexagon.Application.Mappers;
+using PS.AddressBook.Hexagon.Application.UseCases;
 
 
 namespace PS.AddressBook.Hexagon.Application.Services
 {
-    public class GetContactWithNameService
+    public class GetContactWithNameService : IGetContactWithNameQuery
     {
         private readonly IAddressBookFile _LoadAddressBookPort;
 

@@ -19,7 +19,7 @@ namespace WebAPIAddressBook.Controllers
     [ApiController]
     public class CreateContactController : ControllerBase
     {
-        private readonly ILogger<UpdateContactController> _logger;
+        private readonly ILogger<CreateContactController> _Logger;
         private readonly ICreateContactUseCase      _CreateContactPort;
 
         /// <summary>
@@ -27,10 +27,10 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="createContactService">Port for the CreateContactService</param>
         /// <param name="logger"></param>
-        public CreateContactController(ICreateContactUseCase createContactService, ILogger<UpdateContactController> logger)
+        public CreateContactController(ICreateContactUseCase createContactService, ILogger<CreateContactController> logger)
         {
             _CreateContactPort = createContactService;
-            _logger = logger;
+            _Logger = logger;
         }
 
 
@@ -43,14 +43,13 @@ namespace WebAPIAddressBook.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("api/addressbook/contact")]
         [HttpPost]
-        public IActionResult Create(IContactDTO newContact)
+        public IActionResult Create(ContactDTO newContact)
         {
             try
             {
                 CreateContactCommand oCommand;
                 IContactDTO createdContact;
 
-                //TODO: a Builder could be a better idea.
                 oCommand = new CreateContactCommand(newContact.Name, newContact.Address.Street,
                             newContact.Address.PostalCode, newContact.Address.Town,
                                                         newContact.Phone, newContact.Email);

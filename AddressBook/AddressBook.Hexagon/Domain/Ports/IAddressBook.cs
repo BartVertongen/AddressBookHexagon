@@ -1,4 +1,4 @@
-﻿// By Bart Vertongen.
+﻿// By Bart Vertongen copyright 2021.
 
 using System.Collections.Generic;
 

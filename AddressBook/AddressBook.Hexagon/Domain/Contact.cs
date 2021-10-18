@@ -1,12 +1,13 @@
 ﻿//Copyright 2021 Bart Vertongen
 
+using System;
 using System.IO;
 using PS.AddressBook.Hexagon.Domain.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Domain
 {
-    public class Contact : IContact
+    public class Contact : IContact, IEquatable<IContact>, IComparable<IContact>
     {
         private string _Name;
         private Address _Address;
@@ -22,7 +23,7 @@ namespace PS.AddressBook.Hexagon.Domain
         public Contact(IContact bussRef)
         {
             this.Name = bussRef.Name;
-            this._Address = (Address)bussRef.GetAddress().DeepClone();
+            this._Address = (Address)bussRef.Address.DeepClone();
             this.Phone = bussRef.Phone;
             this.Email = bussRef.Email;
         }
@@ -92,7 +93,7 @@ namespace PS.AddressBook.Hexagon.Domain
                 return false;
             else if (string.IsNullOrEmpty(contact.Phone) && string.IsNullOrEmpty(contact.Email))
                 return false;
-            else if (!contact.GetAddress().IsValid())
+            else if (!contact.Address.IsValid())
                 return false;
             else
                 return true;
@@ -137,28 +138,22 @@ namespace PS.AddressBook.Hexagon.Domain
                 return false;
             else if (this.Email != other.Email)
                 return false;
-            else if (!this._Address.Equals(other.GetAddress()))
-                return false;
-            else
+            else if (this._Address.Equals(other.Address))
                 return true;
+            else
+                return false;
         }
-
 
         public void Assign(IContact newValues)
         {
             this.Phone = newValues.Phone;
             this.Email = newValues.Email;
-            this._Address.Assign(newValues.GetAddress());
+            this._Address.Assign(newValues.Address);
         }
 
-        IAddress IContact.GetAddress()
+        public int CompareTo(IContact other)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void SetAddress(IAddress value)
-        {
-            throw new System.NotImplementedException();
+            return String.Compare(this.Name, other.Name);
         }
     }
 }

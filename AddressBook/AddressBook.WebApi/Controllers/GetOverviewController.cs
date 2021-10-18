@@ -39,17 +39,29 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="filter">'a' starts with 'a'; '*de*' contains 'de'</param>
         /// <returns></returns>
-        [Route("api/addressbook/overview/{filter?}")]
+        [Route("api/addressbook/overview")]
         [HttpGet]
-        public ActionResult<List<IContactLineDTO>> GetOverview(string filter = null)
+        public ActionResult<List<IContactLineDTO>> GetOverview()
         {
             List<IContactLineDTO> ContactLines;
 
-            if (filter is null)
-                ContactLines = _GetOverviewPort.GetOverview("");
-            else
-                ContactLines = _GetOverviewPort.GetOverview(filter);
-            return ContactLines.Cast<IContactLineDTO>().ToList();
+            ContactLines = _GetOverviewPort.GetOverview("");
+            return ContactLines;
+        }
+
+        /// <summary>
+        /// Shows an overview of all Contacts in the addressbook filtered by filter which can be empty.
+        /// </summary>
+        /// <param name="filter">'a' starts with 'a'; '*de*' contains 'de'</param>
+        /// <returns></returns>
+        [Route("api/addressbook/overview/{filter?}")]
+        [HttpGet]
+        public ActionResult<List<IContactLineDTO>> GetOverview(string filter)
+        {
+            List<IContactLineDTO> ContactLines;
+
+            ContactLines = _GetOverviewPort.GetOverview(filter);
+            return ContactLines;
         }
     }
 }

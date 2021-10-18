@@ -1,7 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Domain.Ports;
 using PS.AddressBook.Hexagon.Application.Ports;
 using BLLAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
@@ -14,12 +13,12 @@ namespace PS.AddressBook.Hexagon.Application.Mappers
         public IList<IContactDTO> MapTo(IAddressBook addressBook)
         {
             IList<IContactDTO> Result = new List<IContactDTO>();
-            IList<IContactLineDTO> ContactLines = new List<IContactLineDTO>();
+            IList<IContact> Contacts;
             ContactDTOMapper oContactDTOMapper = new ();
 
-            foreach (IContactLineDTO ContactLine in ContactLines)
+            Contacts = addressBook.GetOverview("");
+            foreach (IContact oContact in Contacts)
             {               
-                IContact oContact = addressBook.GetContact(ContactLine.Name);
                 Result.Add(oContactDTOMapper.MapTo(oContact));
             }
             return Result;
@@ -33,7 +32,6 @@ namespace PS.AddressBook.Hexagon.Application.Mappers
             foreach (IContactDTO dtoContact in addressBookDTO)
             {               
                 Result.Add(oContactDTOMapper.MapFrom(dtoContact));
-
             }
             return Result;
         }

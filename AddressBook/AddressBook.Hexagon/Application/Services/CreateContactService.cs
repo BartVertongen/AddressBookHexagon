@@ -8,7 +8,6 @@ using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using BussAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 
 namespace PS.AddressBook.Hexagon.Application.Services
@@ -32,7 +31,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
             IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
 
             _AddressBookFilePort.Load(oAddressBookDTO);
-            oAddressBook = new BussAddressBook();
+            oAddressBook = oAddressBookDTOMapper.MapFrom(oAddressBookDTO);
 
             try
             {
