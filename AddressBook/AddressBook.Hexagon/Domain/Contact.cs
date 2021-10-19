@@ -10,12 +10,11 @@ namespace PS.AddressBook.Hexagon.Domain
     public class Contact : IContact, IEquatable<IContact>, IComparable<IContact>
     {
         private string _Name;
-        private Address _Address;
 
         public Contact()
         {
             this.Name = "";
-            this._Address = new Address();
+            this.Address = new Address();
             this.Phone = "";
             this.Email = "";
         }
@@ -23,7 +22,7 @@ namespace PS.AddressBook.Hexagon.Domain
         public Contact(IContact bussRef)
         {
             this.Name = bussRef.Name;
-            this._Address = (Address)bussRef.Address.DeepClone();
+            this.Address = (Address)bussRef.Address.DeepClone();
             this.Phone = bussRef.Phone;
             this.Email = bussRef.Email;
         }
@@ -35,7 +34,7 @@ namespace PS.AddressBook.Hexagon.Domain
         public Contact(IAddressBook addressBook)
         {
             AddressBook = addressBook;
-            this._Address = new Address();
+            this.Address = new Address();
             this.Phone = "";
             this.Email = "";
         }
@@ -119,7 +118,7 @@ namespace PS.AddressBook.Hexagon.Domain
                 Name = this.Name,
                 Phone = this.Phone,
                 Email = this.Email,
-                _Address = new Address(_Address.Street, _Address.PostalCode, _Address.Town)
+                Address = new Address(this.Address.Street, this.Address.PostalCode, this.Address.Town)
             };
             return oCopy;
         }
@@ -138,7 +137,7 @@ namespace PS.AddressBook.Hexagon.Domain
                 return false;
             else if (this.Email != other.Email)
                 return false;
-            else if (this._Address.Equals(other.Address))
+            else if (this.Address.Equals(other.Address))
                 return true;
             else
                 return false;
@@ -148,7 +147,7 @@ namespace PS.AddressBook.Hexagon.Domain
         {
             this.Phone = newValues.Phone;
             this.Email = newValues.Email;
-            this._Address.Assign(newValues.Address);
+            this.Address.Assign(newValues.Address);
         }
 
         public int CompareTo(IContact other)

@@ -105,7 +105,7 @@
             <param name="contactQueryService">Port for GetContactNameQuery</param>
             <param name="logger"></param>
         </member>
-        <member name="M:WebAPIAddressBook.Controllers.UpdateContactController.Update(System.String,PS.AddressBook.Hexagon.Application.IContactDTO)">
+        <member name="M:WebAPIAddressBook.Controllers.UpdateContactController.Update(System.String,PS.AddressBook.Hexagon.Application.ContactDTO)">
             <summary>
             Changes the Data of an existing Contact except the Name.
             </summary>

@@ -35,7 +35,6 @@ namespace WebAPIAddressBook.Controllers
             _Logger = logger;
         }
 
-
         /// <summary>
         /// Changes the Data of an existing Contact except the Name.
         /// </summary>
@@ -44,7 +43,7 @@ namespace WebAPIAddressBook.Controllers
         /// <returns></returns>
         [Route("api/addressbook/contact/{name}")]
         [HttpPut]
-        public IActionResult Update(string name, IContactDTO changedContact)
+        public IActionResult Update(string name, ContactDTO changedContact)
         {
             IContactDTO OldContact, updatedContact;
             UpdateContactCommand oUpdateContactCommand;

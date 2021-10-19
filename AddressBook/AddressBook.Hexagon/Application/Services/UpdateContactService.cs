@@ -37,7 +37,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
 
                 FoundContact = oAddressBook.GetContact(command.Name);
                 ChangedContact = FoundContact.DeepClone();
-                ChangedContact.Name = command.Name;
+                ChangedContact.AddressBook = oAddressBook;
                 if (command.Phone != null) ChangedContact.Phone = command.Phone;
                 if (command.Email != null) ChangedContact.Email = command.Email;
                 if (command.Street != null) ChangedContact.Address.Street = command.Street;
