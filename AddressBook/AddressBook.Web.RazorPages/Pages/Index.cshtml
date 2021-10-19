@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "AddressBook Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">AddressBook Home</h1>
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Contents</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contact in Model.Contacts)
+                {
+                <tr>
+                    <td>@contact.Id</td>
+                    <td>@contact.Name</td>
+                    <td>@contact.ContentsCode</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a> |
+                        <button type="submit" asp-page-handler="delete"
+                                asp-route-id="@contact.Name">
+                            delete
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-page="Create">Create New Contact</a>
+    </form>
+</div>
