@@ -1,19 +1,35 @@
-﻿
+﻿//By Bart Vertongen copyright 2021
+
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using PS.AddressBook.Hexagon.Application;
 
 
 namespace AddressBook.Web.Razor.ViewModels
 {
-    public class Address : IAddressDTO
+    public class Address : IValidatableObject
     {
-        [Required]
         public string Street { get; set; } = "";
 
-        [Required]
         public string PostalCode { get; set; } = "";
 
-        [Required]
         public string Town { get; set; } = "";
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            bool bEmptyTown, bEmptyStreet, bEmptyPostalCode;
+
+            bEmptyStreet = string.IsNullOrEmpty(Street);
+            bEmptyPostalCode = string.IsNullOrEmpty(Street);
+            bEmptyTown = string.IsNullOrEmpty(Town);
+            if (
+                !(bEmptyStreet && bEmptyPostalCode && bEmptyTown)
+                || !(!bEmptyStreet && !bEmptyPostalCode && !bEmptyTown)
+               )
+            {
+                yield return new ValidationResult(
+                    $"A valid address is completely empty or has no empty values.",
+                        new[] {nameof(Street), nameof(PostalCode), nameof(Town)});
+            }
+        }
     }
 }
