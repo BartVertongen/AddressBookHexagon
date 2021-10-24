@@ -17,7 +17,7 @@
 
 #### UserStory A3: Select a Contact
     A USER wants        
-        To Select for a Name in the list containing a certain string,
+        To Select a Name in the list containing a certain string,
         So decide on which Contact the next operation will work.    
 						
 #### Feature B: The User should be able to Maintain the Contacts (update, delete or change Contacts--CRUD)

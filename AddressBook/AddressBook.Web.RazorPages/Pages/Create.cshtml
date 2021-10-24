@@ -1,0 +1,55 @@
+﻿@page
+@model AddressBook.Web.Razor.Pages.CreateModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<h1>Create New Contact:</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Contact.Name" class="control-label"></label>
+                <input asp-for="Contact.Name" class="form-control" />
+                <span asp-validation-for="Contact.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contact.Phone" class="control-label"></label>
+                <input asp-for="Contact.Phone" class="form-control" />
+                <span asp-validation-for="Contact.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contact.Email" class="control-label"></label>
+                <input asp-for="Contact.Email" class="form-control" />
+                <span asp-validation-for="Contact.Email" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Contact.Address"></label>
+                <div>
+                    <div class="form-group">
+                        <label asp-for="Contact.Address.Street" class="control-label"></label>
+                        <input asp-for="Contact.Address.Street" class="form-control" />
+                        <span asp-validation-for="Contact.Address.Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Contact.Address.PostalCode" class="control-label"></label>
+                        <input asp-for="Contact.Address.PostalCode" class="form-control" />
+                        <span asp-validation-for="Contact.Address.Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Contact.Address.Town" class="control-label"></label>
+                        <input asp-for="Contact.Address.Town" class="form-control" />
+                        <span asp-validation-for="Contact.Address.Town" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

@@ -1,0 +1,52 @@
+﻿@page "{name}"
+@model AddressBook.Web.Razor.Pages.EditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<h1>Edit Contact - @Model.Contact.Name</h1>
+<hr/>
+<div class="row">
+    <div class="col-sm-8 col-md-6 col-lg-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Contact.Name" class="control-label"></label>
+                <input asp-for="Contact.Name" class="form-control" />
+                <span asp-validation-for="Contact.Name" class="text-danger"></span>
+            </div>               
+            <div class="form-group">
+                <label asp-for="Contact.Phone" class="control-label"></label>
+                <input asp-for="Contact.Phone" class="form-control" />
+                <span asp-validation-for="Contact.Phone" class="text-danger"></span>
+            </div>               
+            <div class="form-group">
+                <label asp-for="Contact.Email" class="control-label"></label>
+                <input asp-for="Contact.Email" class="form-control" />
+                <span asp-validation-for="Contact.Email" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Contact.Address"></label>
+                <div>
+                    <div class="form-group">
+                        <label asp-for="Contact.Address.Street" class="control-label"></label>
+                        <input asp-for="Contact.Address.Street" class="form-control" />
+                        <span asp-validation-for="Contact.Address.Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Contact.Address.PostalCode" class="control-label"></label>
+                        <input asp-for="Contact.Address.PostalCode" class="form-control" />
+                        <span asp-validation-for="Contact.Address.PostalCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Contact.Address.Town" class="control-label"></label>
+                        <input asp-for="Contact.Address.Town" class="form-control" />
+                        <span asp-validation-for="Contact.Address.Town" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
