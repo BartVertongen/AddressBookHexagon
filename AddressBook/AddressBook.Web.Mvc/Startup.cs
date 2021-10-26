@@ -1,11 +1,11 @@
-//By Bart Vertongen copyright 2021.
+
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
 using PS.AddressBook.Hexagon.Application.Services;
@@ -13,7 +13,7 @@ using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Infrastructure.File;
 
 
-namespace AddressBook.Web.Razor
+namespace AddressBook.Web.Mvc
 {
     public class Startup
     {
@@ -27,15 +27,15 @@ namespace AddressBook.Web.Razor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-
             // Add logging
             services.AddSingleton(LoggerFactory.Create(builder =>
             {
                 builder.AddSerilog(dispose: true); //Takes care of ILogger
             }));
             services.AddLogging();
-          
+
+            services.AddControllersWithViews();
+
             services.AddSingleton(Configuration);   // Add access to generic IConfigurationRoot
             services.AddSingleton<IAddressBookFile, AddressBookXmlFileAdapter>();
             services.AddSingleton<ICreateContactUseCase, CreateContactService>();
@@ -54,11 +54,10 @@ namespace AddressBook.Web.Razor
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -68,7 +67,9 @@ namespace AddressBook.Web.Razor
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{327BA713-B
 		AddressBook.md = AddressBook.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook.Web.Mvc", "AddressBook.Web.Mvc\AddressBook.Web.Mvc.csproj", "{6885B6F1-9E38-4411-8CE6-811FF10C797B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{D03DB713-FF52-4F41-BB25-4F0D5A266EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D03DB713-FF52-4F41-BB25-4F0D5A266EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D03DB713-FF52-4F41-BB25-4F0D5A266EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6885B6F1-9E38-4411-8CE6-811FF10C797B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6885B6F1-9E38-4411-8CE6-811FF10C797B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6885B6F1-9E38-4411-8CE6-811FF10C797B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6885B6F1-9E38-4411-8CE6-811FF10C797B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

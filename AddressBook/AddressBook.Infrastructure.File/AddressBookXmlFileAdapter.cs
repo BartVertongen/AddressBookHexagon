@@ -17,7 +17,7 @@ namespace PS.AddressBook.Infrastructure.File
 
         public string FullPath { get; private set; }
 
-        public AddressBookXmlFileAdapter(IConfigurationRoot config)
+        public AddressBookXmlFileAdapter(IConfiguration config)
         {
             FullPath = config.GetSection("ContactsFile").Value;
         }

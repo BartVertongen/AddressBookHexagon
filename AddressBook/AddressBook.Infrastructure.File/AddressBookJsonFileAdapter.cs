@@ -1,6 +1,5 @@
 ﻿//By Bart Vertongen copyright 2021.
 
-using System.IO;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
@@ -15,7 +14,7 @@ namespace PS.AddressBook.Infrastructure.File
 
         public string FullPath { get; private set; }
 
-        public AddressBookJsonFileAdapter(IConfigurationRoot config)
+        public AddressBookJsonFileAdapter(IConfiguration config)
         {
             FullPath = config.GetSection("ContactsFile").Value;
         }

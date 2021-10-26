@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace AddressBook.Web.Razor.ViewModels
+namespace AddressBook.Web.Mvc.ViewModels
 {
     public class Contact : IValidatableObject
     {
