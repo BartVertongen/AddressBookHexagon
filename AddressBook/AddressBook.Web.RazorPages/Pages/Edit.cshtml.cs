@@ -48,8 +48,7 @@ namespace AddressBook.Web.Razor.Pages
                     Email = oContact.Email
                 };
                 return Page();
-            }
-                
+            }               
         }
 
         public IActionResult OnPost()
@@ -61,9 +60,9 @@ namespace AddressBook.Web.Razor.Pages
                 return Page();
             }
             UpdateContactCommandBuilder oCommandBuilder = new();
-            oCommandBuilder.AddName(Contact.Name).AddPhone(Contact.Phone)
-                    .AddEmail(Contact.Email).AddStreet(Contact.Address.Street)
-                    .AddPostalCode(Contact.Address.PostalCode).AddTown(Contact.Address.Town);
+            oCommandBuilder.AddName(Contact.Name).AddPhone(Contact.Phone??"")
+                    .AddEmail(Contact.Email??"").AddStreet(Contact.Address.Street??"")
+                    .AddPostalCode(Contact.Address.PostalCode??"").AddTown(Contact.Address.Town??"");
             oContact = _UpdatePort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
 
             return RedirectToPage("./Index");

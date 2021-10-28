@@ -14,7 +14,7 @@ namespace AddressBook.Web.Mvc
             // Initialize serilog logger
             Log.Logger = new LoggerConfiguration()
                  .MinimumLevel.Debug()
-                 .WriteTo.File("WebAppRazor.log")
+                 .WriteTo.File("WebAppMvc.log")
                  .CreateLogger();
 
             CreateHostBuilder(args).Build().Run();
@@ -27,10 +27,9 @@ namespace AddressBook.Web.Mvc
                     webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
                     {
                         config.AddJsonFile("appsettings.json",
-                            optional: true,
+                            optional: false,
                             reloadOnChange: true);
                     });
-
                     webBuilder.UseStartup<Startup>();
                 });
     }

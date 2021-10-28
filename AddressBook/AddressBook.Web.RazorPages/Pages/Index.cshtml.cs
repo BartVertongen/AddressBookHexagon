@@ -38,7 +38,7 @@ namespace AddressBook.Web.Razor.Pages
 
             if (contact != null)
             {
-                DeleteContactCommand oCommand = new DeleteContactCommand(contact.Name);
+                DeleteContactCommand oCommand = new(contact.Name);
                 if (_DeletePort.DeleteContact(oCommand) is null)
                 {
                     //REM Something went wrong

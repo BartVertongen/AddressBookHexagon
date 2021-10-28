@@ -22,8 +22,8 @@ namespace AddressBook.Web.Razor.ViewModels
             bEmptyPostalCode = string.IsNullOrEmpty(Street);
             bEmptyTown = string.IsNullOrEmpty(Town);
             if (
-                !(bEmptyStreet && bEmptyPostalCode && bEmptyTown)
-                || !(!bEmptyStreet && !bEmptyPostalCode && !bEmptyTown)
+                (bEmptyStreet || bEmptyPostalCode || bEmptyTown)
+                && !(bEmptyStreet && bEmptyPostalCode && bEmptyTown)
                )
             {
                 yield return new ValidationResult(

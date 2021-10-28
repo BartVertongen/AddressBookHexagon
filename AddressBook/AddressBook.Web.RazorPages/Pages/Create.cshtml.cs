@@ -11,7 +11,7 @@ namespace AddressBook.Web.Razor.Pages
 {
     public class CreateModel : PageModel
     {
-        ICreateContactUseCase _CreateContactPort;
+        private readonly ICreateContactUseCase _CreateContactPort;
 
         [BindProperty]
         public Contact Contact { get; set; }

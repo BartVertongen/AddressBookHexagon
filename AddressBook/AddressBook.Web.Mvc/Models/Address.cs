@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace AddressBook.Web.Mvc.ViewModels
+namespace AddressBook.Web.Mvc.Models
 {
     public class Address : IValidatableObject
     {
@@ -22,8 +22,8 @@ namespace AddressBook.Web.Mvc.ViewModels
             bEmptyPostalCode = string.IsNullOrEmpty(Street);
             bEmptyTown = string.IsNullOrEmpty(Town);
             if (
-                !(bEmptyStreet && bEmptyPostalCode && bEmptyTown)
-                || !(!bEmptyStreet && !bEmptyPostalCode && !bEmptyTown)
+                (bEmptyStreet || bEmptyPostalCode || bEmptyTown)
+                && !(bEmptyStreet && bEmptyPostalCode && bEmptyTown)
                )
             {
                 yield return new ValidationResult(

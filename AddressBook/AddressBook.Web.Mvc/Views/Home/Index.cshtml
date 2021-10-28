@@ -1,6 +1,6 @@
-﻿@{
-    ViewData["Title"] = "AddressBook Home";
-}
+﻿@using PS.AddressBook.Hexagon.Application.Ports;
+@model IList<IContactLineDTO>
+
 
 <div class="text-center">
     <h1 class="display-4">AddressBook Home</h1>
@@ -15,16 +15,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var contact in Model.Contacts)
+                @foreach (var contact in Model)
                 {
                     <tr>
                         <td>@contact.Id</td>
                         <td>@contact.Name</td>
                         <td>@contact.ContentsCode</td>
                         <td>
-                            <a asp-page="./Edit" asp-route-name="@contact.Name">Edit</a> |
-                            <button type="submit" asp-page-handler="delete"
-                                    asp-route-name="@contact.Name">
+                            <a asp-action="Edit" asp-route-name="@contact.Name">Edit</a> |
+                            <button type="submit" asp-action="delete"
+                                    asp-route-id="@contact.Id">
                                 delete
                             </button>
                         </td>
@@ -32,6 +32,6 @@
                 }
             </tbody>
         </table>
-        <a asp-page="Create">Create New Contact</a>
+        <a asp-action="Create">Create New Contact</a>
     </form>
 </div>
