@@ -33,13 +33,9 @@ namespace AddressBook.Web.Mvc.Controllers
             _DeletePort = deletePort;
         }
 
-        public IList<IContactLineDTO> Contacts { get; set; }
-
-        public Contact Contact { get; set; }
-
         public IActionResult Index()
         {
-            IList<IContactLineDTO>  ContactLines = _GetOverviewPort.GetOverview("");
+            IList<IContactLineDTO> ContactLines = _GetOverviewPort.GetOverview("");
             return View(ContactLines);
         }
 
@@ -63,7 +59,7 @@ namespace AddressBook.Web.Mvc.Controllers
             oCommandBuilder.AddEmail(contact.Email ?? "");
 
             oCommandBuilder.AddStreet(contact.Address.Street ?? "")
-                    .AddPostalCode(Contact.Address.PostalCode ?? "").AddTown(contact.Address.Town ?? "");
+                    .AddPostalCode(contact.Address.PostalCode ?? "").AddTown(contact.Address.Town ?? "");
             _CreateContactPort.CreateContact((CreateContactCommand)oCommandBuilder.Build());
 
             return RedirectToAction(nameof(Index));
@@ -79,7 +75,7 @@ namespace AddressBook.Web.Mvc.Controllers
                 return RedirectToAction(nameof(Index));
             else
             {
-                Contact = new Contact
+                Contact CurrentContact = new Contact
                 {
                     Name = name,
                     Address = new Address
@@ -91,7 +87,7 @@ namespace AddressBook.Web.Mvc.Controllers
                     Phone = oContact.Phone,
                     Email = oContact.Email
                 };
-                return View(Contact);
+                return View(CurrentContact);
             }
         }
 
@@ -105,22 +101,23 @@ namespace AddressBook.Web.Mvc.Controllers
             else
             {
                 UpdateContactCommandBuilder oCommandBuilder = new();
-                oCommandBuilder.AddName(contact.Name).AddPhone(contact.Phone??"")
-                        .AddEmail(contact.Email??"").AddStreet(contact.Address.Street??"")
-                        .AddPostalCode(contact.Address.PostalCode??"").AddTown(contact.Address.Town??"");
+                oCommandBuilder.AddName(contact.Name).AddPhone(contact.Phone ?? "")
+                        .AddEmail(contact.Email ?? "").AddStreet(contact.Address.Street ?? "")
+                        .AddPostalCode(contact.Address.PostalCode ?? "").AddTown(contact.Address.Town ?? "");
                 _UpdatePort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
 
                 return RedirectToAction(nameof(Index));
             }
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string name)
         {
-            var contact = Contacts[id];
+            IContactDTO oContact;
+            oContact = _GetContactPort.GetContactWithName(name);
 
-            if (contact != null)
+            if (oContact != null)
             {
-                DeleteContactCommand oCommand = new(contact.Name);
+                DeleteContactCommand oCommand = new(oContact.Name);
                 if (_DeletePort.DeleteContact(oCommand) is null)
                 {
                     //REM Something went wrong
