@@ -3,6 +3,7 @@
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Application

@@ -3,8 +3,8 @@
 using AddressBook.Web.Razor.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Commands;
+using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.UseCases;
 
 
@@ -53,8 +53,6 @@ namespace AddressBook.Web.Razor.Pages
 
         public IActionResult OnPost()
         {
-            IContactDTO oContact;
-
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -63,7 +61,7 @@ namespace AddressBook.Web.Razor.Pages
             oCommandBuilder.AddName(Contact.Name).AddPhone(Contact.Phone??"")
                     .AddEmail(Contact.Email??"").AddStreet(Contact.Address.Street??"")
                     .AddPostalCode(Contact.Address.PostalCode??"").AddTown(Contact.Address.Town??"");
-            oContact = _UpdatePort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
+            _UpdatePort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
 
             return RedirectToPage("./Index");
         }

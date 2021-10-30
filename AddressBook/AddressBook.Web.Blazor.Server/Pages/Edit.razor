@@ -1,0 +1,94 @@
+﻿@page "/Edit/{ContactName}"
+@using PS.AddressBook.Hexagon.Application.Ports
+@using PS.AddressBook.Hexagon.Application.UseCases
+@using PS.AddressBook.Hexagon.Application.Commands
+@inject NavigationManager NavigationManager
+@inject IGetContactWithNameQuery GetContactPort
+@inject IUpdateContactUseCase _UpdatePort
+
+
+<h1>Edit Contact - @objContact.Name</h1>
+<hr />
+<div class="row">
+    <div class="col-sm-8 col-md-6 col-lg-4">
+        <form>
+            <div>
+                <div class="form-group">
+                    <label for="Phone" class="control-label">Phone:</label>
+                    <input form="Phone" class="form-control" @bind="@objContact.Phone" />
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="control-label">Email:</label>
+                    <input form="Email" class="form-control" @bind="@objContact.Email" />
+                </div>
+                <div class="container border p-3 rounded">
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col"><label class="font-weight-bold text-center">Address</label></div>
+                        <div class="col"></div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="Address.Street" class="control-label"></label>
+                            <input form="Address.Street" class="form-control" @bind="@objContact.Address.Street" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Address.PostalCode" class="control-label"></label>
+                            <input form="Address.PostalCode" class="form-control" @bind="@objContact.Address.PostalCode" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Address.Town" class="control-label"></label>
+                            <input form="Address.Town" class="form-control" @bind="@objContact.Address.Town" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2">
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" @onclick="@Update" value="Update" />
+                    <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string ContactName { get; set; }
+
+    private IContactDTO objContact;
+
+    protected override void OnInitialized()
+    {
+        objContact = GetContactPort.GetContactWithName(ContactName);
+
+        if (objContact is null)
+            NavigationManager.NavigateTo("/");
+    }
+
+    protected void Update()
+    {
+        try
+        {
+            UpdateContactCommandBuilder oCommandBuilder = new();
+            oCommandBuilder.AddName(objContact.Name).AddPhone(objContact.Phone ?? "")
+                    .AddEmail(objContact.Email ?? "").AddStreet(objContact.Address.Street ?? "")
+                    .AddPostalCode(objContact.Address.PostalCode ?? "").AddTown(objContact.Address.Town ?? "");
+            _UpdatePort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
+
+            NavigationManager.NavigateTo("/");
+        }
+
+        catch(Exception ex)
+        {
+            NavigationManager.NavigateTo("/Edit/" +  ContactName);
+        }
+
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

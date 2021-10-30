@@ -1,8 +1,8 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
-using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Commands;
+using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using AppUpdateContactCommand = PS.AddressBook.Hexagon.Application.Commands.UpdateContactCommand;
 

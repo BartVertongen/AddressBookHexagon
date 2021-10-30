@@ -1,11 +1,11 @@
 ﻿// By Bart Vertongen copyright 2021.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
 
 
@@ -25,7 +25,7 @@ namespace PS.AddressBook.Infrastructure.File
         public void Load(IList<IContactDTO> book)
         {
             XmlSerializer AddressBookSerializer;
-            /*IList<IContactDTO>*/AddressBookDTO TempBook;
+            AddressBookDTO TempBook;
 
             //Check if a Full File Name is given.
             if (string.IsNullOrEmpty(this.FullPath))

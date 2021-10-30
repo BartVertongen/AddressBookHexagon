@@ -3,7 +3,7 @@
 using System;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Commands;
-using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Framework.Console.Commands

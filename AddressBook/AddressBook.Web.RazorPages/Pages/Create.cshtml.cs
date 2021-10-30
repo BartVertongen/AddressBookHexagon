@@ -29,8 +29,6 @@ namespace AddressBook.Web.Razor.Pages
 
         public IActionResult OnPost()
         {
-            IContactDTO oContact;
-
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -42,7 +40,7 @@ namespace AddressBook.Web.Razor.Pages
 
             oCommandBuilder.AddStreet(Contact.Address.Street??"")
                     .AddPostalCode(Contact.Address.PostalCode??"").AddTown(Contact.Address.Town??"");
-            oContact = _CreateContactPort.CreateContact((CreateContactCommand)oCommandBuilder.Build());
+            _CreateContactPort.CreateContact((CreateContactCommand)oCommandBuilder.Build());
 
             return RedirectToPage("./Index");
         }

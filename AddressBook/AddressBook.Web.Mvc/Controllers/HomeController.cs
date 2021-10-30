@@ -75,7 +75,7 @@ namespace AddressBook.Web.Mvc.Controllers
                 return RedirectToAction(nameof(Index));
             else
             {
-                Contact CurrentContact = new Contact
+                Contact CurrentContact = new()
                 {
                     Name = name,
                     Address = new Address

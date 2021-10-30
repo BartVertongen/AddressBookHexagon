@@ -1,6 +1,6 @@
-﻿
-using System.Collections.Generic;
-using PS.AddressBook.Hexagon.Domain;
+﻿// By Bart Vertongen copyright 2021
+
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Application.UseCases

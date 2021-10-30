@@ -31,7 +31,6 @@ namespace AddressBook.Web.Razor.Pages
             Contacts = _GetOverviewPort.GetOverview("");
         }
 
-
         public IActionResult OnPostDelete(int id)
         {
             var contact = Contacts[id];

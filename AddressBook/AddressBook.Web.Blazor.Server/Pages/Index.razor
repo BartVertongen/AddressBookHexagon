@@ -1,0 +1,77 @@
+﻿@page "/"
+@using PS.AddressBook.Hexagon.Application.Ports
+@using PS.AddressBook.Hexagon.Application.UseCases
+@using PS.AddressBook.Hexagon.Application.Commands
+@inject NavigationManager NavigationManager
+@inject IGetOverviewQuery GetOverviewPort
+@inject IDeleteContactUseCase DeletePort
+
+
+<div class="text-center">
+    <h1 class="display-4">AddressBook Home</h1>
+    @if (ContactLines is null)
+    {
+        <p><em>Loading... !</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Contents</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contact in ContactLines)
+                {
+                    <tr>
+                        <td>@contact.Id</td>
+                        <td>@contact.Name</td>
+                        <td>@contact.ContentsCode</td>
+                        <td>
+                            <a href="Edit/@contact.Name">
+                                <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                            </a> |
+                            <a href="/" @onclick="@(()=>@Delete(@contact.Id))">
+                                <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <NavLink class="nav-link" href="Create">
+            <span class="oi oi-plus" aria-hidden="true">Add New Contact</span>
+        </NavLink>
+    }
+</div>
+
+@code {
+
+    private IList<IContactLineDTO> ContactLines;
+
+
+    protected override void OnInitialized()
+    {
+        ContactLines = GetOverviewPort.GetOverview("");
+    }
+
+    private void Delete(int id)
+    {
+        var contact = ContactLines[id-1];
+
+        if (contact != null)
+        {
+            DeleteContactCommand oCommand = new(contact.Name);
+            if (DeletePort.DeleteContact(oCommand) is null)
+            {
+                //REM Something went wrong
+                //Go to error Page ?
+            }
+        }
+        NavigationManager.NavigateTo("/");
+    }
+}

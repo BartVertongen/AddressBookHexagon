@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace PS.AddressBook.Hexagon.Application
+namespace PS.AddressBook.Hexagon.Application.Ports
 {
     public interface IContactDTO
     {

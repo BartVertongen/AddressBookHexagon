@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Commands;
-using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace WebAPIAddressBook.Controllers

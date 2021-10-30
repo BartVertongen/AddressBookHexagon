@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
-using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Infrastructure.File
