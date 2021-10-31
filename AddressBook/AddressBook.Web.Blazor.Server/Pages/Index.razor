@@ -35,7 +35,7 @@
                             <a href="Edit/@contact.Name">
                                 <span class="oi oi-pencil" aria-hidden="true">Edit</span>
                             </a> |
-                            <a href="/" @onclick="@(()=>@Delete(@contact.Id))">
+                            <a href="/" @onclick="@(()=> Delete(@contact.Id))">
                                 <span class="oi oi-trash" aria-hidden="true">Delete</span>
                             </a>
                         </td>
@@ -72,6 +72,8 @@
                 //Go to error Page ?
             }
         }
-        NavigationManager.NavigateTo("/");
+        //Refresh the list
+        ContactLines = GetOverviewPort.GetOverview("");
+        //NavigationManager.NavigateTo("/");
     }
 }

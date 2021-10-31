@@ -31,7 +31,7 @@ namespace AddressBook.Web.Blazor.Server
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddSingleton(Configuration);   // Add access to generic IConfigurationRoot
+            services.AddSingleton(Configuration);   // Add access to generic IConfiguration
             services.AddSingleton<IAddressBookFile, AddressBookXmlFileAdapter>();
             services.AddSingleton<ICreateContactUseCase, CreateContactService>();
             services.AddSingleton<IDeleteContactUseCase, DeleteContactService>();
