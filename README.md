@@ -174,7 +174,7 @@ PRECONDITION:
 POSTCONDITION: We have a Valid new Address.
 
 
-#### UseCase3.8 Main Steps Sunny: Update The PhoneNumber
+#### UseCase3.8 Main Sunny Steps : Update The PhoneNumber
 PRECONDITION:       
     - We are in the process of updating a Contact.      
 	- We have a valid Contact Name and Address.     
@@ -187,7 +187,7 @@ POSTCONDITION:
     - We have a valid PhoneNumber in the Contact.      
 
 
-#### UseCase3.9 Main Steps Sunny: Update The EmailAddress.
+#### UseCase3.9 Main Sunny Steps : Update The EmailAddress.
 PRECONDITION:       
     - We are in the process of updating a Contact.      
     - We have a valid Contact Name and Address.         
@@ -200,4 +200,22 @@ POSTCONDITION:
     - We have a valid Email Address in the Contact.
 
 
+#### UseCase 3.7.3A Extended Rainy Steps : The User gives in an empty Street.
+PRECONDITION:       
+    - Updating a Contact, Updating the Address.        
+1) START: USE gives in an Empty Street or nothing      
+2) SYSTEM creates an Empty Address      
+
+#### UseCase 3.7.6A Extended Rainy Steps: The User gives in an Empty Postal Code.
+PRECONDITION:
+    - Updating a Contact, Updating the Address.          
+1) START: USER gives in an Empty Postal Code or nothing
+2) END: SYSTEM creates an Empty Address
+
+
+#### UseCase 3.7.8A Extended Rainy Steps: The User gives in an Empty Town.
+PRECONDITION:       
+    - Updating a Contact, Updating the Address.
+1) START: USER gives in an Empty Town or nothing
+2) END: SYSTEM creates an Empty Address     
 
