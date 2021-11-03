@@ -19,8 +19,8 @@ namespace PS.AddressBook.Hexagon.Application.Services
         }
 
         public List<IContactLineDTO> GetOverview(string filter = "")
-        {            
-            List<IContactDTO> oAddressBookDTO = new();
+        {
+            AddressBookDTO oAddressBookDTO = new();
             List<IContactLineDTO> Result = new();
             int iID = 0;
 

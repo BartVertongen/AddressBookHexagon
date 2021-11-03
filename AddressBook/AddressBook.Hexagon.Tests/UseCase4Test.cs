@@ -29,7 +29,7 @@ namespace PS.AddressBook.Business.Tests
 
             public string FullPath { get; private set; }
 
-            public void Load(IList<IContactDTO> book)
+            public void Load(IAddressBookDTO book)
             {
                 IContactDTO NewContact1, NewContact2, NewContact3;
                 IContactDTO NewContact4;
@@ -44,7 +44,7 @@ namespace PS.AddressBook.Business.Tests
                 MockContact1.SetupGet(p => p.Email).Returns("");
                 MockContact1.SetupGet(p => p.Address).Returns(MockAddress1.Object);
                 NewContact1 = MockContact1.Object;
-                book.Add(NewContact1);
+                (book as IList<IContactDTO>).Add(NewContact1);
 
                 Mock<IAddressDTO> MockAddress2 = new();
                 MockAddress2.SetupGet(p => p.Street).Returns("");
@@ -56,7 +56,7 @@ namespace PS.AddressBook.Business.Tests
                 MockContact2.SetupGet(p => p.Email).Returns("andre@heaven.com");
                 MockContact2.SetupGet(p => p.Address).Returns(MockAddress2.Object);
                 NewContact2 = MockContact2.Object;
-                book.Add(NewContact2);
+                (book as IList<IContactDTO>).Add(NewContact2);
 
                 Mock<IAddressDTO> MockAddress3 = new();
                 MockAddress3.SetupGet(p => p.Street).Returns("");
@@ -68,7 +68,7 @@ namespace PS.AddressBook.Business.Tests
                 MockContact3.SetupGet(p => p.Email).Returns("jan@eigenbelang.be");
                 MockContact3.SetupGet(p => p.Address).Returns(MockAddress3.Object);
                 NewContact3 = MockContact3.Object;
-                book.Add(NewContact3);
+                (book as IList<IContactDTO>).Add(NewContact3);
 
                 Mock<IAddressDTO> MockAddress4 = new();
                 MockAddress4.SetupGet(p => p.Street).Returns("Weverijstraat 12");
@@ -80,10 +80,10 @@ namespace PS.AddressBook.Business.Tests
                 MockContact4.SetupGet(p => p.Email).Returns("jospin@proximus.be");
                 MockContact4.SetupGet(p => p.Address).Returns(MockAddress4.Object);
                 NewContact4 = MockContact4.Object;
-                book.Add(NewContact4);
+                (book as IList<IContactDTO>).Add(NewContact4);
             }
 
-            public void Save(IList<IContactDTO> book)
+            public void Save(IAddressBookDTO book)
             {
                 throw new NotImplementedException();
             }

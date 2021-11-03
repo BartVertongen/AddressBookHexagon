@@ -7,6 +7,6 @@ namespace PS.AddressBook.Hexagon.Application.Ports.Out
 {
     public interface ISaveFile
     {
-        void Save(IList<IContactDTO> book);
+        void Save(IAddressBookDTO book);
     }
 }

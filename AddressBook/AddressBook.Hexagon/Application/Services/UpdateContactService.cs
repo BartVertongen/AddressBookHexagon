@@ -27,7 +27,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
         {
             IAddressBook oAddressBook;
             AddressBookDTOMapper oAddressBookDTOMapper = new();
-            IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
+            IAddressBookDTO oAddressBookDTO = new AddressBookDTO();
 
             _AddressBookFilePort.Load(oAddressBookDTO);
             oAddressBook = oAddressBookDTOMapper.MapFrom(oAddressBookDTO);

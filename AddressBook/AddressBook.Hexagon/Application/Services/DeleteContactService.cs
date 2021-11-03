@@ -1,6 +1,5 @@
 ﻿//By Bart Vertongen copyright 2021.
 
-using System.Collections.Generic;
 using PS.AddressBook.Hexagon.Domain.Ports;
 using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.Commands;
@@ -32,7 +31,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
         {
             IAddressBook oAddressBook;
             AddressBookDTOMapper oAddressBookDTOMapper = new();
-            IList<IContactDTO> oAddressBookDTO = new List<IContactDTO>();
+            IAddressBookDTO oAddressBookDTO = new AddressBookDTO();
 
             _AddressBookFilePort.Load(oAddressBookDTO);
             oAddressBook = oAddressBookDTOMapper.MapFrom(oAddressBookDTO);

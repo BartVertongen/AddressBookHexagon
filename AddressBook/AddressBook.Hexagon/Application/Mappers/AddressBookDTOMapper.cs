@@ -8,28 +8,28 @@ using BLLAddressBook = PS.AddressBook.Hexagon.Domain.AddressBook;
 
 namespace PS.AddressBook.Hexagon.Application.Mappers
 {
-    public class AddressBookDTOMapper : IMapper<IAddressBook, IList<IContactDTO>>
+    public class AddressBookDTOMapper : IMapper<IAddressBook, IAddressBookDTO>
     {
-        public IList<IContactDTO> MapTo(IAddressBook addressBook)
+        public IAddressBookDTO MapTo(IAddressBook addressBook)
         {
-            IList<IContactDTO> Result = new List<IContactDTO>();
+            IAddressBookDTO Result = new AddressBookDTO();
             IList<IContact> Contacts;
             ContactDTOMapper oContactDTOMapper = new ();
 
             Contacts = addressBook.GetOverview("");
             foreach (IContact oContact in Contacts)
             {               
-                Result.Add(oContactDTOMapper.MapTo(oContact));
+                (Result as List<IContactDTO>).Add(oContactDTOMapper.MapTo(oContact));
             }
             return Result;
         }
 
-        public IAddressBook MapFrom(IList<IContactDTO> addressBookDTO)
+        public IAddressBook MapFrom(IAddressBookDTO addressBookDTO)
         {
             IAddressBook Result = new BLLAddressBook();
             ContactDTOMapper oContactDTOMapper = new ();
 
-            foreach (IContactDTO dtoContact in addressBookDTO)
+            foreach (IContactDTO dtoContact in addressBookDTO as List<ContactDTO>)
             {               
                 Result.Add(oContactDTOMapper.MapFrom(dtoContact));
             }

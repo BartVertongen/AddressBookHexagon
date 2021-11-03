@@ -19,7 +19,7 @@ namespace PS.AddressBook.Infrastructure.File
             FullPath = config.GetSection("ContactsFile").Value;
         }
 
-        public void Load(IList<IContactDTO> book)
+        public void Load(IAddressBookDTO book)
         {
             /*XmlSerializer AddressBookSerializer;
             IList<IContactDTO> TempBook;
@@ -45,7 +45,7 @@ namespace PS.AddressBook.Infrastructure.File
             }*/
         }
 
-        public void Save(IList<IContactDTO> book)
+        public void Save(IAddressBookDTO book)
         {
             /*XmlSerializer AddressBookSerializer;
             AddressBookDTO TempBook = new();

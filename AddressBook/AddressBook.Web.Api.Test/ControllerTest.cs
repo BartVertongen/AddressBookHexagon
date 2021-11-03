@@ -32,7 +32,7 @@ namespace WebApiAddressBook.Test
 
             public string FullPath { get; private set; }
 
-            public void Load(IList<IContactDTO> book)
+            public void Load(IAddressBookDTO book)
             {
                 IContactDTO NewContact;
 
@@ -41,21 +41,21 @@ namespace WebApiAddressBook.Test
                     Name = "An Dematras",
                     Phone = "02/5820103"
                 };
-                book.Add(NewContact);
+                (book as IList<IContactDTO>).Add(NewContact);
 
                 NewContact = new ContactDTO
                 {
                     Name = "André Hazes",
                     Email = "andre@heaven.com"
                 };
-                book.Add(NewContact);
+                (book as IList<IContactDTO>).Add(NewContact);
 
                 NewContact = new ContactDTO
                 {
                     Name = "Jan Franchipan",
                     Email = "jan@eigenbelang.be"
                 };
-                book.Add(NewContact);
+                (book as IList<IContactDTO>).Add(NewContact);
 
                 NewContact = new ContactDTO
                 {
@@ -69,10 +69,10 @@ namespace WebApiAddressBook.Test
                         Town = "Geraardsbergen"
                     }
                 };
-                book.Add(NewContact);
+                (book as IList<IContactDTO>).Add(NewContact);
             }
 
-            public void Save(IList<IContactDTO> book)
+            public void Save(IAddressBookDTO book)
             {
             }
         }

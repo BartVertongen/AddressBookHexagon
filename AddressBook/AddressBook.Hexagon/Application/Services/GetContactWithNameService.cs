@@ -22,7 +22,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
         public IContactDTO GetContactWithName(string name)
         {
             IContact FoundContact;
-            IList<IContactDTO> AddressBookDTO = new List<IContactDTO>();
+            IAddressBookDTO  AddressBookDTO = new AddressBookDTO();
             AddressBookDTOMapper oAdressBookDTOMapper = new ();
             IAddressBook oAddressBook;
 
