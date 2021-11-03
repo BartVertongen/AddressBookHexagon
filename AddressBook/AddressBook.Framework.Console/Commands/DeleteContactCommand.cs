@@ -38,17 +38,16 @@ namespace PS.AddressBook.Framework.Console.Commands
                 {
                     AppDeleteCommand AppCommand = new((string)oSelectedName);
                     _DeleteContactPort.DeleteContact(AppCommand);
-                    _UserInterface.WriteMessage($"The Contact with Name '{(string)oSelectedName}' is deleted.");
+                    _UserInterface.WriteWarning($"The Contact with Name '{(string)oSelectedName}' is deleted.");
                     result = null;
                     return (true, false);
                 }
                 else
                 {
-                    _UserInterface.WriteMessage($"There is was no Contact selected to delete.");
+                    _UserInterface.WriteWarning($"There is was no Contact selected to delete.");
                     result = null;
                     return (false, false);
                 }
-
             }
             catch (Exception ex)
             {

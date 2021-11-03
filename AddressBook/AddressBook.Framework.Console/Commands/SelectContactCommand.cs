@@ -54,7 +54,7 @@ namespace PS.AddressBook.Framework.Console.Commands
                         _UserInterface.WriteWarning("[" + CurrentLetter + "]");
                         PreviousLetter = CurrentLetter;
                     }
-                    sLine = string.Format("{0,-40} {1,3}", Line.Name, Line.ContentsCode);
+                    sLine = string.Format("{0,3:D3}) {1,-40} {2,3}", Line.Id, Line.Name, Line.ContentsCode);
                     _UserInterface.WriteMessage(sLine);
                 }
                 sID = _UserInterface.ReadValue("Give the Id of the Contact you want to select: ");
