@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Hexagon", "Addr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Hexagon.Tests", "AddressBook.Hexagon.Tests\AddressBook.Hexagon.Tests.csproj", "{F4B89B0C-2CBB-47C2-B047-C3FCE77F6792}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookCLI", "AddressBookCLI\AddressBookCLI.csproj", "{2D9ADD3A-2AAB-44D2-B7DD-C97FB694E69E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.CLI", "AddressBookCLI\AddressBook.CLI.csproj", "{2D9ADD3A-2AAB-44D2-B7DD-C97FB694E69E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.Framework.Console", "AddressBook.Framework.Console\AddressBook.Framework.Console.csproj", "{5431CEEA-A7CE-43ED-9A65-5F187D798AD9}"
 EndProject

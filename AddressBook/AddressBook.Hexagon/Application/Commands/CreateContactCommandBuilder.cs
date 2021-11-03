@@ -1,7 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021
 
 using System.IO;
-using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.Messaging;
 
 
@@ -13,7 +12,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
         {
             CreateContactCommand CreateCommand;
 
-            //TODO Validate before Building
+            //TODO Validate on highest level (complete object) before Building
             CreateCommand = new CreateContactCommand(Name, Street, PostalCode, Town, Phone, Email);
             return CreateCommand;
         }
