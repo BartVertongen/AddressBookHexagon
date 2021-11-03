@@ -31,7 +31,9 @@ namespace PS.AddressBook.Framework.Console.Commands
                     _UserInterface.WriteMessage("\ta\tadd\tAdds a Contact to the Address Book.");
                     _UserInterface.WriteMessage("\td\tdelete\tDeletes a Contact to the Address Book.");
                     _UserInterface.WriteMessage("\tl\tlist\tGives an overview of Contacts in the AddressBook.");
+                    _UserInterface.WriteMessage("\ts\tselect\tLets you select an Contact from the AddressBook.");
                     _UserInterface.WriteMessage("\tu\tupdate\tChanges an existing Contact of the Address Book.");
+                    _UserInterface.WriteMessage("\tv\tview\tShows the contents of an existing Contact of the Address Book.");
                     _UserInterface.WriteMessage("\tq\tquit\tStops the Address Book Application.");
                     _UserInterface.WriteMessage("\t?\thelp\tGives more info about a command.");
                     _UserInterface.WriteMessage("\tExamples:");

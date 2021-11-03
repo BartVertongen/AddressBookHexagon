@@ -26,7 +26,6 @@ namespace PS.AddressBook.Infrastructure.Driving.Console
 
             while (!Response.IsTerminating)
             {
-                // look at this mistake with the ToLower()
                 var input = _UserInterface.ReadValue("> ").ToLower();
                 var command = _CommandFactory.GetCommand(input);
 

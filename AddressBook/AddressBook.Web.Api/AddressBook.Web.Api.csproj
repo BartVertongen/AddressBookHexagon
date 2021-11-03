@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\VertSoft\PerfectSoftware\Workshop\AddressBook\AddressBook.WebApi\AddressBook.WebApi.xml</DocumentationFile>
+    <DocumentationFile>C:\MyData\AddressBookHexagon\AddressBook\AddressBook.Web.Api\AddressBook.Web.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

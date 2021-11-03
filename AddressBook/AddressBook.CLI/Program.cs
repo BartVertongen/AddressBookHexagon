@@ -21,10 +21,12 @@ namespace PS.AddressBook.ConsoleApp
     {
         static IConfiguration Configuration;
 
+        /// <summary>
+        /// Adds all the Services needed by the Application.
+        /// </summary>
+        /// <param name="services"></param>
         private static void ConfigureServices(IServiceCollection services)
         {
-            //Add application services.
-
             //Framework: Add logging
             services.AddSingleton(LoggerFactory.Create(builder =>
             {
