@@ -29,7 +29,7 @@ namespace PS.AddressBook.Business.Tests
 
             public string FullPath { get; private set; }
 
-            public void Load(IAddressBookDTO book)
+            public void Load(ref IAddressBookDTO book)
             {
                 IContactDTO NewContact1, NewContact2, NewContact3;
                 IContactDTO NewContact4;

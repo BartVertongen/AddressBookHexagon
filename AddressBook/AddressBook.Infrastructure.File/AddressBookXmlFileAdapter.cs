@@ -22,17 +22,16 @@ namespace PS.AddressBook.Infrastructure.File
             FullPath = config.GetSection("ContactsFile").Value;
         }
 
-        public void Load(IAddressBookDTO book)
+        public void Load(ref IAddressBookDTO book)
         {
             XmlSerializer AddressBookSerializer;
-            //AddressBookDTO TempBook;
 
             //Check if a Full File Name is given.
             if (string.IsNullOrEmpty(this.FullPath))
             {
                 throw new InvalidDataException(ErrFullFilenameNeeded);
             }
-            (book as IList<IContactDTO>).Clear();
+            book.Clear();
             //Check if the File exists
             if (System.IO.File.Exists(this.FullPath))
             {
@@ -47,7 +46,6 @@ namespace PS.AddressBook.Infrastructure.File
         public void Save(IAddressBookDTO book)
         {
             XmlSerializer AddressBookSerializer;
-            //AddressBookDTO TempBook = new();
 
             if (string.IsNullOrEmpty(this.FullPath))
             {
@@ -55,20 +53,6 @@ namespace PS.AddressBook.Infrastructure.File
             }
             if (System.IO.File.Exists(this.FullPath)) System.IO.File.Delete(this.FullPath);
 
-            /*foreach (IContactDTO ContactSource in book as List<ContactDTO>)
-            {
-                ContactDTO dtoContact = new();
-                AddressDTO dtoAddress = new();
-
-                dtoContact.Name = ContactSource.Name;
-                dtoAddress.Street = ContactSource.Address.Street;
-                dtoAddress.PostalCode = ContactSource.Address.PostalCode;
-                dtoAddress.Town = ContactSource.Address.Town;
-                dtoContact.Address = dtoAddress;
-                dtoContact.Phone = ContactSource.Phone;
-                dtoContact.Email = ContactSource.Email;
-                TempBook.Add(dtoContact);
-            }*/
 
             AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
             using FileStream fs = new(this.FullPath, FileMode.Create, FileAccess.Write);

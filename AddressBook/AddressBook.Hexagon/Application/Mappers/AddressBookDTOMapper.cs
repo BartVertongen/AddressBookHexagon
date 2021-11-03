@@ -19,7 +19,7 @@ namespace PS.AddressBook.Hexagon.Application.Mappers
             Contacts = addressBook.GetOverview("");
             foreach (IContact oContact in Contacts)
             {               
-                (Result as List<IContactDTO>).Add(oContactDTOMapper.MapTo(oContact));
+                Result.Add((ContactDTO)oContactDTOMapper.MapTo(oContact));
             }
             return Result;
         }

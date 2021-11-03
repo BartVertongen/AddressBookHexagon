@@ -29,7 +29,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
             AddressBookDTOMapper oAddressBookDTOMapper = new();
             IAddressBookDTO oAddressBookDTO = new AddressBookDTO();
 
-            _AddressBookFilePort.Load(oAddressBookDTO);
+            _AddressBookFilePort.Load(ref oAddressBookDTO);
             oAddressBook = oAddressBookDTOMapper.MapFrom(oAddressBookDTO);
             if (oAddressBook.ContainsName(command.Name))
             {

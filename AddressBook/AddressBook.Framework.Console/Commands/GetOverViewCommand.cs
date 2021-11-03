@@ -74,7 +74,7 @@ namespace PS.AddressBook.Framework.Console.Commands
             {
                 string Line;
 
-                Line = $"An Error Occurred in GetOverviewCommand with Filter={sFilter}.";
+                Line = $"An Error Occurred in GetOverviewCommand with Filter='{sFilter}'.";
                 _UserInterface.WriteError(Line);
                 _UserInterface.WriteError("The error description is " + ex.Message);
                 result = null;

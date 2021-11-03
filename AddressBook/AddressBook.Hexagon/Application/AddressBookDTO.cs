@@ -14,9 +14,6 @@ namespace PS.AddressBook.Hexagon.Application
     [XmlRoot(ElementName = "AddressBook")]
     public class AddressBookDTO : List<ContactDTO>, IAddressBookDTO
     {
-        public static implicit operator List<object>(AddressBookDTO v)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

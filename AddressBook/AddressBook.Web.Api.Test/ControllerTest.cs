@@ -32,7 +32,7 @@ namespace WebApiAddressBook.Test
 
             public string FullPath { get; private set; }
 
-            public void Load(IAddressBookDTO book)
+            public void Load(ref IAddressBookDTO book)
             {
                 IContactDTO NewContact;
 

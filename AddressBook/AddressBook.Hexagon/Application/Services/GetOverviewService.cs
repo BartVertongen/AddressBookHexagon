@@ -6,6 +6,7 @@ using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
 using PS.AddressBook.Hexagon.Application.Mappers;
+using PS.AddressBook.Hexagon.Application.Adapters;
 
 
 namespace PS.AddressBook.Hexagon.Application.Services
@@ -21,33 +22,54 @@ namespace PS.AddressBook.Hexagon.Application.Services
 
         public List<IContactLineDTO> GetOverview(string filter = "")
         {
-            AddressBookDTO oAddressBookDTO = new();
-            List<IContactDTO> oWorkContacts;
+            IAddressBookDTO oAddressBookDTO = new AddressBookDTO();
+            IAddressBookDTO oWorkContacts = null;
+            List<ContactDTO> tempContactList = null;
             List<IContactLineDTO> Result = new();
             int iID = 0;
 
-            _LoadAddressBookPort.Load(oAddressBookDTO);
+            _LoadAddressBookPort.Load(ref oAddressBookDTO);
+            //If the AddressBook is empty we do not need to filter.
+            if (oAddressBookDTO.Count == 0) return Result;
             //Do the filtering here
-            if (!filter.Contains("*"))
-                oWorkContacts = oAddressBookDTO.Where(ctt => ctt.Name.ToUpper().Contains(filter.ToUpper())).ToList();
-            else if (filter[0] == '*')
-                oWorkContacts = oAddressBookDTO.Where(ctt => ctt.Name.ToUpper().EndsWith(filter.ToUpper())).ToList();
-            else if (filter[filter.Length - 1] == '*')
-                oWorkContacts = oAddressBookDTO.Where(ctt => ctt.Name.ToUpper().StartsWith(filter.ToUpper())).ToList();
+            if (string.IsNullOrEmpty(filter))
+                oWorkContacts = oAddressBookDTO;
             else
-                oWorkContacts = new();
-            foreach (IContactDTO dtoContact in oWorkContacts)
             {
-                IContactLineDTO oContactLine;
-                ContactDTOMapper oContactDTOMapper = new();
-
-                oContactLine = new ContactLineDTO
+                if (!string.IsNullOrEmpty(filter) && !filter.Contains("*"))
                 {
-                    Id = ++iID,
-                    Name = dtoContact.Name,
-                    ContentsCode = oContactDTOMapper.MapFrom(dtoContact).ContentsCode
-                };
-                Result.Add(oContactLine);
+                    tempContactList = oAddressBookDTO
+                            .Where(ctt => ctt.Name.ToUpper().Contains(filter.ToUpper())).ToList();
+                }
+                else if (!string.IsNullOrEmpty(filter) && filter[0] == '*')
+                {
+                    tempContactList = oAddressBookDTO
+                            .Where(ctt => ctt.Name.ToUpper().EndsWith(filter.ToUpper())).ToList();
+                }
+                else if (!string.IsNullOrEmpty(filter) && filter[filter.Length - 1] == '*')
+                {
+                    tempContactList = oAddressBookDTO
+                            .Where(ctt => ctt.Name.ToUpper().StartsWith(filter.ToUpper())).ToList();
+                }
+                //We need to convert from List<ContactDTO> TO IAddressBookDTO
+                if (tempContactList is not null)
+                    oWorkContacts = new AddressBookDTOAdapter(tempContactList);
+            }
+            if (oWorkContacts is not null)
+            {
+                foreach (IContactDTO dtoContact in oWorkContacts)
+                {
+                    IContactLineDTO oContactLine;
+                    ContactDTOMapper oContactDTOMapper = new();
+
+                    oContactLine = new ContactLineDTO
+                    {
+                        Id = ++iID,
+                        Name = dtoContact.Name,
+                        ContentsCode = oContactDTOMapper.MapFrom(dtoContact).ContentsCode
+                    };
+                    Result.Add(oContactLine);
+                }
             }
             return Result;
         }
