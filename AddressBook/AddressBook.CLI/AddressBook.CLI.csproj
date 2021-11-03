@@ -26,6 +26,13 @@
   <ItemGroup>
     <ProjectReference Include="..\AddressBook.Framework.Console\AddressBook.Framework.Console.csproj" />
     <ProjectReference Include="..\AddressBook.Hexagon\AddressBook.Hexagon.csproj" />
+    <ProjectReference Include="..\AddressBook.Infrastructure.File\AddressBook.Infrastructure.File.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

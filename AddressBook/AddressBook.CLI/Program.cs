@@ -5,18 +5,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using PS.AddressBook.Infrastructure.File;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Services;
 using PS.AddressBook.Infrastructure.Driving.Console;
 using PS.AddressBook.Framework.Console;
 using PS.AddressBook.Framework.Console.Commands;
+using PS.AddressBook.Hexagon.Application.Ports.Out;
+
 
 
 namespace PS.AddressBook.ConsoleApp
 {
     class Program
     {
-        static IConfigurationRoot Configuration;
+        static IConfiguration Configuration;
 
         private static void ConfigureServices(IServiceCollection services)
         {
@@ -32,12 +35,14 @@ namespace PS.AddressBook.ConsoleApp
             //Infrastructure Driven
             //REM: Where is the AddressBookFileAdapter ???
             services.AddSingleton(Configuration);
+            services.AddSingleton<IAddressBookFile, AddressBookXmlFileAdapter>();
 
             //Hexagon
             services.AddTransient<ICreateContactUseCase, CreateContactService>();
             services.AddTransient<IDeleteContactUseCase, DeleteContactService>();
             services.AddTransient<IUpdateContactUseCase, UpdateContactService>();
             services.AddTransient<IGetOverviewQuery, GetOverviewService>();
+            services.AddTransient<IGetContactWithNameQuery, GetContactWithNameService>();
 
             //CLI Driving
             services.AddTransient<IConsoleUserInterface, ConsoleUserInterface>();
@@ -67,6 +72,7 @@ namespace PS.AddressBook.ConsoleApp
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
             Log.Information("Starting service");
+
             try
             {
 
