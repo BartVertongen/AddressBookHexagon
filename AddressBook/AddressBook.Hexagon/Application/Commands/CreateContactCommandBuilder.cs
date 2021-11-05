@@ -2,11 +2,12 @@
 
 using System.IO;
 using PS.AddressBook.Hexagon.Application.Messaging;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class CreateContactCommandBuilder : ICommandBuilder
+    public class CreateContactCommandBuilder : ICreateContactCommandBuilder
     {
         public ICommand Build()
         {
@@ -29,7 +30,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
 
         public string Town { get; private set; }
 
-        public ICommandBuilder AddName(string name)
+        public ICreateContactCommandBuilder AddName(string name)
         {
             if (string.IsNullOrEmpty(name))
                 throw new InvalidDataException("CreateContactCommandBuilder::AddName: The 'name' argument can not be null or Empty!");
@@ -40,7 +41,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddStreet(string street)
+        public ICreateContactCommandBuilder AddStreet(string street)
         {
             if (street == null)
                 throw new InvalidDataException("CreateContactBuilder::AddStreet: The 'street' argument can not be null!");
@@ -51,7 +52,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddPostalCode(string postalcode)
+        public ICreateContactCommandBuilder AddPostalCode(string postalcode)
         {
             if (postalcode == null)
                 throw new InvalidDataException("CreateContactBuilder::AddPostalCode: The 'postalcode' argument can not be null!");
@@ -62,7 +63,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddTown(string town)
+        public ICreateContactCommandBuilder AddTown(string town)
         {
             if (town == null)
                 throw new InvalidDataException("CreateContactCommandBuilder::AddTown: The 'town' argument can not be null!");
@@ -73,7 +74,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddPhone(string phone)
+        public ICreateContactCommandBuilder AddPhone(string phone)
         {
             if (phone == null)
                 throw new InvalidDataException("CreateContactCommandBuilder::AddPhone: The 'phone' argument can not be null!");
@@ -84,7 +85,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddEmail(string email)
+        public ICreateContactCommandBuilder AddEmail(string email)
         {
             if (email == null)
                 throw new InvalidDataException("CreateContactCommandBuilder::AddEmail: The 'email' argument can not be null!");

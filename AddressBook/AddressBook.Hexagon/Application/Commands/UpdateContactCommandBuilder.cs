@@ -1,13 +1,13 @@
 ﻿//By Bart Vertongen copyright 2021
 
 using System.IO;
-using PS.AddressBook.Hexagon.Application.Commands;
+using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.Messaging;
 
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class UpdateContactCommandBuilder : ICommandBuilder
+    public class UpdateContactCommandBuilder : IUpdateContactCommandBuilder
     {
         public ICommand Build()
         {
@@ -30,10 +30,10 @@ namespace PS.AddressBook.Hexagon.Application.Commands
 
         public string Town { get; private set; }
 
-        public ICommandBuilder AddName(string name)
+        public IUpdateContactCommandBuilder AddName(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new InvalidDataException("CreateContactCommandBuilder::AddName: The 'name' argument can not be null or Empty!");
+                throw new InvalidDataException("UpdateContactCommandBuilder::AddName: The 'name' argument can not be null or Empty!");
             else
             {
                 this.Name = name;
@@ -41,10 +41,10 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddStreet(string street)
+        public IUpdateContactCommandBuilder AddStreet(string street)
         {
             if (street == null)
-                throw new InvalidDataException("CreateContactBuilder::AddStreet: The 'street' argument can not be null!");
+                throw new InvalidDataException("UpdateContactBuilder::AddStreet: The 'street' argument can not be null!");
             else
             {
                 this.Street = street;
@@ -52,10 +52,10 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddPostalCode(string postalcode)
+        public IUpdateContactCommandBuilder AddPostalCode(string postalcode)
         {
             if (postalcode == null)
-                throw new InvalidDataException("CreateContactBuilder::AddPostalCode: The 'postalcode' argument can not be null!");
+                throw new InvalidDataException("UpdateContactBuilder::AddPostalCode: The 'postalcode' argument can not be null!");
             else
             {
                 this.PostalCode = postalcode;
@@ -63,10 +63,10 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddTown(string town)
+        public IUpdateContactCommandBuilder AddTown(string town)
         {
             if (town == null)
-                throw new InvalidDataException("CreateContactCommandBuilder::AddTown: The 'town' argument can not be null!");
+                throw new InvalidDataException("UpdateContactCommandBuilder::AddTown: The 'town' argument can not be null!");
             else
             {
                 this.Town = town;
@@ -74,10 +74,10 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddPhone(string phone)
+        public IUpdateContactCommandBuilder AddPhone(string phone)
         {
             if (phone == null)
-                throw new InvalidDataException("CreateContactCommandBuilder::AddPhone: The 'phone' argument can not be null!");
+                throw new InvalidDataException("UpdateContactCommandBuilder::AddPhone: The 'phone' argument can not be null!");
             else
             {
                 Phone = phone;
@@ -85,10 +85,10 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             }
         }
 
-        public ICommandBuilder AddEmail(string email)
+        public IUpdateContactCommandBuilder AddEmail(string email)
         {
             if (email == null)
-                throw new InvalidDataException("CreateContactCommandBuilder::AddEmail: The 'email' argument can not be null!");
+                throw new InvalidDataException("UpdateContactCommandBuilder::AddEmail: The 'email' argument can not be null!");
             else
             {
                 Email = email;

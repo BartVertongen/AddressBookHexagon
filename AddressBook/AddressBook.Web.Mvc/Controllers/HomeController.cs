@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.Commands;
-using PS.AddressBook.Hexagon.Application;
 using AddressBook.Web.Mvc.Models;
 
 

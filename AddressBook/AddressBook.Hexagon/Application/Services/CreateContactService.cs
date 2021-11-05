@@ -1,7 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021.
 
 using System;
-using System.Collections.Generic;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Domain.Ports;
 using PS.AddressBook.Hexagon.Application.Commands;

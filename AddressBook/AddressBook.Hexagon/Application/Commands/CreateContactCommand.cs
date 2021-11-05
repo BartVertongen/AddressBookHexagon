@@ -2,19 +2,13 @@
 
 using System;
 using PS.AddressBook.Hexagon.Application.Messaging;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class CreateContactCommand : ICommand
+    public class CreateContactCommand : ICommand, ICreateContactCommandDTO
     {
-        private readonly string _Name;
-        private readonly string _Street;
-        private readonly string _PostalCode;
-        private readonly string _Town;
-        private readonly string _Phone;
-        private readonly string _Email;
-
         /// <summary>
         /// Constructor of a CreateContactCommand
         /// </summary>
@@ -32,27 +26,26 @@ namespace PS.AddressBook.Hexagon.Application.Commands
                             string phone, string email)
         {
             //TODO: validate Name, it cannot be empty
-            _Name = name;
-            _Street = street;
-            _PostalCode = postalCode;
-            _Town = town;
-            _Phone = phone;
-            _Email = email;
+            Name = name;
+            Street = street;
+            PostalCode = postalCode;
+            Town = town;
+            Phone = phone;
+            Email = email;
         }
 
         public Guid Id { get; private set; }
 
-        public string Name => _Name;
+        public string Name{ get; private set; }
 
-        public string Street => _Street;
+        public string Street { get; private set; }
 
-        public string PostalCode => _PostalCode;
+        public string PostalCode { get; private set; }
 
-        public string Town => _Town;
+        public string Town { get; private set; }
 
-        public string Phone => _Phone;
+        public string Phone { get; private set; }
 
-        public string Email => _Email;
-       
+        public string Email { get; private set; }
     }
 }
