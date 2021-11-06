@@ -1,8 +1,6 @@
 ﻿// By Bart Vertongen copyright 2021
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PS.AddressBook.Hexagon.Application.Ports;
@@ -37,7 +35,6 @@ namespace WebAPIAddressBook.Controllers
         /// <summary>
         /// Shows an overview of all Contacts in the addressbook filtered by filter which can be empty.
         /// </summary>
-        /// <param name="filter">'a' starts with 'a'; '*de*' contains 'de'</param>
         /// <returns></returns>
         [Route("api/addressbook/overview")]
         [HttpGet]

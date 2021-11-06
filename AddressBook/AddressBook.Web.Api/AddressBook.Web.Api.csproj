@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AddressBook.WebApi.xml" />
     <None Remove="WebAPIAddressBook.log" />
     <None Remove="WebAPIAddressBook.xml" />
   </ItemGroup>
