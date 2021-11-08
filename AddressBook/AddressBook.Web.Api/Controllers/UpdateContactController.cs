@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Ports;
@@ -39,29 +38,19 @@ namespace WebAPIAddressBook.Controllers
         /// <summary>
         /// Changes the Data of an existing Contact except the Name.
         /// </summary>
-        /// <param name="name">The name of an existing Contact.</param>
-        /// <param name="changedContact">new values for the Contact.</param>
+        /// <param name="command">The update command.</param>
         /// <returns></returns>
-        [Route("api/addressbook/contact/{name}")]
+        [Route("api/addressbook/contact/update")]
         [HttpPut]
-        public IActionResult Update(string name, ContactDTO changedContact)
+        public IActionResult Update(UpdateContactCommandDTO command)
         {
             IContactDTO OldContact, updatedContact;
-            UpdateContactCommand oUpdateContactCommand;
 
-            if (name != changedContact.Name)
-                return BadRequest();
-
-            OldContact = _GetContactWithNamePort.GetContactWithName(name);
+            OldContact = _GetContactWithNamePort.GetContactWithName(command.Name);
             if (OldContact is null)
                 return NotFound();
-            oUpdateContactCommand = new UpdateContactCommand(name,
-                        changedContact.Address.Street,
-                        changedContact.Address.PostalCode,
-                        changedContact.Address.Town,
-                        changedContact.Phone,
-                        changedContact.Email);
-            updatedContact = _GetUpdateContactPort.UpdateContact(oUpdateContactCommand);
+
+            updatedContact = _GetUpdateContactPort.UpdateContact(command);
             if (updatedContact == null)
                 return BadRequest();
             else

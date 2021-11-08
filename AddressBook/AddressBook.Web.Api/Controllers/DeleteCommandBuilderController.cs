@@ -11,6 +11,8 @@ namespace AddressBook.Web.Api.Controllers
     /// <summary>
     /// A WEB API Controller to expose DeleteCommandBuilder as a Service.
     /// </summary>
+    [Produces("application/json")]
+    [ApiController]
     public class DeleteCommandBuilderController : Controller
     {
         /// <summary>
@@ -19,7 +21,9 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="name">The Name to add.</param>
         /// <returns>Builder Data</returns>
-        public IActionResult AddName(DeleteContactCommandBuilderDTO builder, string name)
+        [Route("api/addressbook/deletecontactcommand/addname/{name}")]
+        [HttpGet]
+        public IActionResult AddName([FromBody] DeleteContactCommandBuilderDTO builder, string name)
         {
             DeleteContactCommandBuilderDTOMapper oMapper = new();
             IDeleteContactCommandBuilder oBussBuilder;
@@ -34,7 +38,9 @@ namespace AddressBook.Web.Api.Controllers
         /// </summary>
         /// <param name="builder">The Builder Data</param>
         /// <returns>Command Data</returns>
-        public IActionResult Build(DeleteContactCommandBuilderDTO builder)
+        [Route("api/addressbook/deletecontactcommand/build")]
+        [HttpGet]
+        public IActionResult Build([FromBody] DeleteContactCommandBuilderDTO builder)
         {
             DeleteContactCommandBuilderDTOMapper oMapper = new();
             IDeleteContactCommandBuilder oBussBuilder;

@@ -1,10 +1,11 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
+using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.UseCases;
-using AppUpdateContactCommand = PS.AddressBook.Hexagon.Application.Commands.UpdateContactCommand;
+//using AppUpdateContactCommand = PS.AddressBook.Hexagon.Application.Commands.UpdateContactCommand;
 
 
 namespace PS.AddressBook.Framework.Console.Commands
@@ -40,7 +41,7 @@ namespace PS.AddressBook.Framework.Console.Commands
         /// <summary>
         /// Gets the needed data from the userinterface.
         /// </summary>
-        private AppUpdateContactCommand GetUpdateContactCommand(IContactDTO oldContact)
+        private IUpdateContactCommandDTO GetUpdateContactCommand(IContactDTO oldContact)
         {
             string sNewStreet, sNewPostalCode, sNewTown, sNewPhone, sNewEmail;
             UpdateContactCommandBuilder oBuilder = new();
@@ -77,7 +78,7 @@ namespace PS.AddressBook.Framework.Console.Commands
             if (sNewEmail.ToUpper() != "XX")
                 oBuilder.AddEmail(sNewEmail);
 
-            return (AppUpdateContactCommand)oBuilder.Build();
+            return oBuilder.Build();
         }
 
         public (bool WasSuccessful, bool IsTerminating) Run(out object result, string argument = "")

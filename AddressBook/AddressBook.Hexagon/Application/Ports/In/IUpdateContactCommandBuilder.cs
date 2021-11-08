@@ -1,22 +1,34 @@
 ﻿//By Bart Vertongen
 
-using PS.AddressBook.Hexagon.Application.Commands;
-
 
 namespace PS.AddressBook.Hexagon.Application.Ports
 {
-    public interface IUpdateContactCommandBuilder : ICommandBuilder, IUpdateContactCommandDTO
+    public interface IUpdateContactCommandBuilder
     {
-        public IUpdateContactCommandBuilder AddName(string name);
+        IUpdateContactCommandBuilder AddName(string name);
 
-        public IUpdateContactCommandBuilder AddStreet(string street);
+        IUpdateContactCommandBuilder AddStreet(string street);
 
-        public IUpdateContactCommandBuilder AddPostalCode(string postalcode);
+        IUpdateContactCommandBuilder AddPostalCode(string postalcode);
 
-        public IUpdateContactCommandBuilder AddTown(string town);
+        IUpdateContactCommandBuilder AddTown(string town);
 
-        public IUpdateContactCommandBuilder AddPhone(string phone);
+        IUpdateContactCommandBuilder AddPhone(string phone);
 
-        public IUpdateContactCommandBuilder AddEmail(string email);
+        IUpdateContactCommandBuilder AddEmail(string email);
+
+        IUpdateContactCommandDTO Build();
+
+        string Name { get; }
+
+        string Phone { get; }
+
+        string Email { get; }
+
+        string Street { get; }
+
+        string PostalCode { get; }
+
+        string Town { get; }
     }
 }

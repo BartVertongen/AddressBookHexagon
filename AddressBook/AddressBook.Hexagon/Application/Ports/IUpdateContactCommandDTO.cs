@@ -4,16 +4,16 @@ namespace PS.AddressBook.Hexagon.Application.Ports
 {
     public interface IUpdateContactCommandDTO
     {
-        string Name { get; }
+        string Name { get; set; }
 
-        string Phone { get; }
+        string Phone { get; set;  }
 
-        string Email { get; }
+        string Email { get; set; }
 
-        string Street { get; }
+        string Street { get; set; }
 
-        string PostalCode { get; }
+        string PostalCode { get; set;  }
 
-        string Town { get; }
+        string Town { get; set;  }
     }
 }

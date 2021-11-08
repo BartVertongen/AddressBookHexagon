@@ -11,6 +11,8 @@ namespace AddressBook.Web.Api.Controllers
     /// <summary>
     /// A WEB API Controller to expose CreateCommandBuilder as a Service.
     /// </summary>
+    [Produces("application/json")]
+    [ApiController]
     public class CreateCommandBuilderController : Controller
     {
         /// <summary>
@@ -19,7 +21,9 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="name">The Name to add.</param>
         /// <returns>Builder Data</returns>
-        public IActionResult AddName(CreateContactCommandBuilderDTO builder, string name)
+        [Route("api/addressbook/createcontactcommand/addname/{name}")]
+        [HttpGet]
+        public IActionResult AddName([FromBody]CreateContactCommandBuilderDTO builder, string name)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
@@ -35,7 +39,9 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="phone">The Phone to add.</param>
         /// <returns>Builder Data</returns>
-        public IActionResult AddPhone(CreateContactCommandBuilderDTO builder, string phone)
+        [Route("api/addressbook/createcontactcommand/addphone/{phone}")]
+        [HttpGet]
+        public IActionResult AddPhone([FromBody] CreateContactCommandBuilderDTO builder, string phone)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
@@ -51,7 +57,9 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="email">The Email to add.</param>
         /// <returns>Builder Data</returns>
-        public IActionResult AddEmail(CreateContactCommandBuilderDTO builder, string email)
+        [Route("api/addressbook/createcontactcommand/addemail")]
+        [HttpGet]
+        public IActionResult AddEmail([FromBody] CreateContactCommandBuilderDTO builder, string email)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
@@ -67,7 +75,9 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="street">The Street to add.</param>
         /// <returns>Builder Data</returns>
-        public IActionResult AddStreet(CreateContactCommandBuilderDTO builder, string street)
+        [Route("api/addressbook/createcontactcommand/addstreet/{street}")]
+        [HttpGet]
+        public IActionResult AddStreet([FromBody] CreateContactCommandBuilderDTO builder, string street)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
@@ -83,7 +93,9 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="postalCode">The PostalCode to add.</param>
         /// <returns>Builder Data</returns>
-        public IActionResult AddPostalCode(CreateContactCommandBuilderDTO builder, string postalCode)
+        [Route("api/addressbook/createcontactcommand/addpostalcode/{postalcode}")]
+        [HttpGet]
+        public IActionResult AddPostalCode([FromBody] CreateContactCommandBuilderDTO builder, string postalCode)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
@@ -96,10 +108,12 @@ namespace AddressBook.Web.Api.Controllers
         /// <summary>
         /// Exposes AddTown method of CreateContactCommandBuilder.
         /// </summary>
-        /// <param name="builder">The Builder Data</param>
+        /// <param name="builder">The Create Contact Command Builder Data</param>
         /// <param name="town">The Town to add.</param>
-        /// <returns>Builder Data</returns>
-        public IActionResult AddTown(CreateContactCommandBuilderDTO builder, string town)
+        /// <returns>Create Contact Command Builder Data</returns>
+        [Route("api/addressbook/createcontactcommand/addtown/{town}")]
+        [HttpGet]
+        public IActionResult AddTown([FromBody] CreateContactCommandBuilderDTO builder, string town)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
@@ -112,9 +126,11 @@ namespace AddressBook.Web.Api.Controllers
         /// <summary>
         /// Exposes Build method of CreateContactCommandBuilder.
         /// </summary>
-        /// <param name="builder">The Builder Data</param>
-        /// <returns>Command Data</returns>
-        public IActionResult Build(CreateContactCommandBuilderDTO builder)
+        /// <param name="builder">The Create Contact Command Builder Data</param>
+        /// <returns>Create Contact Command Data</returns>
+        [Route("api/addressbook/createcontactcommand/build")]
+        [HttpGet]
+        public IActionResult Build([FromBody] CreateContactCommandBuilderDTO builder)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;

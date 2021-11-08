@@ -23,7 +23,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
             _AddressBookFilePort = file;
         }
 
-        public IContactDTO UpdateContact(UpdateContactCommand command)
+        public IContactDTO UpdateContact(IUpdateContactCommandDTO command)
         {
             IAddressBook oAddressBook;
             AddressBookDTOMapper oAddressBookDTOMapper = new();

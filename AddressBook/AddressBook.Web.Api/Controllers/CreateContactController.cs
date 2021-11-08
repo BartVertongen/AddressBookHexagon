@@ -38,24 +38,20 @@ namespace WebAPIAddressBook.Controllers
         /// <summary>
         /// Creates a new Contact.
         /// </summary>
-        /// <param name="newContact"></param>
+        /// <param name="command"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("api/addressbook/contact")]
+        [Route("api/addressbook/contact/create")]
         [HttpPost]
-        public IActionResult Create(ContactDTO newContact)
+        public IActionResult Create(CreateContactCommandDTO command)
         {
             try
             {
-                CreateContactCommand oCommand;
                 IContactDTO createdContact;
 
-                oCommand = new CreateContactCommand(newContact.Name, newContact.Address.Street,
-                            newContact.Address.PostalCode, newContact.Address.Town,
-                                                        newContact.Phone, newContact.Email);
-                createdContact = _CreateContactPort.CreateContact(oCommand);
-                return CreatedAtAction(nameof(Create), new { name = newContact.Name }, createdContact);
+                createdContact = _CreateContactPort.CreateContact(command);
+                return CreatedAtAction(nameof(Create), new { name = command.Name }, createdContact);
             }
             catch (Exception ex)
             {

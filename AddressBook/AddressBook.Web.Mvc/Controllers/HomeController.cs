@@ -103,7 +103,7 @@ namespace AddressBook.Web.Mvc.Controllers
                 oCommandBuilder.AddName(contact.Name).AddPhone(contact.Phone ?? "")
                         .AddEmail(contact.Email ?? "").AddStreet(contact.Address.Street ?? "")
                         .AddPostalCode(contact.Address.PostalCode ?? "").AddTown(contact.Address.Town ?? "");
-                _UpdatePort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
+                _UpdatePort.UpdateContact(oCommandBuilder.Build());
 
                 return RedirectToAction(nameof(Index));
             }

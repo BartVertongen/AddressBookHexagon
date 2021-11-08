@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.Ports;
+using PS.AddressBook.Hexagon.Application;
 
 
 namespace WebAPIAddressBook.Controllers
@@ -36,11 +37,28 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="name">Name of the Contact</param>
         /// <returns></returns>
-        [Route("api/addressbook/contact/{name}")]
+        [Route("api/addressbook/contact/delete/{name}")]
         [HttpDelete]
         public IActionResult Delete(string name)
         {
             DeleteContactCommand DeleteCommand = new(name);
+            IContactDTO ToRemoveContact = _DeleteContactService.DeleteContact(DeleteCommand);
+
+            if (ToRemoveContact is null)
+                return NotFound();
+            else
+                return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes the Contact with the given Name from the AddressBook.
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/addressbook/contact/delete/")]
+        [HttpDelete]
+        public IActionResult Delete2([FromBody] DeleteContactCommandDTO command)
+        {
+            DeleteContactCommand DeleteCommand = new(command.Name);
             IContactDTO ToRemoveContact = _DeleteContactService.DeleteContact(DeleteCommand);
 
             if (ToRemoveContact is null)

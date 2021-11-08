@@ -9,12 +9,15 @@ namespace PS.AddressBook.Hexagon.Application.Commands
 {
     public class UpdateContactCommandBuilder : IUpdateContactCommandBuilder
     {
-        public ICommand Build()
+        public IUpdateContactCommandDTO Build()
         {
-            UpdateContactCommand UpdateCommand;
+            IUpdateContactCommandDTO UpdateCommand = new UpdateContactCommandDTO();
 
             //TODO Validate before Building
-            UpdateCommand = new UpdateContactCommand(Name, Street, PostalCode, Town, Phone, Email);
+            UpdateCommand.Name = this.Name;
+            UpdateCommand.Phone = this.Phone;
+            UpdateCommand.Email = this.Email;
+            UpdateCommand.Phone = this.Phone;
             return UpdateCommand;
         }
 

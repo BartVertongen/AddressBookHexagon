@@ -61,7 +61,7 @@ namespace AddressBook.Web.Razor.Pages
             oCommandBuilder.AddName(Contact.Name).AddPhone(Contact.Phone??"")
                     .AddEmail(Contact.Email??"").AddStreet(Contact.Address.Street??"")
                     .AddPostalCode(Contact.Address.PostalCode??"").AddTown(Contact.Address.Town??"");
-            _UpdatePort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
+            _UpdatePort.UpdateContact(oCommandBuilder.Build());
 
             return RedirectToPage("./Index");
         }

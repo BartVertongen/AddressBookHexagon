@@ -1,11 +1,12 @@
 ﻿//By Bart Vertongen copyright 2021
 
-using PS.AddressBook.Hexagon.Application.Messaging;
 using System;
+using PS.AddressBook.Hexagon.Application.Messaging;
+
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class UpdateContactCommand : ICommand
+    /*public class UpdateContactCommand : IUpdateContactCommand
     {
         private readonly string _Name;
         private readonly string _NewStreet;
@@ -24,7 +25,7 @@ namespace PS.AddressBook.Hexagon.Application.Commands
         /// <param name="phone"></param>
         /// <param name="email"></param>
         /// <remarks>We can do validation in the Command Constructor.</remarks>
-        public UpdateContactCommand(string name,
+        private UpdateContactCommand(string name,
                             string newStreet=null,
                             string newPostalCode=null,
                             string newTown=null,
@@ -53,5 +54,5 @@ namespace PS.AddressBook.Hexagon.Application.Commands
         public string Email => _NewEmail;
 
         public Guid Id { get; private set; }
-    }
+    }*/
 }

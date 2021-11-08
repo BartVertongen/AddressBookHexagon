@@ -75,7 +75,7 @@
             oCommandBuilder.AddName(objContact.Name).AddPhone(objContact.Phone ?? "")
                     .AddEmail(objContact.Email ?? "").AddStreet(objContact.Address.Street ?? "")
                     .AddPostalCode(objContact.Address.PostalCode ?? "").AddTown(objContact.Address.Town ?? "");
-            UpdateContactPort.UpdateContact((UpdateContactCommand)oCommandBuilder.Build());
+            _ = UpdateContactPort.UpdateContact(oCommandBuilder.Build());
 
             NavigationManager.NavigateTo("/");
         }

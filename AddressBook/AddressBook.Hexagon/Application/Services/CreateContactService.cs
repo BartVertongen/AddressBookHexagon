@@ -3,7 +3,6 @@
 using System;
 using PS.AddressBook.Hexagon.Domain;
 using PS.AddressBook.Hexagon.Domain.Ports;
-using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.Ports.Out;
@@ -24,7 +23,7 @@ namespace PS.AddressBook.Hexagon.Application.Services
             _AddressBookFilePort = file;
         }
 
-        public IContactDTO CreateContact(CreateContactCommand command)
+        public IContactDTO CreateContact(ICreateContactCommandDTO command)
         {
             IAddressBook oAddressBook;
             AddressBookDTOMapper oAddressBookDTOMapper = new();

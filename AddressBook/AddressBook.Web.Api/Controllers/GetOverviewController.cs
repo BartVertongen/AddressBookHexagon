@@ -33,10 +33,10 @@ namespace WebAPIAddressBook.Controllers
 
 
         /// <summary>
-        /// Shows an overview of all Contacts in the addressbook filtered by filter which can be empty.
+        /// Shows an overview of all Contacts in the addressbook.
         /// </summary>
         /// <returns></returns>
-        [Route("api/addressbook/overview")]
+        [Route("api/addressbook/contact/overview")]
         [HttpGet]
         public ActionResult<List<IContactLineDTO>> GetOverview()
         {
@@ -51,7 +51,7 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="filter">'a' starts with 'a'; '*de*' contains 'de'</param>
         /// <returns></returns>
-        [Route("api/addressbook/overview/{filter?}")]
+        [Route("api/addressbook/contact/overview/{filter?}")]
         [HttpGet]
         public ActionResult<List<IContactLineDTO>> GetOverview(string filter)
         {
