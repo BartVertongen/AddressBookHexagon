@@ -5,6 +5,6 @@ namespace PS.AddressBook.Hexagon.Application.Ports
 {
     public interface IDeleteContactCommandDTO
     {
-        string Name { get; }
+        string Name { get; set; }
     }
 }

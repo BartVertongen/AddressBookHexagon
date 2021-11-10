@@ -7,9 +7,17 @@ using PS.AddressBook.Hexagon.Application.Ports;
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class DeleteContactCommand : ICommand, IDeleteContactCommandDTO
+
+    public class DeleteContactCommand : ICommand, IDeleteContactCommand
     {
-        public DeleteContactCommand(string name)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <remarks>
+        /// A DeleteCommand should be constructed using a DeleteContactCommandBuilder.
+        /// </remarks>
+        internal DeleteContactCommand(string name)
         {
             //TODO: validate Name, it cannot be empty
             //REM: Validation should be done by the DeleteContactCommandBuilder

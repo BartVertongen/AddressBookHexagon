@@ -1,6 +1,7 @@
 ﻿// By Bart Vertongen copyright 2021.
 
 using System;
+using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using AppDeleteCommand = PS.AddressBook.Hexagon.Application.Commands.DeleteContactCommand;
 
@@ -36,7 +37,9 @@ namespace PS.AddressBook.Framework.Console.Commands
 
                 if (SelectCommand.Run(out oSelectedName).WasSuccessful)
                 {
-                    AppDeleteCommand AppCommand = new((string)oSelectedName);
+                    DeleteContactCommandBuilder oBuilder = new DeleteContactCommandBuilder();
+                    oBuilder.AddName((string)oSelectedName);
+                    AppDeleteCommand AppCommand = (AppDeleteCommand)oBuilder.Build();
                     _DeleteContactPort.DeleteContact(AppCommand);
                     _UserInterface.WriteWarning($"The Contact with Name '{(string)oSelectedName}' is deleted.");
                     result = null;

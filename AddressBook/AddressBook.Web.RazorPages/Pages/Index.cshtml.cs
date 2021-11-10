@@ -33,11 +33,14 @@ namespace AddressBook.Web.Razor.Pages
 
         public IActionResult OnPostDelete(int id)
         {
+            DeleteContactCommand oCommand;
+            DeleteContactCommandBuilder oBuilder = new();
             var contact = Contacts[id];
 
             if (contact != null)
             {
-                DeleteContactCommand oCommand = new(contact.Name);
+                oBuilder.AddName(contact.Name);
+                oCommand = (DeleteContactCommand)oBuilder.Build();
                 if (_DeletePort.DeleteContact(oCommand) is null)
                 {
                     //REM Something went wrong

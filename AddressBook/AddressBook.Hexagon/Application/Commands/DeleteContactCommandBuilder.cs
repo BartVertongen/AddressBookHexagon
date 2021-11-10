@@ -3,11 +3,11 @@
 using System.IO;
 using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.Messaging;
-
+using System;
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class DeleteContactCommandBuilder : IDeleteContactCommandBuilder, IDeleteContactCommandDTO
+    public class DeleteContactCommandBuilder : IDeleteContactCommandBuilder, IDeleteContactCommand
     {
         public ICommand Build()
         {
@@ -18,6 +18,8 @@ namespace PS.AddressBook.Hexagon.Application.Commands
         }
 
         public string Name { get; private set; }
+
+        public Guid Id { get; private set; }
 
         public IDeleteContactCommandBuilder AddName(string name)
         {

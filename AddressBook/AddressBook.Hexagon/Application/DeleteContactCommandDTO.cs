@@ -18,6 +18,6 @@ namespace PS.AddressBook.Hexagon.Application
             Name = "";
         }
 
-        public string Name { get; private set; }
+        public string Name { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.Ports;
 
@@ -23,14 +24,14 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Builder Data</returns>
         [Route("api/addressbook/deletecontactcommand/addname/{name}")]
         [HttpGet]
-        public IActionResult AddName([FromBody] DeleteContactCommandBuilderDTO builder, string name)
+        public ActionResult<DeleteContactCommandBuilderDTO> AddName([FromBody] DeleteContactCommandBuilderDTO builder, string name)
         {
             DeleteContactCommandBuilderDTOMapper oMapper = new();
             IDeleteContactCommandBuilder oBussBuilder;
 
+            builder.Name = name;
             oBussBuilder = oMapper.MapFrom(builder);
-            oBussBuilder.AddName(name);
-            return (IActionResult)oMapper.MapTo(oBussBuilder);
+            return (DeleteContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
 
         /// <summary>
@@ -40,13 +41,14 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Command Data</returns>
         [Route("api/addressbook/deletecontactcommand/build")]
         [HttpGet]
-        public IActionResult Build([FromBody] DeleteContactCommandBuilderDTO builder)
+        public ActionResult<DeleteContactCommand> Build([FromBody] DeleteContactCommandBuilderDTO builder)
         {
             DeleteContactCommandBuilderDTOMapper oMapper = new();
             IDeleteContactCommandBuilder oBussBuilder;
 
             oBussBuilder = oMapper.MapFrom(builder);
-            return (IActionResult)oBussBuilder.Build();
+            DeleteContactCommand Command = (DeleteContactCommand)oBussBuilder.Build();
+            return Command;
         }
     }
 }

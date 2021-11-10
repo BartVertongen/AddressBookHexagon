@@ -166,7 +166,10 @@ namespace PS.AddressBook.Business.Tests
         /// </summary>
         private void Step5_6_SYS_DeletesChosenContactAndMakePersistant()
         {
-            DeleteContactCommand oCommand = new(_SelectedName);
+            DeleteContactCommandBuilder oBuilder = new();
+
+            oBuilder.AddName(_SelectedName);
+            DeleteContactCommand oCommand = (DeleteContactCommand)oBuilder.Build();
             _DeleteContactPort.DeleteContact(oCommand);
         }
     }

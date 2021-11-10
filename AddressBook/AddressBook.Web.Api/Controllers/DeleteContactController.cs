@@ -41,9 +41,11 @@ namespace WebAPIAddressBook.Controllers
         [HttpDelete]
         public IActionResult Delete(string name)
         {
-            DeleteContactCommand DeleteCommand = new(name);
-            IContactDTO ToRemoveContact = _DeleteContactService.DeleteContact(DeleteCommand);
+            IContactDTO ToRemoveContact;
+            DeleteContactCommandBuilder oBuilder = new();
 
+            oBuilder.AddName(name);
+            ToRemoveContact = _DeleteContactService.DeleteContact((DeleteContactCommand)oBuilder.Build());
             if (ToRemoveContact is null)
                 return NotFound();
             else
@@ -58,8 +60,12 @@ namespace WebAPIAddressBook.Controllers
         [HttpDelete]
         public IActionResult Delete2([FromBody] DeleteContactCommandDTO command)
         {
-            DeleteContactCommand DeleteCommand = new(command.Name);
-            IContactDTO ToRemoveContact = _DeleteContactService.DeleteContact(DeleteCommand);
+            IContactDTO ToRemoveContact;
+            DeleteContactCommand oCommand;
+            DeleteContactCommandBuilder oBuilder = new();
+
+            oCommand = (DeleteContactCommand)oBuilder.AddName(command.Name).Build();
+            ToRemoveContact = _DeleteContactService.DeleteContact(oCommand);
 
             if (ToRemoveContact is null)
                 return NotFound();

@@ -65,7 +65,11 @@
 
         if (contact != null)
         {
-            DeleteContactCommand oCommand = new(contact.Name);
+            DeleteContactCommand oCommand;
+
+            DeleteContactCommandBuilder oBuilder = new();
+            oBuilder.AddName(contact.Name);
+            oCommand = (DeleteContactCommand)oBuilder.Build();
             if (DeletePort.DeleteContact(oCommand) is null)
             {
                 //REM Something went wrong

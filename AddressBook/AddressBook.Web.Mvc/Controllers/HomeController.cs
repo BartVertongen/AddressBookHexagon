@@ -112,11 +112,14 @@ namespace AddressBook.Web.Mvc.Controllers
         public IActionResult Delete(string name)
         {
             IContactDTO oContact;
-            oContact = _GetContactPort.GetContactWithName(name);
+            DeleteContactCommand oCommand;
+            DeleteContactCommandBuilder oBuilder = new();
 
+            oContact = _GetContactPort.GetContactWithName(name);
             if (oContact != null)
             {
-                DeleteContactCommand oCommand = new(oContact.Name);
+                oBuilder.AddName(name);
+                oCommand = (DeleteContactCommand)oBuilder.Build();
                 if (_DeletePort.DeleteContact(oCommand) is null)
                 {
                     //REM Something went wrong
