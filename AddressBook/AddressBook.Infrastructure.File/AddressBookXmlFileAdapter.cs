@@ -36,10 +36,8 @@ namespace PS.AddressBook.Infrastructure.File
             if (System.IO.File.Exists(this.FullPath))
             {
                 AddressBookSerializer = new XmlSerializer(typeof(AddressBookDTO), new XmlRootAttribute("AddressBook"));
-                using (FileStream fs = new(this.FullPath, FileMode.Open, FileAccess.Read))
-                {
-                    book = AddressBookSerializer.Deserialize(fs) as AddressBookDTO;
-                }
+                using FileStream fs = new(this.FullPath, FileMode.Open, FileAccess.Read);
+                book = AddressBookSerializer.Deserialize(fs) as AddressBookDTO;
             }
         }
 

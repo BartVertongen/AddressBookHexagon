@@ -29,6 +29,11 @@ namespace WebAPIAddressBook
             CreateHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// Creates a HostBuilder and handles the Configuration of the Host.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns>The HostBuilder</returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

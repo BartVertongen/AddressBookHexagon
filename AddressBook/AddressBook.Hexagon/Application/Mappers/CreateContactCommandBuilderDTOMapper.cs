@@ -24,12 +24,16 @@ namespace PS.AddressBook.Hexagon.Application.Mappers
 
         public ICreateContactCommandBuilderDTO MapTo(ICreateContactCommandBuilder source)
         {
-            /*ICreateContactCommandBuilder Result = new CreateContactCommandBuilderDTO()
+            ICreateContactCommandBuilderDTO Result = new CreateContactCommandBuilderDTO()
             {
-
-            }
-            return Result;*/
-            throw new System.NotImplementedException();
+                Name = source.Name,
+                Phone = source.Phone,
+                Email = source.Email,
+                Street = source.Street,
+                PostalCode = source.PostalCode,
+                Town = source.Town
+            };
+            return Result;
         }
     }
 }

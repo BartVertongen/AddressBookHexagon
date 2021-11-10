@@ -2,19 +2,13 @@
 
 using System;
 using PS.AddressBook.Hexagon.Application.Messaging;
+using PS.AddressBook.Hexagon.Application.Ports;
 
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    /*public class UpdateContactCommand : IUpdateContactCommand
+    public class UpdateContactCommand : ICommand, IUpdateContactCommand
     {
-        private readonly string _Name;
-        private readonly string _NewStreet;
-        private readonly string _NewPostalCode;
-        private readonly string _NewTown;
-        private readonly string _NewPhone;
-        private readonly string _NewEmail;
-
         /// <summary>
         /// Constructor of a CreateContactCommand
         /// </summary>
@@ -24,35 +18,33 @@ namespace PS.AddressBook.Hexagon.Application.Commands
         /// <param name="town"></param>
         /// <param name="phone"></param>
         /// <param name="email"></param>
-        /// <remarks>We can do validation in the Command Constructor.</remarks>
-        private UpdateContactCommand(string name,
-                            string newStreet=null,
-                            string newPostalCode=null,
-                            string newTown=null,
-                            string newPhone=null, 
-                            string newEmail=null)
+        /// <remarks>A UpdateContactCommand should be constructed using a Builder.</remarks>
+        internal UpdateContactCommand(string name,
+                            string street,
+                            string postalCode,
+                            string town,
+                            string phone, string email)
         {
-            //TODO: validate Name, it cannot be empty
-            _Name = name;
-            _NewStreet = newStreet;
-            _NewPostalCode = newPostalCode;
-            _NewTown = newTown;
-            _NewPhone = newPhone;
-            _NewEmail = newEmail;
+            Name = name;
+            Street = street;
+            PostalCode = postalCode;
+            Town = town;
+            Phone = phone;
+            Email = email;
         }
 
-        public string Name => _Name;
-
-        public string Street => _NewStreet;
-
-        public string PostalCode => _NewPostalCode;
-
-        public string Town => _NewTown;
-
-        public string Phone => _NewPhone;
-
-        public string Email => _NewEmail;
-
         public Guid Id { get; private set; }
-    }*/
+
+        public string Name{ get; private set; }
+
+        public string Street { get; private set; }
+
+        public string PostalCode { get; private set; }
+
+        public string Town { get; private set; }
+
+        public string Phone { get; private set; }
+
+        public string Email { get; private set; }
+    }
 }

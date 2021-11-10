@@ -37,7 +37,7 @@ namespace PS.AddressBook.Framework.Console.Commands
 
                 if (SelectCommand.Run(out oSelectedName).WasSuccessful)
                 {
-                    DeleteContactCommandBuilder oBuilder = new DeleteContactCommandBuilder();
+                    DeleteContactCommandBuilder oBuilder = new ();
                     oBuilder.AddName((string)oSelectedName);
                     AppDeleteCommand AppCommand = (AppDeleteCommand)oBuilder.Build();
                     _DeleteContactPort.DeleteContact(AppCommand);

@@ -5,7 +5,7 @@ using PS.AddressBook.Hexagon.Application.Commands;
 
 namespace PS.AddressBook.Hexagon.Application.Ports
 {
-    public interface ICreateContactCommandBuilder : ICommandBuilder, ICreateContactCommandDTO
+    public interface ICreateContactCommandBuilder : ICommandBuilder, ICreateContactCommand
     {
         ICreateContactCommandBuilder AddName(string name);
 

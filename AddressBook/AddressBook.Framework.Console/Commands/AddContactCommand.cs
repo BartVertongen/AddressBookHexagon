@@ -4,7 +4,7 @@ using System;
 using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.Ports;
-
+using PS.AddressBook.Hexagon.Application.Mappers;
 
 namespace PS.AddressBook.Framework.Console.Commands
 {
@@ -63,10 +63,11 @@ namespace PS.AddressBook.Framework.Console.Commands
         public (bool WasSuccessful, bool IsTerminating) Run(out object result, string argument = null)
         {
             IContactDTO oContact = null;
+            CreateContactCommandDTOMapper oMapper = new();
 
             try
             {
-                oContact = _CreateContactPort.CreateContact(this.GetContactData());
+                oContact = _CreateContactPort.CreateContact(oMapper.MapTo(GetContactData()));
 
                 _UserInterface.WriteMessage("");
                 _UserInterface.WriteWarning($"The Contact with Name '{oContact.Name}' is added.");

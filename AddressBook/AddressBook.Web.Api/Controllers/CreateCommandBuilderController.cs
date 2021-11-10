@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using PS.AddressBook.Hexagon.Application;
+using PS.AddressBook.Hexagon.Application.Commands;
 using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.Ports;
 
@@ -23,14 +24,15 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Builder Data</returns>
         [Route("api/addressbook/createcontactcommand/addname/{name}")]
         [HttpGet]
-        public IActionResult AddName([FromBody]CreateContactCommandBuilderDTO builder, string name)
+        public ActionResult<CreateContactCommandBuilderDTO> AddName([FromBody]CreateContactCommandBuilderDTO builder, string name)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
+            builder.Name = name;
+            //Remark: Validation is done in the Mapper
             oBussBuilder = oMapper.MapFrom(builder);
-            oBussBuilder.AddName(name);
-            return (IActionResult)oMapper.MapTo(oBussBuilder);
+            return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
 
         /// <summary>
@@ -41,14 +43,14 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Builder Data</returns>
         [Route("api/addressbook/createcontactcommand/addphone/{phone}")]
         [HttpGet]
-        public IActionResult AddPhone([FromBody] CreateContactCommandBuilderDTO builder, string phone)
+        public ActionResult<CreateContactCommandBuilderDTO> AddPhone([FromBody] CreateContactCommandBuilderDTO builder, string phone)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
+            builder.Phone = phone;
             oBussBuilder = oMapper.MapFrom(builder);
-            oBussBuilder.AddPhone(phone);
-            return (IActionResult)oMapper.MapTo(oBussBuilder);
+            return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
 
         /// <summary>
@@ -57,16 +59,16 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="email">The Email to add.</param>
         /// <returns>Builder Data</returns>
-        [Route("api/addressbook/createcontactcommand/addemail")]
+        [Route("api/addressbook/createcontactcommand/addemail/{email}")]
         [HttpGet]
-        public IActionResult AddEmail([FromBody] CreateContactCommandBuilderDTO builder, string email)
+        public ActionResult<CreateContactCommandBuilderDTO> AddEmail([FromBody] CreateContactCommandBuilderDTO builder, string email)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
+            builder.Email = email;
             oBussBuilder = oMapper.MapFrom(builder);
-            oBussBuilder.AddEmail(email);
-            return (IActionResult)oMapper.MapTo(oBussBuilder);
+            return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
 
         /// <summary>
@@ -77,14 +79,14 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Builder Data</returns>
         [Route("api/addressbook/createcontactcommand/addstreet/{street}")]
         [HttpGet]
-        public IActionResult AddStreet([FromBody] CreateContactCommandBuilderDTO builder, string street)
+        public ActionResult<CreateContactCommandBuilderDTO> AddStreet([FromBody] CreateContactCommandBuilderDTO builder, string street)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
+            builder.Street = street;
             oBussBuilder = oMapper.MapFrom(builder);
-            oBussBuilder.AddStreet(street);
-            return (IActionResult)oMapper.MapTo(oBussBuilder);
+            return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
 
         /// <summary>
@@ -95,14 +97,14 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Builder Data</returns>
         [Route("api/addressbook/createcontactcommand/addpostalcode/{postalcode}")]
         [HttpGet]
-        public IActionResult AddPostalCode([FromBody] CreateContactCommandBuilderDTO builder, string postalCode)
+        public ActionResult<CreateContactCommandBuilderDTO> AddPostalCode([FromBody] CreateContactCommandBuilderDTO builder, string postalCode)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
+            builder.PostalCode = postalCode;
             oBussBuilder = oMapper.MapFrom(builder);
-            oBussBuilder.AddPostalCode(postalCode);
-            return (IActionResult)oMapper.MapTo(oBussBuilder);
+            return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
 
         /// <summary>
@@ -113,14 +115,14 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Create Contact Command Builder Data</returns>
         [Route("api/addressbook/createcontactcommand/addtown/{town}")]
         [HttpGet]
-        public IActionResult AddTown([FromBody] CreateContactCommandBuilderDTO builder, string town)
+        public ActionResult<CreateContactCommandBuilderDTO> AddTown([FromBody] CreateContactCommandBuilderDTO builder, string town)
         {
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
+            builder.Town = town;
             oBussBuilder = oMapper.MapFrom(builder);
-            oBussBuilder.AddTown(town);
-            return (IActionResult)oMapper.MapTo(oBussBuilder);
+            return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
 
         /// <summary>
@@ -130,13 +132,15 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Create Contact Command Data</returns>
         [Route("api/addressbook/createcontactcommand/build")]
         [HttpGet]
-        public IActionResult Build([FromBody] CreateContactCommandBuilderDTO builder)
+        public ActionResult<CreateContactCommandDTO> Build([FromBody] CreateContactCommandBuilderDTO builder)
         {
-            CreateContactCommandBuilderDTOMapper oMapper = new();
-            ICreateContactCommandBuilder oBussBuilder;
+            CreateContactCommandBuilderDTOMapper oBuilderMapper = new();
+            CreateContactCommandDTOMapper oCommandMapper = new();
+            ICreateContactCommandBuilder oBuilder;
 
-            oBussBuilder = oMapper.MapFrom(builder);
-            return (IActionResult)/*(CreateContactCommand)*/oBussBuilder.Build();
+            oBuilder = oBuilderMapper.MapFrom(builder);
+            CreateContactCommand oCommand = (CreateContactCommand)oBuilder.Build();
+            return (CreateContactCommandDTO)oCommandMapper.MapTo(oCommand);
         }
     }
 }

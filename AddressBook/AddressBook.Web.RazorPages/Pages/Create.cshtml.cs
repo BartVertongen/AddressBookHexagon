@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Commands;
+using PS.AddressBook.Hexagon.Application.Mappers;
 using PS.AddressBook.Hexagon.Application.UseCases;
 
 
@@ -33,6 +34,8 @@ namespace AddressBook.Web.Razor.Pages
             {
                 return Page();
             }
+            CreateContactCommand oCommand;
+            CreateContactCommandDTOMapper oMapper = new();
             CreateContactCommandBuilder oCommandBuilder = new();
             oCommandBuilder.AddName(Contact.Name);
             oCommandBuilder.AddPhone(Contact.Phone??"");
@@ -40,7 +43,9 @@ namespace AddressBook.Web.Razor.Pages
 
             oCommandBuilder.AddStreet(Contact.Address.Street??"")
                     .AddPostalCode(Contact.Address.PostalCode??"").AddTown(Contact.Address.Town??"");
-            _CreateContactPort.CreateContact((CreateContactCommand)oCommandBuilder.Build());
+            oCommand = (CreateContactCommand)oCommandBuilder.Build();
+
+            _CreateContactPort.CreateContact(oMapper.MapTo(oCommand));
 
             return RedirectToPage("./Index");
         }

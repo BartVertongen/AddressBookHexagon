@@ -3,8 +3,10 @@
 @using PS.AddressBook.Hexagon.Application.Ports
 @using PS.AddressBook.Hexagon.Application.UseCases
 @using PS.AddressBook.Hexagon.Application.Commands
+@using PS.AddressBook.Hexagon.Application.Mappers
 @inject NavigationManager NavigationManager
 @inject ICreateContactUseCase CreateContactPort
+
 
 
 <h1>Create New Contact:</h1>
@@ -70,10 +72,15 @@
         try
         {
             CreateContactCommandBuilder oCommandBuilder = new();
+            CreateContactCommandDTOMapper oMapper = new();
+            CreateContactCommand oCommand;
+
+
             oCommandBuilder.AddName(objContact.Name).AddPhone(objContact.Phone ?? "")
                     .AddEmail(objContact.Email ?? "").AddStreet(objContact.Address.Street ?? "")
                     .AddPostalCode(objContact.Address.PostalCode ?? "").AddTown(objContact.Address.Town ?? "");
-            CreateContactPort.CreateContact((CreateContactCommand)oCommandBuilder.Build());
+            oCommand = (CreateContactCommand)oCommandBuilder.Build();
+            CreateContactPort.CreateContact(oMapper.MapTo(oCommand));
 
             NavigationManager.NavigateTo("/");
         }

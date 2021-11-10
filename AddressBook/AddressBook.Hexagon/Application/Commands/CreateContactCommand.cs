@@ -7,7 +7,7 @@ using PS.AddressBook.Hexagon.Application.Ports;
 
 namespace PS.AddressBook.Hexagon.Application.Commands
 {
-    public class CreateContactCommand : ICommand, ICreateContactCommandDTO
+    public class CreateContactCommand : ICommand, ICreateContactCommand
     {
         /// <summary>
         /// Constructor of a CreateContactCommand
@@ -18,14 +18,13 @@ namespace PS.AddressBook.Hexagon.Application.Commands
         /// <param name="town"></param>
         /// <param name="phone"></param>
         /// <param name="email"></param>
-        /// <remarks>We can do validation in the Command Constructor.</remarks>
-        public CreateContactCommand(string name,
+        /// <remarks>A CreateContactCommand should be constructed using a Builder.</remarks>
+        internal CreateContactCommand(string name,
                             string street,
                             string postalCode,
                             string town,
                             string phone, string email)
         {
-            //TODO: validate Name, it cannot be empty
             Name = name;
             Street = street;
             PostalCode = postalCode;

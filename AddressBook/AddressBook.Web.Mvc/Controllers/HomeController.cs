@@ -7,7 +7,7 @@ using PS.AddressBook.Hexagon.Application.UseCases;
 using PS.AddressBook.Hexagon.Application.Ports;
 using PS.AddressBook.Hexagon.Application.Commands;
 using AddressBook.Web.Mvc.Models;
-
+using PS.AddressBook.Hexagon.Application.Mappers;
 
 namespace AddressBook.Web.Mvc.Controllers
 {
@@ -53,13 +53,17 @@ namespace AddressBook.Web.Mvc.Controllers
                 return View();
             }
             CreateContactCommandBuilder oCommandBuilder = new();
+            CreateContactCommandDTOMapper oMapper = new();
+            CreateContactCommand oCommand;
+
             oCommandBuilder.AddName(contact.Name);
             oCommandBuilder.AddPhone(contact.Phone ?? "");
             oCommandBuilder.AddEmail(contact.Email ?? "");
 
             oCommandBuilder.AddStreet(contact.Address.Street ?? "")
                     .AddPostalCode(contact.Address.PostalCode ?? "").AddTown(contact.Address.Town ?? "");
-            _CreateContactPort.CreateContact((CreateContactCommand)oCommandBuilder.Build());
+            oCommand = (CreateContactCommand)oCommandBuilder.Build();
+            _CreateContactPort.CreateContact(oMapper.MapTo(oCommand));
 
             return RedirectToAction(nameof(Index));
         }

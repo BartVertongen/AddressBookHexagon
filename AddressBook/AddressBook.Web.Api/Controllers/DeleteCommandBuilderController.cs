@@ -41,14 +41,15 @@ namespace AddressBook.Web.Api.Controllers
         /// <returns>Command Data</returns>
         [Route("api/addressbook/deletecontactcommand/build")]
         [HttpGet]
-        public ActionResult<DeleteContactCommand> Build([FromBody] DeleteContactCommandBuilderDTO builder)
+        public ActionResult<DeleteContactCommandDTO> Build([FromBody] DeleteContactCommandBuilderDTO builder)
         {
-            DeleteContactCommandBuilderDTOMapper oMapper = new();
+            DeleteContactCommandBuilderDTOMapper oBuilderMapper = new();
+            DeleteContactCommandDTOMapper oCommandMapper = new();
             IDeleteContactCommandBuilder oBussBuilder;
 
-            oBussBuilder = oMapper.MapFrom(builder);
-            DeleteContactCommand Command = (DeleteContactCommand)oBussBuilder.Build();
-            return Command;
+            oBussBuilder = oBuilderMapper.MapFrom(builder);
+            DeleteContactCommand oCommand = (DeleteContactCommand)oBussBuilder.Build();
+            return (DeleteContactCommandDTO)oCommandMapper.MapTo(oCommand);
         }
     }
 }

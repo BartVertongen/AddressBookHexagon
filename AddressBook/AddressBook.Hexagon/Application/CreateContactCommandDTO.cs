@@ -23,16 +23,16 @@ namespace PS.AddressBook.Hexagon.Application
             Town = "";
         }
 
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
-        public string Phone { get; private set; }
+        public string Phone { get; set; }
 
-        public string Email { get; private set; }
+        public string Email { get; set; }
 
-        public string Street { get; private set; }
+        public string Street { get; set; }
 
-        public string PostalCode { get; private set; }
+        public string PostalCode { get; set; }
 
-        public string Town { get; private set; }
+        public string Town { get; set; }
     }
 }
