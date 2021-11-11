@@ -1,5 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021.
 
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Mappers;
@@ -28,7 +29,7 @@ namespace AddressBook.Web.Api.Controllers
             UpdateContactCommandBuilderDTOMapper oMapper = new();
             IUpdateContactCommandBuilder oBuilder;
 
-            builder.Name = name;
+            builder.Name = WebUtility.UrlDecode(name);
             oBuilder = oMapper.MapFrom(builder);
             return (UpdateContactCommandBuilderDTO)oMapper.MapTo(oBuilder);
         }
@@ -46,7 +47,7 @@ namespace AddressBook.Web.Api.Controllers
             UpdateContactCommandBuilderDTOMapper oMapper = new();
             IUpdateContactCommandBuilder oBussBuilder;
 
-            builder.Phone = phone;
+            builder.Phone = WebUtility.UrlDecode(phone);
             oBussBuilder = oMapper.MapFrom(builder);
             return (UpdateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -82,7 +83,7 @@ namespace AddressBook.Web.Api.Controllers
             UpdateContactCommandBuilderDTOMapper oMapper = new();
             IUpdateContactCommandBuilder oBussBuilder;
 
-            builder.Street = street;
+            builder.Street = WebUtility.UrlDecode(street);
             oBussBuilder = oMapper.MapFrom(builder);
             return (UpdateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -100,7 +101,7 @@ namespace AddressBook.Web.Api.Controllers
             UpdateContactCommandBuilderDTOMapper oMapper = new();
             IUpdateContactCommandBuilder oBussBuilder;
 
-            builder.PostalCode = postalCode;
+            builder.PostalCode = WebUtility.UrlDecode(postalCode);
             oBussBuilder = oMapper.MapFrom(builder);
             return (UpdateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -111,14 +112,14 @@ namespace AddressBook.Web.Api.Controllers
         /// <param name="builder">The Builder Data</param>
         /// <param name="town">The Town to add.</param>
         /// <returns>Builder Data</returns>
-        [Route("api/addressbook/updatecontactcommand/addpostalcode/{town}")]
+        [Route("api/addressbook/updatecontactcommand/addtown/{town}")]
         [HttpGet]
         public ActionResult<UpdateContactCommandBuilderDTO> AddTown([FromBody] UpdateContactCommandBuilderDTO builder, string town)
         {
             UpdateContactCommandBuilderDTOMapper oMapper = new();
             IUpdateContactCommandBuilder oBussBuilder;
 
-            builder.Town = town;
+            builder.Town = WebUtility.UrlDecode(town);
             oBussBuilder = oMapper.MapFrom(builder);
             return (UpdateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -134,9 +135,11 @@ namespace AddressBook.Web.Api.Controllers
         {
             UpdateContactCommandBuilderDTOMapper oMapper = new();
             IUpdateContactCommandBuilder oBussBuilder;
+            UpdateContactCommandDTO oCommand;
 
             oBussBuilder = oMapper.MapFrom(builder);
-            return (UpdateContactCommandDTO)oBussBuilder.Build();
+            oCommand = (UpdateContactCommandDTO)oBussBuilder.Build();
+            return oCommand;
         }
     }
 }

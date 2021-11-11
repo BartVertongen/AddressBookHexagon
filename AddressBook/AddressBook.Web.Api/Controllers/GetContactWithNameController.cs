@@ -37,7 +37,7 @@ namespace WebAPIAddressBook.Controllers
         /// </summary>
         /// <param name="name">The name of the wanted contact.</param>
         /// <returns>the requested contact</returns>
-        [Route("api/addressbook/contact/{name}")]
+        [Route("api/addressbook/contact/view/{name}")]
         [HttpGet]
         public ActionResult<IContactDTO> Get(string name)
         {

@@ -1,5 +1,6 @@
 ﻿//By Bart Vertongen copyright 2021.
 
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using PS.AddressBook.Hexagon.Application;
 using PS.AddressBook.Hexagon.Application.Commands;
@@ -29,7 +30,7 @@ namespace AddressBook.Web.Api.Controllers
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
-            builder.Name = name;
+            builder.Name = WebUtility.UrlDecode(name);
             //Remark: Validation is done in the Mapper
             oBussBuilder = oMapper.MapFrom(builder);
             return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
@@ -48,7 +49,7 @@ namespace AddressBook.Web.Api.Controllers
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
-            builder.Phone = phone;
+            builder.Phone = WebUtility.UrlDecode(phone);
             oBussBuilder = oMapper.MapFrom(builder);
             return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -66,7 +67,7 @@ namespace AddressBook.Web.Api.Controllers
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
-            builder.Email = email;
+            builder.Email = WebUtility.UrlDecode(email);
             oBussBuilder = oMapper.MapFrom(builder);
             return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -84,7 +85,7 @@ namespace AddressBook.Web.Api.Controllers
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
-            builder.Street = street;
+            builder.Street = WebUtility.UrlDecode(street);
             oBussBuilder = oMapper.MapFrom(builder);
             return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -102,7 +103,7 @@ namespace AddressBook.Web.Api.Controllers
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
-            builder.PostalCode = postalCode;
+            builder.PostalCode = WebUtility.UrlDecode(postalCode);
             oBussBuilder = oMapper.MapFrom(builder);
             return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }
@@ -120,7 +121,7 @@ namespace AddressBook.Web.Api.Controllers
             CreateContactCommandBuilderDTOMapper oMapper = new();
             ICreateContactCommandBuilder oBussBuilder;
 
-            builder.Town = town;
+            builder.Town = WebUtility.UrlDecode(town);
             oBussBuilder = oMapper.MapFrom(builder);
             return (CreateContactCommandBuilderDTO)oMapper.MapTo(oBussBuilder);
         }

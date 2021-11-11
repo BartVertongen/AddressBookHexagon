@@ -2,7 +2,6 @@
 
 using System.IO;
 using PS.AddressBook.Hexagon.Application.Ports;
-using PS.AddressBook.Hexagon.Application.Messaging;
 
 
 namespace PS.AddressBook.Hexagon.Application.Commands
@@ -14,10 +13,13 @@ namespace PS.AddressBook.Hexagon.Application.Commands
             IUpdateContactCommandDTO UpdateCommand = new UpdateContactCommandDTO();
 
             //TODO Validate before Building
+            //this.ValidateObject();
             UpdateCommand.Name = this.Name;
             UpdateCommand.Phone = this.Phone;
             UpdateCommand.Email = this.Email;
-            UpdateCommand.Phone = this.Phone;
+            UpdateCommand.Street = this.Street;
+            UpdateCommand.PostalCode = this.PostalCode;
+            UpdateCommand.Town = this.Town;
             return UpdateCommand;
         }
 
